@@ -9,7 +9,7 @@ make my static library in c
 read line which terminated by new line(\n) or null
 
 ## ft_printf
-make own printf on mac
+make own printf
 
 ## The_wall
 my first esolang The-wall-themed which appear in game of thrones
