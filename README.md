@@ -1,6 +1,7 @@
 # 42_cursurs_sayi
 
-my 42cursurs projects
+my 42cursurs projects.
+you can read details each project's subject(pdf, txt ...).
 
 ## Libft
 make my static library in c
