@@ -1,5 +1,5 @@
-fun sugar(narg: Int){
-	var n = narg
+fun main(args: Array<String>) {
+	var n:Int = readLine()!!.toInt()
 	var mod = n % 5
 	var cnt:Int = 0
 
@@ -19,11 +19,4 @@ fun sugar(narg: Int){
 	else if(mod == 0)
 		cnt += n / 5
 	println(cnt)
-}
-fun main(args: Array<String>) {
-	for (i in 3 .. 20) {
-		print("$i: ")
-		sugar(i)
-	}
-
 }
