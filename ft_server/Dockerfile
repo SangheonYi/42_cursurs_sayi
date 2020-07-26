@@ -1,6 +1,5 @@
 FROM debian:buster
 EXPOSE 80:80
-
 EXPOSE 443:443
 RUN apt-get update
 RUN apt-get -y upgrade
@@ -37,3 +36,5 @@ RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -xvf latest.tar.gz
 RUN mv wordpress/ var/www/html/
 RUN chown -R www-data:www-data /var/www/html/wordpress
+Grant all privileges on *.* to ‘user’@‘%’ identified by ‘ebdjf123’ with grant option;
+flush privileges;
