@@ -1,10 +1,99 @@
-fun main(args: Array<String>) {
-
+fun main() {
+	var input = arrayListOf<Int>()
+	var i = -1
+	val j = readLine()!!.toInt()
+	val output = StringBuilder()
+	while (++i < j)
+		input.add(readLine()!!.toInt())
+	input.sort()
+	i = -1
+	while (++i < j)
+	{
+		output.append(input[i])
+		output.append("\n")
+	}
+	output.deleteCharAt(output.length - 1)
+	println(output)
 }
-// //N개의 수가 주어졌을 때, 이를 오름차순으로 정렬하는 프로그램을 작성하시오.
+/* 	var input = arrayListOf<Int>()
+	var i = -1
+	val j = readLine()!!.toInt()
+	val output = StringBuilder()
+	while (++i < j)
+		input.add(readLine()!!.toInt())
+	var start = System.currentTimeMillis() // start = 시작시간 - 1970년
+	input.sort()
+	i = -1
+	while (++i < j)
+	{
+		output.append(input[i])
+		output.append("\n")
+	}
+	output.deleteCharAt(output.length - 1)
+	println(output)
+	var end = System.currentTimeMillis() // end = 종료시간 - 1970년
+	var current = end-start
+	println(current)
+*/
+/* var i = -1
+var input = arrayListOf<Int>()
+val j = readLine()!!.toInt()
+while (++i < j)
+	input.add(readLine()!!.toInt())
+var start = System.currentTimeMillis() // start = 시작시간 - 1970년
+input.sort()
+i = -1
+while (++i < j)
+	println(input[i])
+var end = System.currentTimeMillis() // end = 종료시간 - 1970년
+var current = end-start
+println(current)
+*/
+/* var i = -1
+var sc = Scanner(System.`in`)
+var input = arrayListOf<Int>()
+while (++i < sc.nextInt())
+	input.add(sc.nextInt())
+var start = System.currentTimeMillis() // start = 시작시간 - 1970년
+input.sort()
+i = -1
+while (++i < input.size)
+	println(input[i])
+var end = System.currentTimeMillis() // end = 종료시간 - 1970년
+var current = end-start
+println(current)
+ */
+/*var i = -1
+var sc = Scanner(System.`in`)
+var input = mutableListOf<Int>()
+while (++i < sc.nextInt())
+	input.add(sc.nextInt())
+var start = System.currentTimeMillis() // start = 시작시간 - 1970년
+input.sort()
+i = -1
+while (++i < input.size)
+	println(input[i])
+var end = System.currentTimeMillis() // end = 종료시간 - 1970년
+var current = end-start
+println(current)
+*/
 
-// 입력
-// 첫째 줄에 수의 개수 N(1 ≤ N ≤ 1,000,000)이 주어진다. 둘째 줄부터 N개의 줄에는 숫자가 주어진다. 이 수는 절댓값이 1,000,000보다 작거나 같은 정수이다. 수는 중복되지 않는다.
-
-// 출력
-// 첫째 줄부터 N개의 줄에 오름차순으로 정렬한 결과를 한 줄에 하나씩 출력한다.
+/* var sc = Scanner(System.`in`)
+var input = mutableListOf<Int>()
+for (i in 0 until sc.nextInt())
+	input.add(sc.nextInt())
+var start = System.currentTimeMillis() // start = 시작시간 - 1970년
+input.sort()
+for (i in 0 until input.size)
+	println("${input[i]}")
+var end = System.currentTimeMillis() // end = 종료시간 - 1970년
+var current = end-start
+println(current)*/
+/* var sc = Scanner(System.`in`)
+	var input = IntArray(sc.nextInt())
+	for (i in 0 until input.size)
+		input[i] = sc.nextInt()
+	input.sort()
+	for (i in 0 until input.size)
+		println("${input[i]}")
+18 */
