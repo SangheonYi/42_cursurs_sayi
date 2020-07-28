@@ -1,6 +1,6 @@
 FROM debian:buster
-EXPOSE 80:80
-EXPOSE 443:443
+EXPOSE 80
+EXPOSE 443
 RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get -y install nginx vim wget openssl php-fpm mariadb-server php-mysql
