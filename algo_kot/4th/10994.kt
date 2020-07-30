@@ -31,14 +31,8 @@ fun main(args: Array<String>) {
 	}
 	i = -1
 	while(++i < outPut.size)
-	{
-		print("$i: ")
 		println(outPut[i])
-	}
 	i = outPut.size - 1
 	while(--i >= 0)
-	{
-		print("$i: ")
 		println(outPut[i])
-	}
 }
