@@ -18,14 +18,12 @@ fun main(args: Array<String>) {
 			if (input[i] == 'A') cntA++ else cntB++
 			if (cntA > 3 && cntA - cntB > 1)
 			{
-				// println("A$i cntA $cntA cntB $cntB")
 				winA++
 				cntA = 0
 				cntB = 0
 			}
 			else if (cntB > 3 && cntB - cntA > 1)
 			{
-				// println("B$i cntA $cntA cntB $cntB")
 				cntA = 0
 				cntB = 0
 				winB++
