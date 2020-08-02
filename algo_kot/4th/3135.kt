@@ -1,14 +1,15 @@
 fun main(args: Array<String>) {
-	var propa = readLine()!!.split(' ')
-	var bookMark = arrayListOf<Int>(readLine()!!.toInt())
-	var distance = arrayListOf<Int>(bookMark.size + 1)
+	var propa = readLine()!!.split(' ').map { it.toInt() }
+	var bookMark = ArrayList<Int>()
+	var distance = ArrayList<Int>()
+	var n = readLine()!!.toInt()
 	var i = -1
 
-	while(++i < bookMark.size)
+	while(++i < n)
 	{
-		bookMark[i] = readLine()!!.toInt()
-		distance[i] = Math.abs(bookMark[i] - propa[1]) + 1
+		bookMark.add(readLine()!!.toInt())
+		distance.add(Math.abs(bookMark[i] - propa[1]) + 1)
 	}
-	distance[distance.lastindex] = Math.abs(propa[0] - propa[1])
+	distance.add(Math.abs(propa[0] - propa[1]))
 	println(distance.min())
 }
