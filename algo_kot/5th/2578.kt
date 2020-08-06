@@ -13,26 +13,21 @@ class BingoBoard()
 		{
 			row[rowIdx] = 0
 			cnt++
-			pt(rowIdx, colIdx, 1)
-
 		}
-		else if (col[colIdx] == 5)
+		if (col[colIdx] == 5)
 		{
 			col[colIdx] = 0
 			cnt++
-			pt(rowIdx, colIdx, 2)
 		}
-		else if (dia == 5)
+		if (dia == 5)
 		{
 			dia = 0
 			cnt++
-			pt(rowIdx, colIdx, 3)
 		}
-		else if (revdia == 5)
+		if (revdia == 5)
 		{
 			revdia = 0
 			cnt++
-			pt(rowIdx, colIdx, 4)
 		}
 	}
 
@@ -45,10 +40,6 @@ class BingoBoard()
 		return idx
 	}
 
-	fun pt(r:Int, c:Int, num:Int)
-	{
-		println("===============row${r} col${c} ${board[r][c]} Bingo $num line")
-	}
 }
 
 fun main(args: Array<String>) {
@@ -59,11 +50,6 @@ fun main(args: Array<String>) {
 	var i = -1
 	var j:Int
 
-	println("=======")
-	println(bingo.board)
-	println("=======")
-	println(mc)
-	println("=======")
 	while (++i < 5)
 	{
 		j = -1
@@ -76,10 +62,7 @@ fun main(args: Array<String>) {
 			if (rowIdx == colIdx) bingo.dia++
 			if (rowIdx + colIdx == 4) bingo.revdia++
 			bingo.isBingo(rowIdx, colIdx)
-			// println("i:$i, j:$j")
-			// println("rowIdx:$rowIdx, colIdx:$colIdx")
-			// println("bingboard:${bingo.board[rowIdx][colIdx]} dia: ${bingo.dia}")
-			if (bingo.cnt == 3)
+			if (bingo.cnt >= 3)
 			{
 				println(i * 5 + j + 1)
 				return
