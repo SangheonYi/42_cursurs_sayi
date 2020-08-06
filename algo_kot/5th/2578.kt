@@ -4,7 +4,7 @@ class BingoBoard()
 	var row = IntArray(5)
 	var col = IntArray(5)
 	var dia = 0
-	var six = 0
+	var revdia = 0
 	var cnt = 0
 
 	fun isBingo(rowIdx:Int, colIdx:Int)
@@ -28,9 +28,9 @@ class BingoBoard()
 			cnt++
 			pt(rowIdx, colIdx, 3)
 		}
-		else if (six == 5)
+		else if (revdia == 5)
 		{
-			six = 0
+			revdia = 0
 			cnt++
 			pt(rowIdx, colIdx, 4)
 		}
@@ -54,30 +54,34 @@ class BingoBoard()
 fun main(args: Array<String>) {
 	var rowIdx:Int
 	var colIdx:Int
-	var mc:List<Int>
 	var bingo = BingoBoard()
-	var i:Int
-	var j = -1
+	var mc = List<List<Int>>(5, {readLine()!!.split(' ').map { it.toInt() }})
+	var i = -1
+	var j:Int
 
-	while (++j < 5)
+	println("=======")
+	println(bingo.board)
+	println("=======")
+	println(mc)
+	println("=======")
+	while (++i < 5)
 	{
-		mc = readLine()!!.split(' ').map { it.toInt() }
-		i = -1
-		while (++i < 5)
+		j = -1
+		while (++j < 5)
 		{
-			rowIdx = bingo.whichRow(mc[i])
-			colIdx = bingo.board[rowIdx].indexOf(mc[i])
+			rowIdx = bingo.whichRow(mc[i][j])
+			colIdx = bingo.board[rowIdx].indexOf(mc[i][j])
 			bingo.row[rowIdx]++
 			bingo.col[colIdx]++
 			if (rowIdx == colIdx) bingo.dia++
-			if (rowIdx + colIdx == 4) bingo.six++
+			if (rowIdx + colIdx == 4) bingo.revdia++
 			bingo.isBingo(rowIdx, colIdx)
-			println("i:$i, j:$j")
-			println("rowIdx:$rowIdx, colIdx:$colIdx")
-			println("bingboard:${bingo.board[rowIdx][colIdx]} dia: ${bingo.dia}")
+			// println("i:$i, j:$j")
+			// println("rowIdx:$rowIdx, colIdx:$colIdx")
+			// println("bingboard:${bingo.board[rowIdx][colIdx]} dia: ${bingo.dia}")
 			if (bingo.cnt == 3)
 			{
-				println(j * 5 + i + 1)
+				println(i * 5 + j + 1)
 				return
 			}
 		}
