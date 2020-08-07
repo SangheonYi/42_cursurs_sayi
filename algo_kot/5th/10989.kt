@@ -1,20 +1,21 @@
-fun main() {
-	var keys = mutableSetOf<Int>()
-	var cnt = IntArray(10001)
-	val output = StringBuilder()
-	var i = readLine()!!.toInt()
-	var tmp:Int
+import java.io.*;
+import java.util.*
 
-	while (i-- > 0)
+fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
+	var input = IntArray(10001)
+	var i = -1
+	var j = readLine()!!.toInt()
+	val output = StringBuilder()
+	while (++i < j)
+		input[readLine()!!.toInt()]++
+	i = 0
+	while (++i < input.size && j > 0)
 	{
-		tmp = readLine()!!.toInt()
-		keys.add(tmp)
-		cnt[tmp]++
+		while(input[i]-- > 0)
+		{
+			output.append("$i\n")
+			j--
+		}
 	}
-	keys.sorted().iterator().forEach {
-		while (cnt[it]-- > 0)
-			output.append("$it\n")
-	 }
-	output.deleteCharAt(output.length - 1)
 	println(output)
 }
