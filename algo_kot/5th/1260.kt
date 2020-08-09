@@ -19,18 +19,13 @@ fun DFS(graph:MutableList<ArrayList<Int>>, attribute:List<Int>, out:StringBuilde
         {
             out.append("${visiting} ")
             check[visiting] = true
-//            println(stack)
         }
         stack.pop()
         i = graph[visiting].lastIndex
-//        println("visiting: $visiting, i: $i")
         while (i >= 0)
         {
             if (!check[graph[visiting][i]])
-            {
                 stack.push(graph[visiting][i])
-//                println("pushed: ${graph[visiting][i]}")
-            }
             i--
         }
     }
@@ -44,7 +39,6 @@ fun BFS(graph:MutableList<ArrayList<Int>>, attribute:List<Int>, out:StringBuilde
     var i:Int
 
     que.add(attribute[2])
-////    println("BFS start que: $que")
     while (!que.isEmpty())
     {
         visiting = que.poll()
@@ -52,17 +46,12 @@ fun BFS(graph:MutableList<ArrayList<Int>>, attribute:List<Int>, out:StringBuilde
         {
             out.append("${visiting} ")
             check[visiting] = true
-////            println("remain: $que")
         }
         i = -1
-////        println("visiting: $visiting, i: $i")
         while (++i < graph[visiting].size)
         {
             if (!check[graph[visiting][i]])
-            {
                 que.add(graph[visiting][i])
-//                println("add: ${graph[visiting][i]}")
-            }
         }
     }
 }
