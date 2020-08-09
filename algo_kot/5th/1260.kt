@@ -29,7 +29,7 @@ fun DFS(graph:MutableList<ArrayList<Int>>, attribute:List<Int>, out:StringBuilde
             if (!check[graph[visiting][i]])
             {
                 stack.push(graph[visiting][i])
-                println("pushed: ${graph[visiting][i]}")
+//                println("pushed: ${graph[visiting][i]}")
             }
             i--
         }
@@ -44,6 +44,7 @@ fun BFS(graph:MutableList<ArrayList<Int>>, attribute:List<Int>, out:StringBuilde
     var i:Int
 
     que.add(attribute[2])
+////    println("BFS start que: $que")
     while (!que.isEmpty())
     {
         visiting = que.poll()
@@ -51,19 +52,17 @@ fun BFS(graph:MutableList<ArrayList<Int>>, attribute:List<Int>, out:StringBuilde
         {
             out.append("${visiting} ")
             check[visiting] = true
-            println(que)
+////            println("remain: $que")
         }
-        que.pop()
-        i = graph[visiting].lastIndex
-        println("visiting: $visiting, i: $i")
-        while (i >= 0)
+        i = -1
+////        println("visiting: $visiting, i: $i")
+        while (++i < graph[visiting].size)
         {
             if (!check[graph[visiting][i]])
             {
-                que.push(graph[visiting][i])
-                println("pushed: ${graph[visiting][i]}")
+                que.add(graph[visiting][i])
+//                println("add: ${graph[visiting][i]}")
             }
-            i--
         }
     }
 }
@@ -83,6 +82,9 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))){
     }
     graph.forEach { a -> a.sort() }
     DFS(graph, attribute, out)
+    out.deleteCharAt(out.lastIndex)
+    out.append('\n')
     BFS(graph, attribute, out)
-    println(out)
+    out.deleteCharAt(out.lastIndex)
+    println(out.toString())
 }
