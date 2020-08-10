@@ -6,7 +6,7 @@
 #    By: sayi <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 23:28:01 by sayi              #+#    #+#              #
-#    Updated: 2020/08/10 18:21:03 by sayi             ###   ########.fr        #
+#    Updated: 2020/08/10 19:16:46 by sayi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OFILES = $(subst $(SRC_PATH), $(O_PATH), $(O_NAME))
 INC_LINK = -I./includes/
 LIBFT_PATH = ./libft/
 LIBFT = -L$(LIBFT_PATH) -lft
-MLX				= libmlx.dylib
+MLX		= libmlx.dylib
 
 all: libft mk_obj_dir $(NAME)
 
