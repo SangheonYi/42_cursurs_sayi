@@ -24,7 +24,8 @@ class GoStack
                 result = calculate(program[j])
                 if (result.absoluteValue >= 1000000000) break
             }
-            stack.pop()
+            if (!stack.isEmpty())
+                stack.pop()
             if (result.absoluteValue < 1000000000 && stack.isEmpty()) output.append("$result\n")
             else output.append("ERROR\n")
             stack.clear()
@@ -41,47 +42,94 @@ class GoStack
             //NUM X: X를 스택의 가장 위에 저장한다. (0 ≤ X ≤ 109)
             "NUM"-> stack.push(tmp[1].toInt())
             //POP: 스택 가장 위의 숫자를 제거한다.
-            "POP"-> stack.pop()
+            "POP"-> {
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
+                stack.pop()
+            }
             //INV: 첫 번째 수의 부호를 바꾼다. (42 -> -42)
-            "INV"-> stack.push(-stack.pop())
+            "INV"-> {
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
+                stack.push(-stack.pop())
+            }
             //DUP: 첫 번째 숫자를 하나 더 스택의 가장 위에 저장한다.
-            "DUP"-> stack.push(stack.first)
+            "DUP"-> {
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
+                stack.push(stack.first)
+            }
             //SWP: 첫 번째 숫자와 두 번째 숫자의 위치를 서로 바꾼다.
             "SWP"->{
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt = stack.pop()
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt2 = stack.pop()
                 stack.push(tmpInt)
                 stack.push(tmpInt2)
             }
             //ADD: 첫 번째 숫자와 두 번째 숫자를 더한다.
-            "ADD"-> stack.push(stack.pop() + stack.pop())
+            "ADD"-> {
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
+                tmpInt = stack.pop()
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
+                tmpInt2 = stack.pop()
+                stack.push(tmpInt + tmpInt2)
+            }
             //SUB: 첫 번째 숫자와 두 번째 숫자를 뺀다. (두 번째 - 첫 번째)
             "SUB"-> {
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt = stack.pop()
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt2 = stack.pop()
                 stack.push(tmpInt2 - tmpInt)
             }
             //MUL: 첫 번째 숫자와 두 번째 숫자를 곱한다.
             "MUL"-> {
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt = stack.pop()
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt2 = stack.pop()
                 stack.push(tmpInt2 * tmpInt)
             }
             //DIV: 첫 번째 숫자로 두 번째 숫자를 나눈 몫을 저장한다. 두 번째 숫자가 피제수, 첫 번째 숫자가 제수이다.
             "DIV"-> {
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt = stack.pop()
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt2 = stack.pop()
+                if (tmpInt == 0)
+                    return Int.MAX_VALUE
                 stack.push(tmpInt2 / tmpInt)
             }
             //MOD: 첫 번째 숫자로 두 번째 숫자를 나눈 나머지를 저장한다. 두 번째 숫자가 피제수, 첫 번째 숫자가 제수이다.
             "MOD"-> {
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt = stack.pop()
+                if (stack.isEmpty())
+                    return Int.MAX_VALUE
                 tmpInt2 = stack.pop()
+                if (tmpInt == 0)
+                    return Int.MAX_VALUE
                 stack.push(tmpInt2 % tmpInt)
             }
             else -> return 0
         }
-        return stack.first
+        if (stack.isEmpty())
+            return Int.MAX_VALUE
+        else
+            return stack.first
     }
 }
 
