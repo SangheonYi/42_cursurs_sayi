@@ -8,14 +8,10 @@ class Solution {
         val targetPrior = priorities[location]
         var maxPrior = priorities.max()!!
 
-//        priorities[location] = -1
         priorities.mapIndexed { idx, e ->
             doc.add(e)
             if (idx == location) doc.add(-1)
         }
-        println("maxPrior: $maxPrior ")
-        doc.forEach { i -> print("$i ") }
-        println()
         while (maxPrior >= targetPrior) {
             ele = doc.poll()
             if (ele != maxPrior ) {
@@ -23,8 +19,6 @@ class Solution {
                 doc.add(ele)
             }
             else {
-//                doc.poll()
-//                println("que: $doc, max: ${doc.maxOf { it }}, polled: ${doc.poll()}, polled que: $doc")
                 maxPrior = doc.max()!!
                 answer++
             }
