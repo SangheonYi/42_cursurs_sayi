@@ -1,11 +1,9 @@
 fun main() {
-    var a = readLine()!!.toInt()
-    var b = readLine()!!.toInt()
-    while (b != 0)
-    {
-        println(a/b)
-        println(a%b)
-        a = readLine()!!.toInt()
-        b = readLine()!!.toInt()
-    }
+    val s = ""
+    print("---^")
+    print("".length)
+    println("^---")
+    println(null.toString().length)
+    println(s.compareTo(null.toString()))
+    println("" != "1")
 }
