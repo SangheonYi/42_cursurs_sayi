@@ -20,5 +20,5 @@ class Solution {
 
 fun main() {
     val s = Solution()
-    println(s.solution(5,	intArrayOf(2, 4), intArrayOf(1, 3, 5)))
+    println(s.solution(4,	intArrayOf(2, 4), intArrayOf(1, 3)))
 }
