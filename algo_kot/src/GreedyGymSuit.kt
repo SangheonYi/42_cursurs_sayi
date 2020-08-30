@@ -1,20 +1,42 @@
 class Solution {
 
     fun solution(n: Int, lost: IntArray, reserve: IntArray): Int {
-        val lostArray = (lost.toSet() - reserve.toSet()).toIntArray()
-        val able = ArrayList(reserve.toSet() - lost.toSet())
-        var answer = n
+        var answer = n - lost.size
         var i = 0
+        val lostSet = HashSet<Int>()
+        val able = arrayListOf<Int>()
 
-        lostArray.sort()
-//        println("lostArray.size: ${lostArray.size}, lost.size: ${lost.size}")
-        for ((i, v) in lostArray.withIndex())
-        {
-            when {
-                able.contains(v + 1) -> able.remove(v + 1)
-                able.contains(v - 1) -> able.remove(v - 1)
-                else -> answer--
+        lost.forEach { e -> lostSet.add(e) }
+        reserve.forEach { e ->
+            if (lostSet.contains(e)) {
+                lostSet.remove(e)
+                answer++
             }
+            else able.add(e)
+        }
+        able.sort()
+        println("lostSet.size: ${lostSet.size}, lost.size: ${lost.size}")
+        while (able.isNotEmpty())
+        {
+            var left = false
+            var right = false
+            val e = able[i]
+
+            if (lostSet.contains(e - 1)) left = true
+            if (lostSet.contains(e + 1)) right = true
+            if ((left && right && !able.contains(e + 2)) || (!left && right)) {
+                lostSet.remove(e + 1)
+                able.remove(e)
+                answer++
+            }
+            else if ((left && right && !able.contains(e - 2)) || (left && !right)) {
+                lostSet.remove(e - 1)
+                able.remove(e)
+                answer++
+            }
+            else if (!left && !right)
+                able.remove(e)
+            if (i < able.lastIndex) i++ else i = 0
         }
         return answer
     }
