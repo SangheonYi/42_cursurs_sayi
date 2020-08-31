@@ -1,17 +1,16 @@
 import kotlin.random.Random
 
-class TestObj (var a:String = "aaa",
-               var b:String = "bbb")
-fun testSig(a: Int, b: Int = 0): Int {
-    if (a > b) return a - 100
-    return b
+fun testSig(set: HashSet<Int>, b: Int = 0): Int {
+    set.add(b)
+    return set.size
 }
 
 fun main() {
-    val tObj = TestObj().apply{
-        a = "ccc"
+    val set = HashSet<Int>()
+    testSig(set)
+    testSig(set, 5)
+    testSig(set, 10)
+    set.forEach {e ->
+        print(e)
     }
-    println(tObj.a)
-    println(testSig(1))
-    Random.nextInt(100)
 }
