@@ -1,16 +1,13 @@
-import kotlin.random.Random
 
-fun testSig(set: HashSet<Int>, b: Int = 0): Int {
-    set.add(b)
-    return set.size
+fun testDeep(c: CharArray) {
+    c[0] = 'd'
+    println(c)
 }
 
 fun main() {
-    val set = HashSet<Int>()
-    testSig(set)
-    testSig(set, 5)
-    testSig(set, 10)
-    set.forEach {e ->
-        print(e)
-    }
+    val alpha = ('a'..'z').toList()
+    val c = "im atomic".toCharArray()
+    println(c)
+    testDeep(c)
+    println(c)
 }
