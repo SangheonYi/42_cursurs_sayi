@@ -1,5 +1,6 @@
 #include <mlx.h>
 #include <stdio.h>
+
 typedef struct  s_vars {
     void        *mlx;
     void        *win;
@@ -27,7 +28,7 @@ int             close(int keycode, t_vars *vars)
         printf("close called\n");
 }
 
-int             main(void)
+int             main(void)~
 {
     t_vars  vars;
     t_data  img;
