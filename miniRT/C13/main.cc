@@ -38,7 +38,7 @@ hittable_list random_scene()
 
 	auto ground_material = make_shared<lambertian>(color(0.5, 0.5, 0.5));
 	world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
-/*
+
 	for (int a = -11; a < 11; a++)
 	{
 		for (int b = -11; b < 11; b++)
@@ -74,7 +74,7 @@ hittable_list random_scene()
 			}
 		}
 	}
- */
+
 	auto material1 = make_shared<dielectric>(1.5);
 	world.add(make_shared<sphere>(point3(0, 1, 0), 1.0, material1));
 
@@ -93,9 +93,9 @@ int main()
 	// Image
 
 	const auto aspect_ratio = 3.0 / 2.0;
-	const int image_width = 1200;
+	const int image_width = 200;
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
-	const int samples_per_pixel = 500;
+	const int samples_per_pixel = 50;
 	const int max_depth = 50;
 	string buffer = "";
 
