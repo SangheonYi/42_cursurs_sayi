@@ -74,7 +74,11 @@ hittable_list random_scene()
 			}
 		}
 	}
+<<<<<<< HEAD
  */
+=======
+*/
+>>>>>>> a299f9d7d30c9bf5635d1a98a14e9487705e17b7
 	auto material1 = make_shared<dielectric>(1.5);
 	world.add(make_shared<sphere>(point3(0, 1, 0), 1.0, material1));
 
@@ -93,9 +97,13 @@ int main()
 	// Image
 
 	const auto aspect_ratio = 3.0 / 2.0;
+<<<<<<< HEAD
 	const int image_width = 400;
+=======
+	const int image_width = 200;
+>>>>>>> a299f9d7d30c9bf5635d1a98a14e9487705e17b7
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
-	const int samples_per_pixel = 500;
+	const int samples_per_pixel = 50;
 	const int max_depth = 50;
 	string buffer = "";
 
