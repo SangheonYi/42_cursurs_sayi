@@ -6,7 +6,6 @@
 #include "material.h"
 
 #include <iostream>
-
 color ray_color(const ray &r, const hittable &world, int depth)
 {
 	hit_record rec;
