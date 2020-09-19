@@ -6,9 +6,20 @@
 #include "material.h"
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
+
+#include <thread>
 
 #include <iostream>
 using namespace std;
+
+// Image
+
+const auto aspect_ratio = 4.0 / 3.0;
+const int image_width = 400;
+const int image_height = static_cast<int>(image_width / aspect_ratio);
+const int samples_per_pixel = 100;
+const int max_depth = 50;
 
 color ray_color(const ray &r, const hittable &world, int depth)
 {
@@ -87,41 +98,8 @@ hittable_list random_scene()
 	return world;
 }
 
-int main()
-{
-
-	// Image
-
-	const auto aspect_ratio = 3.0 / 2.0;
-	const int image_width = 200;
-	const int image_height = static_cast<int>(image_width / aspect_ratio);
-	const int samples_per_pixel = 50;
-	const int max_depth = 50;
-	string buffer = "";
-
-	// World
-
-	auto world = random_scene();
-
-	// Camera
-
-	point3 lookfrom(13, 2, 3);
-	point3 lookat(0, 0, 0);
-	vec3 vup(0, 1, 0);
-	auto dist_to_focus = 10.0;
-	auto aperture = 0.1;
-
-	camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
-
-	// Render
-
-	// std::cout << "P3\n"
-	// 		  << image_width << ' ' << image_height << "\n255\n";
-	buffer += "P3\n" + to_string(image_width) + ' ' + to_string(image_height) + "\n255\n";
-
-	std::cerr << "P3\n" << image_width << ' ' << image_height << "\n255\n";
-
-	for (int j = image_height - 1; j >= 0; --j)
+int calc_ray(hittable_list world, camera cam, int start, int end, string &buf) {
+	for (int j = start; j >= end; --j)
 	{
 		std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
 
@@ -135,9 +113,59 @@ int main()
 				ray r = cam.get_ray(u, v);
 				pixel_color += ray_color(r, world, max_depth);
 			}
-			write_color(buffer, pixel_color, samples_per_pixel);
+			write_color(buf, pixel_color, samples_per_pixel);
 		}
 	}
+}
+
+int main()
+{
+	time_t start, end;
+	double result;
+	int i, j;
+	int sum = 0;
+
+	start = time(NULL); // 시간 측정 시작
+
+	// World
+	auto world = random_scene();
+
+	// Camera
+
+	point3 lookfrom(13, 2, 3);
+	point3 lookat(0, 0, 0);
+	vec3 vup(0, 1, 0);
+	auto dist_to_focus = 10.0;
+	auto aperture = 0.1;
+
+	camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
+
+	// Render
+	string buffer = "";
+	string buf1 = "";
+	string buf2 = "";
+	string buf3 = "";
+
+	// std::cout << "P3\n"
+	// 		  << image_width << ' ' << image_height << "\n255\n";
+	buffer += "P3\n" + to_string(image_width) + ' ' + to_string(image_height) + "\n255\n";
+
+	std::cerr << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+
+	//thread
+	thread thread1(calc_ray, world, cam, image_height - 1, 2 * (image_height - 1) / 3, &buf1);
+	thread thread2(calc_ray, world, cam, 2 * (image_height - 1) / 3, (image_height - 1) / 3, &buf2);
+	thread thread3(calc_ray, world, cam, (image_height - 1) / 3, 0, &buf3);
+
+	thread1.join();
+	thread2.join();
+	thread3.join();
+
+	buffer = buf1 + buf2 + buf3;
 	std::cout << buffer;
 	std::cerr << "\nDone.\n";
+
+	end = time(NULL); // 시간 측정 끝
+	result = (double)(end - start);
+	std::cout << "\n" + to_string(image_width) + ' ' + to_string(image_height) + " " + to_string(result);
 }
