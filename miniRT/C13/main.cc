@@ -120,13 +120,14 @@ int calc_ray(hittable_list world, camera cam, int start, int end, string &buf) {
 
 int main()
 {
+/*
 	time_t start, end;
 	double result;
 	int i, j;
 	int sum = 0;
 
 	start = time(NULL); // 시간 측정 시작
-
+*/
 	// World
 	auto world = random_scene();
 
@@ -165,7 +166,8 @@ int main()
 	std::cout << buffer;
 	std::cerr << "\nDone.\n";
 
-	end = time(NULL); // 시간 측정 끝
+/*	end = time(NULL); // 시간 측정 끝
 	result = (double)(end - start);
 	std::cout << "\n" + to_string(image_width) + ' ' + to_string(image_height) + " " + to_string(result);
+*/
 }
