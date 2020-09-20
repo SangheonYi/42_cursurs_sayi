@@ -21,7 +21,7 @@ const int image_height = static_cast<int>(image_width / aspect_ratio);
 const int samples_per_pixel = 500;
 const int max_depth = 50;
 
-	color ray_color(const ray &r, const hittable &world, int depth)
+color ray_color(const ray &r, const hittable &world, int depth)
 {
 	hit_record rec;
 
