@@ -16,9 +16,9 @@ using namespace std;
 // Image
 
 const auto aspect_ratio = 4.0 / 3.0;
-const int image_width = 400;
+const int image_width = 200;
 const int image_height = static_cast<int>(image_width / aspect_ratio);
-const int samples_per_pixel = 100;
+const int samples_per_pixel = 50;
 const int max_depth = 50;
 
 color ray_color(const ray &r, const hittable &world, int depth)
@@ -142,9 +142,9 @@ int main()
 
 	// Render
 	string buffer = "";
-	string buf1 = "";
+/* 	string buf1 = "";
 	string buf2 = "";
-	string buf3 = "";
+	string buf3 = ""; */
 
 	// std::cout << "P3\n"
 	// 		  << image_width << ' ' << image_height << "\n255\n";
@@ -153,15 +153,31 @@ int main()
 	std::cerr << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
 	//thread
+	vector<thread> threads;
+	vector<string> buffers(11);
+	int thread_num = 10;
+
+	for (size_t t = thread_num; t > 0; t--) {
+		buffers[10 - t] = "";
+		// printf("size: %d and %d th buffer: =%s= \n",buffers.size(), (int)(buffers.size() - 1), buffers[buffers.size() - 1]);
+		threads.push_back(thread(calc_ray, world, cam,
+		t * (image_height - 1) / thread_num, (t - 1) * (image_height - 1) / thread_num,
+		 std::ref(buffers[10 - t])));
+	}
+/*
 	std::thread thread1(calc_ray, world, cam, image_height - 1, 2 * (image_height - 1) / 3, std::ref(buf1));
 	std::thread thread2(calc_ray, world, cam, 2 * (image_height - 1) / 3, (image_height - 1) / 3, std::ref(buf2));
 	std::thread thread3(calc_ray, world, cam, (image_height - 1) / 3, 0, std::ref(buf3));
-
 	thread1.join();
 	thread2.join();
 	thread3.join();
+ */
 
-	buffer = buf1 + buf2 + buf3;
+	for (size_t t = 0; t < thread_num; t++)
+		threads[t].join();
+	for (size_t t = 0; t < thread_num; t++)
+		buffer += buffers[t];
+
 	std::cout << buffer;
 	std::cerr << "\nDone.\n";
 
