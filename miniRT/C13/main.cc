@@ -21,7 +21,7 @@ const int image_height = static_cast<int>(image_width / aspect_ratio);
 const int samples_per_pixel = 50;
 const int max_depth = 50;
 
-color ray_color(const ray &r, const hittable &world, int depth)
+	color ray_color(const ray &r, const hittable &world, int depth)
 {
 	hit_record rec;
 
@@ -131,7 +131,6 @@ int main()
 	auto world = random_scene();
 
 	// Camera
-
 	point3 lookfrom(13, 2, 3);
 	point3 lookat(0, 0, 0);
 	vec3 vup(0, 1, 0);
@@ -141,15 +140,7 @@ int main()
 	camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
 
 	// Render
-	string buffer = "";
-/* 	string buf1 = "";
-	string buf2 = "";
-	string buf3 = ""; */
-
-	// std::cout << "P3\n"
-	// 		  << image_width << ' ' << image_height << "\n255\n";
-	buffer += "P3\n" + to_string(image_width) + ' ' + to_string(image_height) + "\n255\n";
-
+	string buffer = "P3\n" + to_string(image_width) + ' ' + to_string(image_height) + "\n255\n";
 	std::cerr << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
 	//thread
@@ -157,22 +148,15 @@ int main()
 	vector<string> buffers(11);
 	int thread_num = 10;
 
-	for (size_t t = thread_num; t > 0; t--) {
+	for (size_t t = thread_num; t > 1; t--) {
 		buffers[10 - t] = "";
-		// printf("size: %d and %d th buffer: =%s= \n",buffers.size(), (int)(buffers.size() - 1), buffers[buffers.size() - 1]);
 		threads.push_back(thread(calc_ray, world, cam,
-		t * (image_height - 1) / thread_num, (t - 1) * (image_height - 1) / thread_num,
-		 std::ref(buffers[10 - t])));
+		t * (image_height - 1) / thread_num, (t - 1) * (image_height - 1) / thread_num + 1,
+		std::ref(buffers[10 - t])));
+		std::cout << endl << t * (image_height - 1) / thread_num << ' ' << (t - 1) * (image_height - 1) / thread_num + 1<< "\n";
 	}
-/*
-	std::thread thread1(calc_ray, world, cam, image_height - 1, 2 * (image_height - 1) / 3, std::ref(buf1));
-	std::thread thread2(calc_ray, world, cam, 2 * (image_height - 1) / 3, (image_height - 1) / 3, std::ref(buf2));
-	std::thread thread3(calc_ray, world, cam, (image_height - 1) / 3, 0, std::ref(buf3));
-	thread1.join();
-	thread2.join();
-	thread3.join();
- */
-
+	threads.push_back(thread(calc_ray, world, cam,
+		(image_height - 1) / thread_num, 0, std::ref(buffers[thread_num - 1])));
 	for (size_t t = 0; t < thread_num; t++)
 		threads[t].join();
 	for (size_t t = 0; t < thread_num; t++)
