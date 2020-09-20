@@ -101,7 +101,7 @@ hittable_list random_scene()
 int calc_ray(hittable_list world, camera cam, int start, int end, string &buf) {
 	for (int j = start; j >= end; --j)
 	{
-		std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
+		std::cerr << "\rScanlines from " << start << " remaining: " << j - end << ' ' << std::flush;
 
 		for (int i = 0; i < image_width; ++i)
 		{
@@ -153,9 +153,9 @@ int main()
 	std::cerr << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
 	//thread
-	thread thread1(calc_ray, world, cam, image_height - 1, 2 * (image_height - 1) / 3, &buf1);
-	thread thread2(calc_ray, world, cam, 2 * (image_height - 1) / 3, (image_height - 1) / 3, &buf2);
-	thread thread3(calc_ray, world, cam, (image_height - 1) / 3, 0, &buf3);
+	std::thread thread1(calc_ray, world, cam, image_height - 1, 2 * (image_height - 1) / 3, std::ref(buf1));
+	std::thread thread2(calc_ray, world, cam, 2 * (image_height - 1) / 3, (image_height - 1) / 3, std::ref(buf2));
+	std::thread thread3(calc_ray, world, cam, (image_height - 1) / 3, 0, std::ref(buf3));
 
 	thread1.join();
 	thread2.join();
