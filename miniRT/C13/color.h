@@ -23,9 +23,6 @@ void write_color(
 	b = sqrt(scale * b);
 
 	// Write the translated [0,255] value of each color component.
-	// cout << static_cast<int>(256 * clamp(r, 0.0, 0.999)) << ' '
-	// 	<< static_cast<int>(256 * clamp(g, 0.0, 0.999)) << ' '
-	// 	<< static_cast<int>(256 * clamp(b, 0.0, 0.999)) << '\n';
 	buffer += to_string(static_cast<int>(256 * clamp(r, 0.0, 0.999))) + ' ' +
 			to_string(static_cast<int>(256 * clamp(g, 0.0, 0.999))) + ' ' +
 			to_string(static_cast<int>(256 * clamp(b, 0.0, 0.999))) + '\n';
