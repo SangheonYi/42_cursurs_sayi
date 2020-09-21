@@ -14,20 +14,20 @@
 using namespace std;
 
 // Image
-
 const auto aspect_ratio = 4.0 / 3.0;
 const int image_width = 1200;
 const int image_height = static_cast<int>(image_width / aspect_ratio);
 const int samples_per_pixel = 500;
 const int max_depth = 50;
+auto dist_to_focus = 1.0;
+auto aperture = 0.1;
 
 color ray_color(const ray &r, const hittable &world, int depth)
 {
 	hit_record rec;
 
 	// If we've exceeded the ray bounce limit, no more light is gathered.
-	if (depth <= 0)
-		return color(0, 0, 0);
+	if (depth <= 0) return color(0, 0, 0);
 
 	if (world.hit(r, 0.001, infinity, rec))
 	{
@@ -47,9 +47,8 @@ hittable_list random_scene()
 {
 	hittable_list world;
 
-	auto ground_material = make_shared<lambertian>(color(0.5, 0.5, 0.5));
+	auto ground_material = make_shared<lambertian>(color(1.0, 0.0, 0.5));
 	world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
-
 	for (int a = -11; a < 11; a++)
 	{
 		for (int b = -11; b < 11; b++)
@@ -85,15 +84,14 @@ hittable_list random_scene()
 			}
 		}
 	}
-
 	auto material1 = make_shared<dielectric>(1.5);
 	world.add(make_shared<sphere>(point3(0, 1, 0), 1.0, material1));
 
 	auto material2 = make_shared<lambertian>(color(0.4, 0.2, 0.1));
-	world.add(make_shared<sphere>(point3(-4, 1, 0), 1.0, material2));
+	world.add(make_shared<sphere>(point3(-2, 1, 0), 1.0, material2));
 
 	auto material3 = make_shared<metal>(color(0.7, 0.6, 0.5), 0.0);
-	world.add(make_shared<sphere>(point3(4, 1, 0), 1.0, material3));
+	world.add(make_shared<sphere>(point3(2, 1, 0), 1.0, material3));
 
 	return world;
 }
@@ -110,7 +108,8 @@ int calc_ray(hittable_list world, camera cam, int start, int end, string &buf) {
 			{
 				auto u = (i + random_double()) / (image_width - 1);
 				auto v = (j + random_double()) / (image_height - 1);
-				ray r = cam.get_ray(u, v);
+				// ray r = cam.get_ray(u, v);
+				ray r = cam.get_ray(u, v, dist_to_focus);
 				pixel_color += ray_color(r, world, max_depth);
 			}
 			write_color(buf, pixel_color, samples_per_pixel);
@@ -135,8 +134,7 @@ int main()
 	point3 lookfrom(13, 2, 3);
 	point3 lookat(0, 0, 0);
 	vec3 vup(0, 1, 0);
-	auto dist_to_focus = 10.0;
-	auto aperture = 0.1;
+	dist_to_focus = 14;
 
 	camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
 
@@ -145,23 +143,20 @@ int main()
 	std::cerr << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
 	//thread
-	vector<thread> threads;
-	vector<string> buffers(11);
 	int thread_num = 10;
+	vector<thread> threads;
+	vector<string> buffers(thread_num + 1);
 
 	for (size_t t = thread_num; t > 1; t--) {
 		buffers[10 - t] = "";
 		threads.push_back(thread(calc_ray, world, cam,
 		t * (image_height - 1) / thread_num, (t - 1) * (image_height - 1) / thread_num + 1,
 		std::ref(buffers[10 - t])));
-		std::cout << endl << t * (image_height - 1) / thread_num << ' ' << (t - 1) * (image_height - 1) / thread_num + 1<< "\n";
 	}
 	threads.push_back(thread(calc_ray, world, cam,
 		(image_height - 1) / thread_num, 0, std::ref(buffers[thread_num - 1])));
-	for (size_t t = 0; t < thread_num; t++)
-		threads[t].join();
-	for (size_t t = 0; t < thread_num; t++)
-		buffer += buffers[t];
+	for (size_t t = 0; t < thread_num; t++) threads[t].join();
+	for (size_t t = 0; t < thread_num; t++) buffer += buffers[t];
 
 	std::cout << buffer;
 	std::cerr << "\nDone.\n";
