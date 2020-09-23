@@ -1,5 +1,11 @@
 # Raytracing Tutorial (by hmin, dyu, sayi)
 
+| Please use below code to compile!
+
+```bash
+g++ -std=c++0x main.cc -o main && ./main > test.ppm && open test.ppm
+```
+
 [Book course link](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 
 ```text
