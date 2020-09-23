@@ -6,7 +6,7 @@
 /*   By: sayi <sayi@student.kr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 20:27:53 by sayi              #+#    #+#             */
-/*   Updated: 2020/06/16 19:37:50 by sayi             ###   ########.fr       */
+/*   Updated: 2020/07/10 16:22:51 by sayi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			get_next_line(int fd, char **line)
 
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (ERROR);
-	printf("fd:%d?????\n", fd);
+	// printf("fd:%d?????\n", fd);
 	if ((bytes = reading(fd, keep, line)) > 0)
 		return (NEXT_LINE);
 	if (bytes < 0)
