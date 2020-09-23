@@ -25,7 +25,6 @@ public:
 		w = unit_vector(lookfrom - lookat);
 		u = unit_vector(cross(vup, w));
 		v = cross(w, u);
-		cerr << "v: " << v << " u: " << u << " w: " << w << endl;
 
 		origin = lookfrom;
 		horizontal = focus_dist * viewport_width * u;
