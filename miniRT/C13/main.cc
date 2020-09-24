@@ -15,9 +15,9 @@ using namespace std;
 
 // Image
 const auto aspect_ratio = 3.0 / 2.0;
-const int image_width = 1200;
+const int image_width = 200;
 const int image_height = static_cast<int>(image_width / aspect_ratio);
-const int samples_per_pixel = 500;
+const int samples_per_pixel = 50;
 const int max_depth = 50;
 auto dist_to_focus = 1.0;
 auto aperture = 0.001;
@@ -48,7 +48,7 @@ hittable_list random_scene()
 	hittable_list world;
 
 	auto ground_material = make_shared<lambertian>(color(0.5, 0.5, 0.5));
-	world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
+	world.add(make_shared<sphere>(point3(0, -500, 0), 500, ground_material));
 	for (int a = -11; a < 11; a++)
 	{
 		for (int b = -11; b < 11; b++)
@@ -56,9 +56,9 @@ hittable_list random_scene()
 			point3 center(a + 0.9 * random_double(), 0.2, b + 0.9 * random_double());
 
 			if (abs(b) <= 1) {
-				if (-5 <= a && a <= -3 && (center - point3(-4, 1, 0)).length() < 1.9) continue;
-				else if (-1 <= a && a <= 1 && (center - point3(0, 1, 0)).length() < 1.9) continue;
-				else if (3 <= a && a <= 5 && (center - point3(4, 1, 0)).length() < 1.9) continue;
+				if (-5 <= a && a <= -3 && (center - point3(-4, 1, 0)).length() < 1.2) continue;
+				else if (-1 <= a && a <= 1 && (center - point3(0, 1, 0)).length() < 1.2) continue;
+				else if (3 <= a && a <= 5 && (center - point3(4, 1, 0)).length() < 1.2) continue;
 			}
 
 			auto choose_mat = random_double();
