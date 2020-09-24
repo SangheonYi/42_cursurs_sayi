@@ -15,7 +15,7 @@ using namespace std;
 
 // Image
 const auto aspect_ratio = 3.0 / 2.0;
-const int image_width = 200;
+const int image_width = 100;
 const int image_height = static_cast<int>(image_width / aspect_ratio);
 const int samples_per_pixel = 50;
 const int max_depth = 20;
@@ -146,15 +146,15 @@ int main()
 	std::cerr << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
 	//thread
-	int thread_num = 10;
+	int thread_num = 25;
 	vector<thread> threads;
 	vector<string> buffers(thread_num + 1);
 
 	for (size_t t = thread_num; t > 1; t--) {
-		buffers[10 - t] = "";
+		buffers[thread_num - t] = "";
 		threads.push_back(thread(calc_ray, world, cam,
 		t * (image_height - 1) / thread_num, (t - 1) * (image_height - 1) / thread_num + 1,
-		std::ref(buffers[10 - t])));
+		std::ref(buffers[thread_num - t])));
 	}
 	threads.push_back(thread(calc_ray, world, cam,
 		(image_height - 1) / thread_num, 0, std::ref(buffers[thread_num - 1])));
