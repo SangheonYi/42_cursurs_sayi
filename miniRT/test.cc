@@ -1,39 +1,41 @@
-#include <stdio.h>
+/* #include <stdio.h>
 #include <iostream>
 // thread를 사용하기 위한 라이브러리
 #include <thread>
 using namespace std;
 
 // 함수
-void thread_function(int count)
+void thread_function(int count, string &buf)
 {
-  // 파라미터로 받은 count 수치만큼 반복문을 실행한다.
-  for (int i = 0; i < count; i++)
-  {
-    // 콘솔 출력
-    cout << "i - " << i << endl;
-    // 쓰레드의 비활성 상태 대기, 10ms간..
-    this_thread::sleep_for(chrono::milliseconds(10));
-  }
+  // , string &buf
+    buf += to_string(count);
+    buf += to_string(count);
+    buf += to_string(count);
+    cout << count << endl;
 }
 // 실행 함수
 int main()
 {
+  string buf1 = "";
+  string buf2 = "";
   // thraed 생성, thread_function함수를 호출하고 파라미터는 10을 넘긴다.
-  thread _t1(thread_function, 10);
+  std::thread _t1(thread_function, 23, std::ref(buf1));
+  // , buf1
   // thraed 생성
-  thread _t2(thread_function, 10);
+  std::thread _t2(thread_function, 111, std::ref(buf2));
+  // , buf2
   // 콘솔 출력
-  cout << "main process " << endl;
 
   // thread가 종료될 때까지 대기
   _t1.join();
   _t2.join();
+
+  cout << buf1 << endl;
+  cout << buf2 << endl;
   return 0;
 }
+ */
 
-
-/*
 #include <cmath>
 #include <cstdlib>
 #include <limits>
@@ -53,10 +55,10 @@ inline double random_double()
 
 int main(int argc, char const *argv[])
 {
-	for (size_t i = 0; i < 11; i++)
+	for (size_t i = 0; i < 10; i++)
 	{
 		printf("==  %f  ===\n", random_double());
 	}
 	return 0;
-} */
+}
 
