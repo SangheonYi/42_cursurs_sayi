@@ -52,17 +52,17 @@ hittable_list random_scene()
 	auto ground_material = make_shared<lambertian>(color(0.5, 0.5, 0.5));
 	auto ground = make_shared<sphere>(point3(0, -500, 0), 500, ground_material);
 	world.add(ground);
-	for (int a = -11; a < 11; a++)
+	for (int a = 6; a < 11; a++)
 	{
-		for (int b = -11; b < 11; b++)
+		for (int b = 6; b < 11; b++)
 		{
 			point3 center(a + 0.9 * random_double(), mini_r, b + 0.9 * random_double());
 
-			if (abs(b) <= 1) {
+			/* if (-1 <= b && b <= 1) {
 				if (-5 <= a && a <= -3 && (center - point3(-4, 1, 0)).length() < mini_r + big_r) continue;
 				else if (-1 <= a && a <= 1 && (center - point3(0, 1, 0)).length() < mini_r + big_r) continue;
 				else if (3 <= a && a <= 5 && (center - point3(4, 1, 0)).length() < mini_r + big_r) continue;
-			}
+			} */
 
 			// material
 			auto choose_mat = random_double();
