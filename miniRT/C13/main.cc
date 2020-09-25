@@ -139,7 +139,7 @@ int main()
 	auto world = random_scene();
 
 	// Camera
-	point3 lookfrom(13, 2, 3);
+	point3 lookfrom(13, 1.7, 3);
 	point3 lookat(0, 0, 0);
 	vec3 vup(0, 1, 0);
 	dist_to_focus = 13.5;
