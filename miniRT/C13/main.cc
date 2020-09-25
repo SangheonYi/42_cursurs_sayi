@@ -15,7 +15,7 @@ using namespace std;
 
 // Image
 const auto aspect_ratio = 3.0 / 2.0;
-const int image_width = 800;
+const int image_width = 400;
 const int image_height = static_cast<int>(image_width / aspect_ratio);
 const int samples_per_pixel = 50;
 const int max_depth = 50;
@@ -151,7 +151,7 @@ int main()
 	std::cerr << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
 	//thread
-	int thread_num = 50;
+	int thread_num = 100;
 	vector<thread> threads;
 	vector<string> buffers(thread_num + 1);
 
