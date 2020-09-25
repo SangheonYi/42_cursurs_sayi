@@ -23,7 +23,7 @@ auto dist_to_focus = 1.0;
 auto aperture = 0.001;
 const double big_r = 1.0;
 const double mini_r = 0.2;
-const double ground_r = 200;
+const double ground_r = 1000;
 
 color ray_color(const ray &r, const hittable &world, int depth)
 {
@@ -116,8 +116,8 @@ int calc_ray(hittable_list world, camera cam, int start, int end, string &buf) {
 			{
 				auto u = (i + random_double()) / (image_width - 1);
 				auto v = (j + random_double()) / (image_height - 1);
-				// ray r = cam.get_ray(u, v);
-				ray r = cam.get_ray(u, v, dist_to_focus);
+				ray r = cam.get_ray(u, v);
+				// ray r = cam.get_ray(u, v, dist_to_focus);
 				pixel_color += ray_color(r, world, max_depth);
 			}
 			write_color(buf, pixel_color, samples_per_pixel);
