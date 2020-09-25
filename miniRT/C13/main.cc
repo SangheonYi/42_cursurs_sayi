@@ -142,7 +142,7 @@ int main()
 	point3 lookfrom(13, 1.2, 3);
 	point3 lookat(0, 0, 0);
 	vec3 vup(0, 1, 0);
-	dist_to_focus = 13.5;
+	dist_to_focus = 12;
 
 	camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
 
