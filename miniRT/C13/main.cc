@@ -23,6 +23,7 @@ auto dist_to_focus = 1.0;
 auto aperture = 0.001;
 const double big_r = 1.0;
 const double mini_r = 0.2;
+const double ground_r = 300;
 
 color ray_color(const ray &r, const hittable &world, int depth)
 {
@@ -50,7 +51,7 @@ hittable_list random_scene()
 	hittable_list world;
 
 	auto ground_material = make_shared<lambertian>(color(0.5, 0.5, 0.5));
-	auto ground = make_shared<sphere>(point3(0, -500, 0), 500, ground_material);
+	auto ground = make_shared<sphere>(point3(0, -ground_r, 0), ground_r, ground_material);
 	world.add(ground);
 	for (int a = -5; a < 11; a++)
 	{
@@ -58,11 +59,11 @@ hittable_list random_scene()
 		{
 			point3 center(a + 0.9 * random_double(), mini_r, b + 0.9 * random_double());
 
-			/* if (-1 <= b && b <= 1) {
+			if (-1 <= b && b <= 1) {
 				if (-5 <= a && a <= -3 && (center - point3(-4, 1, 0)).length() < mini_r + big_r) continue;
 				else if (-1 <= a && a <= 1 && (center - point3(0, 1, 0)).length() < mini_r + big_r) continue;
 				else if (3 <= a && a <= 5 && (center - point3(4, 1, 0)).length() < mini_r + big_r) continue;
-			} */
+			}
 
 			// material
 			auto choose_mat = random_double();
