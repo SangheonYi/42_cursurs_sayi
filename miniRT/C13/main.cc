@@ -23,7 +23,7 @@ auto dist_to_focus = 1.0;
 auto aperture = 0.001;
 const double big_r = 1.0;
 const double mini_r = 0.2;
-const double ground_r = 300;
+const double ground_r = 200;
 
 color ray_color(const ray &r, const hittable &world, int depth)
 {
