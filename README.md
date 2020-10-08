@@ -14,3 +14,8 @@ make own printf
 
 ## The_wall
 my first esolang The-wall-themed which appear in game of thrones
+
+## miniRT
+my first esolang ray tracing with Ray Tracing in One Weekend - by Peter Shirley  
+to use: 
+```g++ -std=c++0x main.cc -o main && ./main > test.ppm && open test.ppm```

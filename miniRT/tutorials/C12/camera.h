@@ -5,8 +5,8 @@
 
 class camera
 {
-public:
-public:
+// public:
+// public:
 public:
 	camera(
 		point3 lookfrom,
@@ -29,9 +29,18 @@ public:
 		origin = lookfrom;
 		horizontal = focus_dist * viewport_width * u;
 		vertical = focus_dist * viewport_height * v;
-		lower_left_corner = origin - horizontal / 2 - vertical / 2 - focus_dist * w;
+		lower_left_corner = origin - horizontal / 2 - vertical / 2 - (lookfrom - lookat).length() * w;
 
 		lens_radius = aperture / 2;
+	}
+
+	ray get_ray(double s, double t, double focus_dist) const
+	{
+		vec3 rd = lens_radius * random_in_unit_disk();
+		vec3 offset = u * rd.x() + v * rd.y();
+
+		return ray(lower_left_corner + s * horizontal + t * vertical
+				+ focus_dist * w + offset, -w );
 	}
 
 	ray get_ray(double s, double t) const
@@ -39,8 +48,7 @@ public:
 		vec3 rd = lens_radius * random_in_unit_disk();
 		vec3 offset = u * rd.x() + v * rd.y();
 
-		return ray(
-			origin + offset,
+		return ray(origin + offset,
 			lower_left_corner + s * horizontal + t * vertical - origin - offset);
 	}
 
