@@ -2,6 +2,7 @@
 
 my 42cursurs projects.
 you can read details each project's documents(pdf, txt ...)
+my velog-> https://velog.io/@sayi
 
 ## Libft
 make my static library in c
