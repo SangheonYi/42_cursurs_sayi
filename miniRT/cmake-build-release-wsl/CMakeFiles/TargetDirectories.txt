@@ -1,0 +1,3 @@
+/mnt/d/ft/42_cursurs_sayi/miniRT/cmake-build-release-wsl/CMakeFiles/rebuild_cache.dir
+/mnt/d/ft/42_cursurs_sayi/miniRT/cmake-build-release-wsl/CMakeFiles/miniRT.dir
+/mnt/d/ft/42_cursurs_sayi/miniRT/cmake-build-release-wsl/CMakeFiles/edit_cache.dir
