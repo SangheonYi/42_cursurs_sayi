@@ -15,6 +15,3 @@ _ft_strdup:
 	mov		rdi, rax		; set the string malloced in rax to arg0 for ft_strcpy
 	call	_ft_strcpy		; call ft_strcpy (rdi, rsi), ret is stock in rax
 	ret						; return rax so the new string
-
-
-
