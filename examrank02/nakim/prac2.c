@@ -1,73 +1,73 @@
-#include "hprac.h"
+#include "prac2.h"
 
-int		ft_strlen(char *str)
+int ft_strlen(char *s)
 {
-	int	cnt;
+	int cnt = 0;
 
-	cnt = 0;
-	while (*str++)
+	while (*s++)
 		cnt++;
 	return cnt;
 }
 
-char	*ft_strchr(char *s, int c)
+char *ft_strchr(char *s, int c)
 {
 	if (s == NULL)
-		return (0);
+		return 0;
 	while (*s != c)
 	{
-		if (*s == '\0')
-			return (0);
+		if (*s == 0)
+			return 0;
 		s++;
 	}
-	return (s);
+	return s;
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char *ft_strjoin(char *s1, char *s2)
 {
-	int		i;
-	char	*ptr;
+	int i = 0;
+	char *p;
 
-	if (!(ptr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
-		return (0);
-	i = 0;
+	if (!(p = malloc(ft_strlen(s1) + ft_strlen(s2) + 1)));
+		return 0;
 	while (*s1)
-		ptr[i++] = *s1++;
+		p[i++] = *s1++;
 	while (*s2)
-		ptr[i++] = *s2++;
-	ptr[i] = '\0';
-	return (ptr);
+		p[i++] = *s2++;
+	p[i] = 0;
+	return p;
 }
 
-char	*ft_substr(char *s, unsigned start, int len)
+char *ft_substr(char *s, int start ,int len)
 {
-	int		i;
-	char	*ptr;
+	int i = 0;
+	char *p;
 
-	if (!(ptr = malloc(sizeof(char) * (ft_strlen(s) + len + 1))))
-		return (0);
-	i = 0;
+	if (!s)
+		return 0;
+	if (!(p = malloc(len + 1)));
+		return 0;
 	while (i < len)
-		ptr[i++] = s[start++];
-	ptr[i] = '\0';
-	return (ptr);
+		p[i++] = s[start++];
+	p[i] = 0;
+	return p;
 }
 
-int		gnl2(char **line)
+int prac2(char **line)
 {
-	static char *str;
+	static char str;
 	char	*tmp;
 	char	*newl;
 	char	buf[1024];
-	int		rbit;
+	int		nbit;
 
-	rbit = 1;
-	while ((newl = ft_strchr(str, '\0')) == NULL
-	&& rbit != 0)
+	nbit = 1;
+	while ((newl = ft_strchr(str, '\n')) == NULL
+	&& nbit != 0)
 	{
-		if ((rbit = read(0, buf, 1024)) == -1)
-			return (-1);
-		if (str == NULL)
+		if ((nbit = read(0, buf, 1024)) == -1)
+			return -1;
+		buf[nbit] = '\0';
+		if (!str == NULL)
 			tmp = ft_substr(buf, 0, ft_strlen(buf));
 		else
 			tmp = ft_strjoin(str, buf);
@@ -78,12 +78,12 @@ int		gnl2(char **line)
 	if (newl != NULL)
 	{
 		tmp = str;
-		*line = ft_substr(str, 0, str - newl);
+		*line = ft_substr(str, 0, newl - str);
 		str = ft_substr(newl + 1, 0, ft_strlen(newl + 1));
 		free(tmp);
-		return (1);
+		return 1;
 	}
 	*line = str;
-	str = NULL;
-	return (0);
+	str = 0;
+	return 0;
 }
