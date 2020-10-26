@@ -1,7 +1,7 @@
 # 42_cursurs_sayi
 
-my 42cursurs projects.
-you can read details each project's documents(pdf, txt ...)
+my 42cursurs projects.  
+you can read details each project's documents(pdf, txt ...)  
 my velog-> https://velog.io/@sayi
 
 ## Libft
