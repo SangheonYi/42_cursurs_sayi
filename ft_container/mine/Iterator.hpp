@@ -2,24 +2,22 @@
 # define ITERATOR_HPP
 
 # include "Node.hpp"
-/*
-** @@T , add current member and fix implemented operators, +, -, +=, -=, base()
-** https://code.woboq.org/gcc/libstdc++-v3/include/bits/stl_iterator.h.html#_ZNKSt16reverse_iteratordeEv
-*/
 
 namespace ft
 {
+struct IteratorTrait {};
+
 template<typename It>
 class ReverseIterator:
 	public It
 {
 public:
 	using typename It::value_type;
-	using typename It::pointer;
-	using typename It::const_pointer;
-	using typename It::reference;
-	using typename It::const_reference;
-	using typename It::difference_type;
+    using typename It::pointer;
+    using typename It::const_pointer;
+    using typename It::reference;
+    using typename It::const_reference;
+    using typename It::difference_type;
 public:
 	ReverseIterator(): It() {}
 	ReverseIterator(It const &it): It(it) {}
@@ -45,25 +43,21 @@ public:
 		It tmp(*this);
 		return (&*--tmp);
 	}
-/*
-** 	Increment / Decrement operator (postfix and prefix)
-*/
-
 	ReverseIterator operator++(int) {
-		operator++();
-		return (*this);
+		ReverseIterator tmp(*this);
+		this->It::operator--();
+		return (tmp);
 	}
-	ReverseIterator &operator++() {
-		It::operator--();
-		return (*this);
+	It &operator++() {
+		return ();
 	}
 	ReverseIterator operator--(int) {
+		ReverseIterator tmp(*this);
 		operator--();
 		return (tmp);
 	}
-	ReverseIterator &operator--() {
-		It::operator++();
-		return (*this);
+	It &operator--() {
+		return (this->It::operator++());
 	}
 };
 }
