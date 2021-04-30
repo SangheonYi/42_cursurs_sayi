@@ -44,19 +44,17 @@ public:
 		return (&*--tmp);
 	}
 	ReverseIterator operator++(int) {
-		ReverseIterator tmp(*this);
 		operator++();
-		return (tmp);
+		return (*this);
 	}
-	It &operator++() {
+	ReverseIterator &operator++() {
 		return (this->It::operator--());
 	}
 	ReverseIterator operator--(int) {
-		ReverseIterator tmp(*this);
 		operator--();
 		return (tmp);
 	}
-	It &operator--() {
+	ReverseIterator &operator--() {
 		return (this->It::operator++());
 	}
 };
