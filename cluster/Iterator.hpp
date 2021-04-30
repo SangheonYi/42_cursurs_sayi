@@ -13,6 +13,8 @@ template<typename It>
 class ReverseIterator:
 	public It
 {
+protected:
+	It	current;
 public:
 	using typename It::value_type;
 	using typename It::pointer;
@@ -21,30 +23,27 @@ public:
 	using typename It::const_reference;
 	using typename It::difference_type;
 public:
-	ReverseIterator(): It() {}
-	ReverseIterator(It const &it): It(it) {}
-	ReverseIterator(ReverseIterator const &other): It(other.p) {}
+	ReverseIterator(): current() {}
+	ReverseIterator(It const &it): current(it) {}
+	ReverseIterator(ReverseIterator const &other): current(other.current) {}
+
+	base() const {return (current);}
 	ReverseIterator &operator=(ReverseIterator const &other) {
 		this->p = other.p;
 		return (*this);
 	}
 
 	reference operator*() {
-		It tmp(*this);
+		It tmp = current;
 		return (*--tmp);
 	}
 	const_reference operator*() const {
-		It tmp(*this);
+		It tmp = current;
 		return (*--tmp);
 	}
-	pointer operator->() {
-		It tmp(*this);
-		return (&*--tmp);
-	}
-	const_pointer operator->() const {
-		It tmp(*this);
-		return (&*--tmp);
-	}
+	pointer operator->() {return &(operator*());}
+	pointer operator->() {return &(operator*());}
+	const_pointer operator->() const {return &(operator*());}
 /*
 ** 	Increment / Decrement operator (postfix and prefix)
 */
