@@ -7,23 +7,24 @@ class Par {
 
 	Par(): a(0) {};
 	Par(Par const &other): a(other.a) {};
-	~Par() {};
-
+	virtual ~Par() {};
+/*
+**  postfix op
+*/
 	Par operator++(int) {
-		Par tmp(*this);
-		operator++();
 	std::cout << "pa1" << std::endl;
-		return (*this);
+		return (operator++());
 	}
+	Par operator--(int) {
+	std::cout << "pa3" << std::endl;
+		return (operator--());
+	}
+/*
+**  prefix op
+*/
 	Par &operator++() {
 		this->a++;
 	std::cout << "pa2" << std::endl;
-		return (*this);
-	}
-	Par operator--(int) {
-		Par tmp(*this);
-		operator--();
-	std::cout << "pa3" << std::endl;
 		return (*this);
 	}
 	Par &operator--() {
@@ -39,21 +40,27 @@ class Chi: public Par {
 
 	Chi(): Par() {};
 	Chi(Par const &other): Par(other) {};
-	~Chi() {};
-// post
+	virtual ~Chi() {};
+/*
+**  postfix op
+*/
 	Chi operator++(int) {
 		operator++();
 		return (*this);
 	}
-// pre
-	Chi &operator++() {
-		Par::operator--();
-		return (*this);
-	}
+
 	Chi operator--(int) {
 		operator--();
 		return (*this);
 	}
+/*
+**  prefix op
+*/
+	Chi &operator++() {
+		Par::operator--();
+		return (*this);
+	}
+
 	Chi &operator--() {
 		Par::operator++();
 		return (*this);
