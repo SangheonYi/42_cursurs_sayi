@@ -45,10 +45,8 @@ public:
 	} */
 
 	void disconnect(void) {
-		if (this->m_previous)
-			this->m_previous->m_next = this->m_next;
-		if (this->m_next)
-			this->m_next->m_previous = this->m_previous;
+		this->m_previous->m_next = this->m_next;
+		this->m_next->m_previous = this->m_previous;
 	}
 
 	void swap(Node *node) {

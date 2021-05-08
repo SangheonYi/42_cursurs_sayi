@@ -128,9 +128,7 @@ public:
 	typedef ReverseIterator<iterator> reverse_iterator;
 	typedef ReverseIterator<const_iterator> const_reverse_iterator;
 private:
-	node_pointer _head;
-	node_pointer _tail;
-	size_type _list_size;
+
 
 	void _init_list(void) {
 		this->_tail = this->_head = new Node<value_type>(value_type());
@@ -142,6 +140,9 @@ private:
 		this->_tail->next() = this->_tail;
 	}
 public:
+	node_pointer _head;
+	node_pointer _tail;
+	size_type _list_size;
 	List():
 		_head(nullptr), _tail(nullptr), _list_size(0) {
 		this->_init_list();
@@ -249,17 +250,13 @@ public:
 		++this->_list_size;
 	}
 	void pop_front(void) {
-		if (this->_list_size == 1) {
-			delete this->_head;
-			this->_head = this->_tail;
-			this->_tail->previous() = nullptr;
-		} else if (this->_list_size >= 1) {
+		if (this->_list_size >= 1) {
 			node_pointer tmp = this->_head->next();
 			this->_head->disconnect();
 			delete this->_head;
 			this->_head = tmp;
+			--this->_list_size;
 		}
-		--this->_list_size;
 	}
 	void push_back(const_reference val) {
 		node_pointer tmp = new node_type(val);
@@ -269,13 +266,13 @@ public:
 		++this->_list_size;
 	}
 	void pop_back(void) {
-		if (this->_list_size == 1)
-			this->pop_front();
-		else if (this->_list_size >= 1) {
+		if (this->_list_size >= 1) {
 			node_pointer tmp = this->_tail->previous();
 			this->_tail->previous()->disconnect();
 			delete tmp;
 			--this->_list_size;
+			if (this->_list_size == 0)
+				this->_head = this->_tail;
 		}
 	}
 
