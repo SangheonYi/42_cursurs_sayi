@@ -353,18 +353,12 @@ public:
 	}
 	void splice(iterator position, List &x, iterator first, iterator last) {
 		while (first != last) {
-			node_pointer tmp = first++.as_node();
-			if (tmp == x._head)
-				x._head = tmp->next();
-			tmp->disconnect();
-			position.as_node()->insert_node(tmp);
-			if (position.as_node() == this->_head)
-				this->_head = tmp;
-			++this->_list_size;
-			--x._list_size;
+			node_pointer tmp = first.as_node();
+			this->insert(position, tmp->value());
+			x.erase(tmp, first++);
 		}
-		if (x._list_size == 0)
-			x.reset_list();
+		// if (x._list_size == 0)
+		// 	x.reset_list();
 	}
 
 	void remove(const_reference val) {
