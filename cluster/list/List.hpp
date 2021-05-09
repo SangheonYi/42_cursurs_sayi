@@ -68,45 +68,22 @@ public:
 		return (tmp);
 	}
 
-	ListIterator &operator+=(int value) {
-		if (value > 0) {
-			for (int i = 0; i < value; i++)
-				this->p = this->p->next();
-		} else {
-			for (int i = value; i > 0; i--)
-				this->p = this->p->previous();
-		}
-	}
-	ListIterator operator+(int value) const {
-		ListIterator tmp(*this);
-		return (tmp += value);
-	}
-	ListIterator &operator-=(int value) {
-		operator+=(-value);
-		return (*this);
-	}
-	ListIterator operator-(int value) const {
-		ListIterator tmp(*this);
-		return (tmp -= value);
-	}
-
 	bool operator==(ListIterator const &other) const {
 		return (this->p == other.p);
 	}
 	bool operator!=(ListIterator const &other) const {
 		return (this->p != other.p);
 	}
-	bool operator<(ListIterator const &other) const {
-		return (this->p < other.p);
-	}
-	bool operator<=(ListIterator const &other) const {
-		return (this->p <= other.p);
-	}
-	bool operator>(ListIterator const &other) const {
-		return (this->p > other.p);
-	}
-	bool operator>=(ListIterator const &other) const {
-		return (this->p >= other.p);
+
+	int operator-(ListIterator const &other) const {
+		int cnt = 0;
+		node_pointer node = this->as_node();
+		while (node != other.as_node())
+		{
+			node = node->next();
+			cnt++;
+		}
+		return (cnt);
 	}
 };
 
@@ -131,39 +108,42 @@ private:
 
 
 	void _init_list(void) {
-		this->_tail = this->_head = new Node<value_type>(value_type());
+		this->_tail = new Node<value_type>(value_type());
 	}
 
 	void reset_list(void) {
-		this->_head = this->_tail;
 		this->_tail->previous() = this->_tail;
 		this->_tail->next() = this->_tail;
 	}
-public:
-	node_pointer _head;
-	node_pointer _tail;
-	size_type _list_size;
-	List():
-		_head(nullptr), _tail(nullptr), _list_size(0) {
-		this->_init_list();
-		// printf("new node: %p\n", (void *)this->_head);
-		// printf("new node: %p\n", (void *)this->_tail);
+	size_type node_cnt(void) {
+		// size_type cnt = 0;
+		// iterator it = this->begin();
+		// while (it++ != this->end())
+		// 	cnt++;
 
+		return (this->begin() - this->end());
+	}
+public:
+	node_pointer _tail;
+	// size_type _list_size;
+	List():
+		_tail(nullptr) {
+		this->_init_list();
 	}
 	List(size_type n, const_reference val=value_type()):
-		_head(nullptr), _tail(nullptr), _list_size(0) {
+		_tail(nullptr) {
 		this->_init_list();
 		this->assign(n, val);
 	}
 	template<typename InputIterator>
 
 	List(InputIterator first, InputIterator last):
-		_head(nullptr), _tail(nullptr), _list_size(0) {
+		_tail(nullptr) {
 		this->_init_list();
 		this->assign(first, last);
 	}
 	List(List const &other):
-		_head(nullptr), _tail(nullptr), _list_size(0) {
+		_tail(nullptr) {
 		this->_init_list();
 		this->assign(other.begin(), other.end());
 	}
@@ -178,10 +158,10 @@ public:
 	}
 
 	iterator begin(void) {
-		return (iterator(this->_head));
+		return (iterator(this->_tail->next()));
 	}
 	const_iterator begin(void) const {
-		return (const_iterator(this->_head));
+		return (const_iterator(this->_tail->next()));
 	}
 	reverse_iterator rbegin(void) {
 		return (reverse_iterator(this->end()));
@@ -203,10 +183,10 @@ public:
 	}
 
 	bool empty(void) const {
-		return (this->_list_size == 0);
+		return (this->size() == 0);
 	}
 	size_type size(void) const {
-		return (this->_list_size);
+		return (this->begin() - this->end());
 	}
 	size_type max_size(void) const {
 		return (ft::min((size_type) std::numeric_limits<difference_type>::max(),
@@ -214,10 +194,10 @@ public:
 	}
 
 	reference front() {
-		return (this->_head->value());
+		return (this->_tail->next()->value());
 	}
 	const_reference front() const {
-		return (this->_head->value());
+		return (this->_tail->next()->value());
 	}
 	reference back() {
 		return (this->_tail->previous()->value());
@@ -245,34 +225,26 @@ public:
 
 	void push_front(const_reference val) {
 		node_pointer tmp = new node_type(val);
-		this->_head->insert_node(tmp);
-		this->_head = tmp;
-		++this->_list_size;
+		this->_tail->next()->insert_node(tmp);
+		this->_tail->next() = tmp;
 	}
 	void pop_front(void) {
-		if (this->_list_size >= 1) {
-			node_pointer tmp = this->_head->next();
-			this->_head->disconnect();
-			delete this->_head;
-			this->_head = tmp;
-			--this->_list_size;
+		if (!this->empty()) {
+			node_pointer tmp = this->_tail->next()->next();
+			this->_tail->next()->disconnect();
+			delete this->_tail->next();
 		}
 	}
 	void push_back(const_reference val) {
 		node_pointer tmp = new node_type(val);
 		this->_tail->insert_node(tmp);
-		if (this->_list_size == 0)
-			this->_head = tmp;
-		++this->_list_size;
+		this->_tail->previous() = tmp;
 	}
 	void pop_back(void) {
-		if (this->_list_size >= 1) {
+		if (!this->empty()) {
 			node_pointer tmp = this->_tail->previous();
 			this->_tail->previous()->disconnect();
 			delete tmp;
-			--this->_list_size;
-			if (this->_list_size == 0)
-				this->_head = this->_tail;
 		}
 	}
 
@@ -286,7 +258,6 @@ public:
 		}
 		node_pointer newNode = new node_type(val);
 		position.as_node()->insert_node(newNode);
-		++this->_list_size;
 		return (iterator(newNode));
 	}
 	void insert(iterator position, size_type size, const_reference val) {
@@ -309,7 +280,6 @@ public:
 		node_pointer next = position.as_node()->next();
 		position.as_node()->disconnect();
 		delete position.as_node();
-		--this->_list_size;
 		return (iterator(next));
 	}
 	iterator erase(iterator first, iterator last) {
@@ -319,15 +289,14 @@ public:
 	}
 
 	void swap(List &other) {
-		ft::swap(this->_head, other._head);
 		ft::swap(this->_tail, other._tail);
-		ft::swap(this->_list_size, other._list_size);
+		ft::swap(this->size(), other.size());
 	}
 
 	void resize(size_type n, value_type val=value_type()) {
 		if (n == 0)
 			this->clear();
-		else if (n < this->_list_size) {
+		else if ((size_type)n < this->size()) {
 			size_t i = 0;
 			iterator first = this->begin();
 			while (i < n) {
@@ -336,7 +305,7 @@ public:
 			}
 			this->erase(first, this->end());
 		} else
-			this->insert(this->end(), n - this->_list_size, val);
+			this->insert(this->end(), n - this->size(), val);
 	}
 
 	void clear(void) {
@@ -352,13 +321,12 @@ public:
 		this->splice(position, x, it, ++next);
 	}
 	void splice(iterator position, List &x, iterator first, iterator last) {
+		node_pointer dest = position.as_node();
 		while (first != last) {
-			node_pointer tmp = first.as_node();
-			this->insert(position, tmp->value());
-			x.erase(tmp, first++);
+			node_pointer src = first++.as_node();
+			src->disconnect();
+			dest->insert_node(src);
 		}
-		// if (x._list_size == 0)
-		// 	x.reset_list();
 	}
 
 	void remove(const_reference val) {
@@ -413,7 +381,7 @@ public:
 	void merge(List &x, Compare comp) {
 		if (&x == this)
 			return ;
-		if (this->_list_size == 0) {
+		if (this->empty()) {
 			this->assign(x.begin(), x.end());
 			x.clear();
 			return ;
@@ -425,13 +393,11 @@ public:
 
 		while (f1 != e1 && f2 != e2) {
 			if ((*comp)(*f2, *f1)) {
-				x._head = f2.as_node()->next();
-				--x._list_size;
+				x._tail->next() = f2.as_node()->next();
 				f2.as_node()->disconnect();
 				f1.as_node()->insert_node(f2.as_node());
 				if (f1 == this->begin())
-					this->_head = this->_head->previous();
-				++this->_list_size;
+					this->_tail->next() = this->_tail->next()->previous();
 				f2 = x.begin();
 			} else
 				++f1;
@@ -440,13 +406,11 @@ public:
 	}
 
 	void sort(void) {
-		if (this->_list_size <= 1)
-			return ;
 		this->sort(less_than<value_type>);
 	}
 	template<typename Compare>
 	void sort(Compare comp) {
-		if (this->_list_size <= 1)
+		if (this->empty())
 			return ;
 		iterator first = this->begin();
 		iterator last = this->end();
@@ -457,8 +421,8 @@ public:
 			next = first;
 			while (++next != last) {
 				if (comp(*next, *first)) {
-					if (first.as_node() == this->_head)
-						this->_head = next.as_node();
+					if (first.as_node() == this->_tail->next())
+						this->_tail->next() = next.as_node();
 					first.as_node()->swap(next.as_node());
 					tmp = next;
 					next = first;
@@ -470,18 +434,18 @@ public:
 	}
 
 	void reverse(void) {
-		if (this->_list_size <= 1)
+		if (this->empty())
 			return ;
 		iterator begin = this->begin();
 		iterator end = --this->end();
 
-		size_t limit = this->_list_size / 2;
+		size_t limit = this->size() / 2;
 		for (size_t i = 0; i < limit; ++i) {
 			begin++.as_node()->swap(end--.as_node());
 		}
 		while (end.as_node()->previous())
 			--end;
-		this->_head = end.ptr();
+		this->_tail->next() = end.ptr();
 	}
 };
 

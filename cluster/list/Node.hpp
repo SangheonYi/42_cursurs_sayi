@@ -120,6 +120,16 @@ public:
 	Node const *next(void) const {
 		return (this->m_next);
 	}
+	bool operator==(Node const &other) const {
+		return (this->m_previous == other.m_previous &&
+		this->m_value == other.m_value &&
+		this->m_next == other.m_next);
+	}
+	bool operator!=(Node const &other) const {
+		return (this->m_previous != other.m_previous ||
+		this->m_value != other.m_value ||
+		this->m_next != other.m_next);
+	}
 };
 }
 
