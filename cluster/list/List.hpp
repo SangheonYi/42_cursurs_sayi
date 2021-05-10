@@ -76,18 +76,6 @@ public:
 		return (this->p != other.p);
 	}
 
-	int operator-(ListIterator const &other) const {
-		int cnt = 0;
-		// std::cout << "operator-: " << *other << std::endl;
-
-		node_pointer node = this->as_node();
-		while (node != other.as_node())
-		{
-			node = node->next();
-			cnt++;
-		}
-		return (cnt);
-	}
 };
 
 template<typename T>
@@ -115,14 +103,12 @@ private:
 	}
 
 	void reset_list(void) {
-		std::cout << "reset list" << std::endl;
 		this->_tail->previous() = this->_tail;
 		this->_tail->next() = this->_tail;
 	}
 
 public:
 	node_pointer _tail;
-	// size_type _list_size;
 	List():
 		_tail(nullptr) {
 		this->_init_list();
@@ -217,11 +203,7 @@ public:
 		while (first != last)
 			this->push_back(*first++);
 	}
-/* 	void assign(const_iterator first, const_iterator last) {
-		this->clear();
-		while (first != last)
-			this->push_back(*first++);
-	} */
+
 	void assign(size_type size, const_reference val) {
 		this->clear();
 		for (size_type i = 0; i < size; i++)
@@ -242,12 +224,9 @@ public:
 		}
 	}
 	void push_back(const_reference val) {
-		// std::cout << "push back" << std::endl;
-		// printf("p: %p\nc: %p\nn: %p\n", this->_tail->previous(), this->_tail, this->_tail->next());
 		node_pointer tmp = new node_type(val);
 		this->_tail->insert_node(tmp);
 		this->_tail->previous() = tmp;
-		// std::cout << "af push back size: " << size() << std::endl;
 
 	}
 	void pop_back(void) {
@@ -281,9 +260,8 @@ public:
 	}
 
 	iterator erase(iterator position) {
-		if (position == this->end()) {
+		if (position == this->end())
 			return ((--this->end()));
-		}
 		node_pointer next = position.as_node()->next();
 		position.as_node()->disconnect();
 		delete position.as_node();
@@ -405,11 +383,8 @@ public:
 
 		while (f1 != e1 && f2 != e2) {
 			if ((*comp)(*f2, *f1)) {
-				x._tail->next() = f2.as_node()->next();
 				f2.as_node()->disconnect();
 				f1.as_node()->insert_node(f2.as_node());
-				if (f1 == this->begin())
-					this->_tail->next() = this->_tail->next()->previous();
 				f2 = x.begin();
 			} else
 				++f1;
