@@ -115,6 +115,7 @@ private:
 	}
 
 	void reset_list(void) {
+		std::cout << "reset list" << std::endl;
 		this->_tail->previous() = this->_tail;
 		this->_tail->next() = this->_tail;
 	}
@@ -280,12 +281,7 @@ public:
 	}
 
 	iterator erase(iterator position) {
-		std::cout << "erase size check: " << size() << std::endl;
-		if (position == this->begin()) {
-			this->pop_front();
-			return (this->begin());
-		} else if (position == this->end()) {
-			this->pop_back();
+		if (position == this->end()) {
 			return ((--this->end()));
 		}
 		node_pointer next = position.as_node()->next();

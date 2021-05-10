@@ -172,7 +172,6 @@ int main(void)
 
     std::cout << "7-------------------------------------------" << std::endl;
     print_all_element(ol, ml);
-    std::cout << "check: "<< (ml._head->value())<< " " << (ml._tail->value()) << " " << (ml._list_size) << std::endl;
 
     print_ori_my_value("max_size", ol.max_size(), ml.max_size());
 
@@ -205,11 +204,12 @@ int main(void)
     // print_ori_my_value("*end()", *ool.end(), *mml.end());
     // print_ori_my_value("*rbegin()", *ool.rbegin(), *mml.rbegin());
     // print_ori_my_value("*rend()", *ool.rend(), *mml.rend());
+ */
 
     twoline("insert");
 
-    ol.push_back(1); ol.push_back(2);
-    ml.push_back(1), ml.push_back(2);
+    ol.push_back(11); ol.push_back(2);
+    ml.push_back(11), ml.push_back(2);
 
     print_all_element(ol, ml);
 
@@ -249,6 +249,7 @@ int main(void)
         mit--;
     }
     // insert (1 2 100) to begin + 1
+
     ol.insert(++ol.begin(), oit, ol.end());
     ml.insert(++ml.begin(), mit, ml.end());
     print_all_element(ol, ml);
@@ -270,6 +271,7 @@ int main(void)
     print_all_element(ol, ml);
 
     twoline("resize");
+    print_all_element(ol, ml);
     oneline("resize to 10");
     ol.resize(10);
     ml.resize(10);
@@ -294,7 +296,7 @@ int main(void)
     ml.clear();
 
     print_all_element(ol, ml);
- */
+    /*
     twoline("splice");
 
     std::list<int> o2l;
@@ -332,7 +334,6 @@ int main(void)
 
     print_all_element(ol, ml);
     print_all_element(o2l, m2l);
-    /*
 
     twoline("remove");
 
