@@ -2,6 +2,7 @@
 # define LIST_HPP
 
 # include <limits>
+# include <iostream>
 # include "Node.hpp"
 # include "../Iterator.hpp"
 # include "Algorithm.hpp"
@@ -77,6 +78,8 @@ public:
 
 	int operator-(ListIterator const &other) const {
 		int cnt = 0;
+		// std::cout << "operator-: " << *other << std::endl;
+
 		node_pointer node = this->as_node();
 		while (node != other.as_node())
 		{
@@ -115,14 +118,7 @@ private:
 		this->_tail->previous() = this->_tail;
 		this->_tail->next() = this->_tail;
 	}
-	size_type node_cnt(void) {
-		// size_type cnt = 0;
-		// iterator it = this->begin();
-		// while (it++ != this->end())
-		// 	cnt++;
 
-		return (this->begin() - this->end());
-	}
 public:
 	node_pointer _tail;
 	// size_type _list_size;
@@ -186,7 +182,15 @@ public:
 		return (this->size() == 0);
 	}
 	size_type size(void) const {
-		return (this->begin() - this->end());
+		int cnt = 0;
+		ft::ListIterator<const int, const ft::Node<int> >::node_pointer
+		node = this->begin().as_node();
+		while (node != this->end().as_node())
+		{
+			node = node->next();
+			cnt++;
+		}
+		return (cnt);
 	}
 	size_type max_size(void) const {
 		return (ft::min((size_type) std::numeric_limits<difference_type>::max(),
@@ -229,6 +233,7 @@ public:
 		this->_tail->next() = tmp;
 	}
 	void pop_front(void) {
+		// std::cout << "pop_front isempty: " <<  this->empty() << std::endl;
 		if (!this->empty()) {
 			node_pointer tmp = this->_tail->next()->next();
 			this->_tail->next()->disconnect();
@@ -236,11 +241,16 @@ public:
 		}
 	}
 	void push_back(const_reference val) {
+		// std::cout << "push back" << std::endl;
+		// printf("p: %p\nc: %p\nn: %p\n", this->_tail->previous(), this->_tail, this->_tail->next());
 		node_pointer tmp = new node_type(val);
 		this->_tail->insert_node(tmp);
 		this->_tail->previous() = tmp;
+		// std::cout << "af push back size: " << size() << std::endl;
+
 	}
 	void pop_back(void) {
+		// std::cout << "pop_back isempty: " <<  this->empty() << std::endl;
 		if (!this->empty()) {
 			node_pointer tmp = this->_tail->previous();
 			this->_tail->previous()->disconnect();
@@ -254,7 +264,7 @@ public:
 			return (this->begin());
 		} else if (position == this->end()) {
 			this->push_back(val);
-			return (this->end());
+			return (--this->end());
 		}
 		node_pointer newNode = new node_type(val);
 		position.as_node()->insert_node(newNode);
@@ -270,12 +280,13 @@ public:
 	}
 
 	iterator erase(iterator position) {
+		std::cout << "erase size check: " << size() << std::endl;
 		if (position == this->begin()) {
 			this->pop_front();
 			return (this->begin());
 		} else if (position == this->end()) {
 			this->pop_back();
-			return (this->end());
+			return ((--this->end()));
 		}
 		node_pointer next = position.as_node()->next();
 		position.as_node()->disconnect();
@@ -294,18 +305,23 @@ public:
 	}
 
 	void resize(size_type n, value_type val=value_type()) {
+		// printf("size, n: %d %ul %d\n", size(), n, n < size());
+		// printf("end, size: %d %ul\n", *this->end(), n - this->size());
 		if (n == 0)
 			this->clear();
-		else if ((size_type)n < this->size()) {
-			size_t i = 0;
+		else if (n < this->size()) {
+			size_type i = 0;
 			iterator first = this->begin();
 			while (i < n) {
 				++i;
 				++first;
 			}
 			this->erase(first, this->end());
-		} else
+		} else {
+			// std::cout << "fill insert" << std::endl;
+
 			this->insert(this->end(), n - this->size(), val);
+		}
 	}
 
 	void clear(void) {
