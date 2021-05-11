@@ -2,7 +2,7 @@
 # define NODE_HPP
 
 # include <cstring>
-
+# include <iostream>
 namespace ft
 {
 template<typename value_type>
@@ -13,11 +13,11 @@ private:
 	value_type m_value;
 	Node<value_type> *m_next;
 public:
-	Node(): m_previous(nullptr), m_value(), m_next(nullptr) {}
+	Node(): m_previous(this), m_value(), m_next(this) {}
 	Node(value_type const &val):
-		m_previous(nullptr), m_value(val), m_next(nullptr) {}
-	// Node(Node *previous, value_type const &val, Node *next=nullptr):
-	// 	m_previous(previous), m_value(val), m_next(next) {}
+		m_previous(this), m_value(val), m_next(this) {}
+	Node(Node *previous, value_type const &val, Node *next=nullptr):
+		m_previous(previous), m_value(val), m_next(next) {}
 	Node(Node const &other):
 		m_previous(other.m_previous), m_value(other.val), m_next(other.m_next) {}
 	virtual ~Node() {}
@@ -29,28 +29,24 @@ public:
 	// 	return (*this);
 	// }
 
-	void insert_before(Node *node) {
-		if (this->m_previous) {
-			node->m_previous = this->m_previous;
-			this->m_previous->m_next = node;
-		}
+	void insert_node(Node *node) {
 		node->m_next = this;
+		node->m_previous = this->m_previous;
+		this->m_previous->m_next = node;
 		this->m_previous = node;
 	}
-	void insert_after(Node *node) {
+/* 	void insert_after(Node *node) {
 		if (this->m_next) {
 			node->m_next = this->m_next;
 			this->m_next->m_previous = node;
 		}
 		node->m_previous = this;
 		this->m_next = node;
-	}
+	} */
 
 	void disconnect(void) {
-		if (this->m_previous)
-			this->m_previous->m_next = this->m_next;
-		if (this->m_next)
-			this->m_next->m_previous = this->m_previous;
+		this->m_previous->m_next = this->m_next;
+		this->m_next->m_previous = this->m_previous;
 	}
 
 	void swap(Node *node) {

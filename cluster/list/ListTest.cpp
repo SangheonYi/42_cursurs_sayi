@@ -1,6 +1,7 @@
 # include <iostream>
 # include <stdio.h>
 # include "List.hpp"
+# include <list>
 
 /*
 ** 1. Construct
@@ -34,10 +35,34 @@
 ** 29. reverse
 */
 
-bool assignTest(ft::List<int> list, ft::List<int> list2) {
-	ft::List<int>::iterator lit = list.begin();
-	ft::List<int>::iterator lit2 = list2.rbegin();
-	ft::List<int>::iterator litEnd = list.end();
+# define RED "\033[1;31m"
+# define GREEN "\033[1;32m"
+# define RESET "\033[0m"
+/*
+template<typename T>
+void cmpList(std::list<int>::iterator lit, ft::List<int>::iterator ft_lit) {
+	std::cout << "lit :" << *lit << " ft:" << *lit2 << std::endl;
+
+}
+
+template <typename T>
+ void    print_all_element(std::list<T> &ol, ft::List<T> &ml)
+{
+    std::cout << GREEN << "[ ";
+    for (typename std::list<T>::iterator it = ol.begin(); it != ol.end(); it++)
+        std::cout << *it << " ";
+    std::cout << "]" << RESET << " ";
+
+    std::cout << RED << "[ ";
+    for (typename ft::List<T>::iterator it = ml.begin(); it != ml.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << "]" << RESET << std::endl;
+}
+
+bool assignTest(std::list<int> list, std::list<int> list2) {
+	std::list<int>::iterator lit = list.begin();
+	std::list<int>::iterator lit2 = list2.begin();
+	std::list<int>::iterator litEnd = list.end();
 	bool isPass = true;
 
 	while (lit != litEnd)
@@ -48,7 +73,7 @@ bool assignTest(ft::List<int> list, ft::List<int> list2) {
 	}
 	return isPass;
 }
-
+ */
 int main() {
 	ft::List<int> list;
 	ft::List<int> list2;
@@ -63,7 +88,9 @@ int main() {
 
 // 1. Construct
 	ft::List<int> *list3 = new ft::List<int>(list);
-/*
+    int arr[] = {42, 18, 42, 18};
+    std::list<int> range_ol(arr, arr + 4);
+    ft::List<int> range_ml(arr, arr + 4);
 
 // 2. destructor
 	delete list3;
@@ -73,8 +100,8 @@ int main() {
 	list2 = list;
 
 // 4. begin
-	std::cout << "4. begin :	" << (*list.begin() == *list2.begin()) << std::endl;
-	std::cout << "return :		" << *list.begin() << std::endl;
+	std::cout << "4. begin : " << (*list.begin() == *list2.begin()) << std::endl;
+	std::cout << "return : " << *list.begin() << std::endl;
 // 5. end
 	std::cout << "5. end :" << (*list.end() == *list2.end()) << std::endl;
 	std::cout << "return :" << *list.end() << std::endl;
@@ -82,10 +109,12 @@ int main() {
 // 6. rbegin
 	std::cout << "6. rbegin :" << (*list.rbegin() == *list2.rbegin()) << std::endl;
 	std::cout << "return :" << *list.rbegin() << std::endl;
+/*
 
 // 7. rend
-	std::cout << "7. rend :" << (*list.rend() == *list2.rend()) << std::endl;
-	std::cout << "return :" << *list.rend() << std::endl;
+	// std::cout << "7. rend :" << (*list.rend() == *list2.rend()) << std::endl;
+	std::cout << "return :" << *(list.rend()) << std::endl;
+	list.assign(list2.rbegin(), list2.rend());
 
 // 8. empty
 	std::cout << "8. empty :" << (list.empty() == list2.empty()) << std::endl;
@@ -108,7 +137,6 @@ int main() {
 	std::cout << "return :" << list.back() << std::endl;
 
 // 13. assign
-	list.assign(list2.rbegin(), list2.rend());
 	assignTest(list, list2);
 	list.assign(5, 1);
 	list2.assign(5, 1);

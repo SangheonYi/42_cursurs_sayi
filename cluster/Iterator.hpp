@@ -1,7 +1,7 @@
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
-
-# include "./List/Node.hpp"
+# include <iostream>
+// # include "Node.hpp"
 
 namespace ft
 {
@@ -23,7 +23,7 @@ public:
 	ReverseIterator(It const &it): current(it) {}
 	ReverseIterator(ReverseIterator const &other): current(other.current) {}
 
-	base() const {return (current);}
+	It base() const {return (current);}
 	ReverseIterator &operator=(ReverseIterator const &other) {
 		this->p = other.p;
 		return (*this);
