@@ -279,8 +279,6 @@ public:
 	}
 
 	void resize(size_type n, value_type val=value_type()) {
-		// printf("size, n: %d %ul %d\n", size(), n, n < size());
-		// printf("end, size: %d %ul\n", *this->end(), n - this->size());
 		if (n == 0)
 			this->clear();
 		else if (n < this->size()) {
@@ -291,11 +289,8 @@ public:
 				++first;
 			}
 			this->erase(first, this->end());
-		} else {
-			// std::cout << "fill insert" << std::endl;
-
+		} else
 			this->insert(this->end(), n - this->size(), val);
-		}
 	}
 
 	void clear(void) {
@@ -408,8 +403,6 @@ public:
 			next = first;
 			while (++next != last) {
 				if (comp(*next, *first)) {
-					if (first.as_node() == this->_tail->next())
-						this->_tail->next() = next.as_node();
 					first.as_node()->swap(next.as_node());
 					tmp = next;
 					next = first;
