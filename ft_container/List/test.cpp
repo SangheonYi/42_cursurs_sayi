@@ -204,7 +204,6 @@ int main(void)
     // print_ori_my_value("*end()", *ool.end(), *mml.end());
     // print_ori_my_value("*rbegin()", *ool.rbegin(), *mml.rbegin());
     // print_ori_my_value("*rend()", *ool.rend(), *mml.rend());
- */
 
     twoline("insert");
 
@@ -212,6 +211,7 @@ int main(void)
     ml.push_back(11), ml.push_back(2);
 
     print_all_element(ol, ml);
+*/
 
     std::list<int>::iterator oit = ol.insert(ol.begin(), 10);
     ft::List<int>::iterator mit = ml.insert(ml.begin(), 10);
@@ -296,7 +296,6 @@ int main(void)
     ml.clear();
 
     print_all_element(ol, ml);
-    /*
     twoline("splice");
 
     std::list<int> o2l;
@@ -460,11 +459,13 @@ int main(void)
     ol.push_back(6); ml.push_back(6);
 
     print_all_element(ol, ml);
-
+std::cout << "reverse chck\n";
     ol.reverse();
     ml.reverse();
+std::cout << "reverse chck\n";
 
     print_all_element(ol, ml);
+std::cout << "reverse chck\n";
 
     oneline("sort");
 
@@ -627,5 +628,7 @@ int main(void)
     rmit--;
 
     print_ori_my_value("*", *roit, *rmit);
-     */
+/*
+
+*/
 }

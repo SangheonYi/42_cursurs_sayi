@@ -275,7 +275,7 @@ public:
 
 	void swap(List &other) {
 		ft::swap(this->_tail, other._tail);
-		ft::swap(this->size(), other.size());
+		// ft::swap(this->size(), other.size());
 	}
 
 	void resize(size_type n, value_type val=value_type()) {
@@ -306,6 +306,7 @@ public:
 		this->splice(position, x, it, ++next);
 	}
 	void splice(iterator position, List &x, iterator first, iterator last) {
+		(void) x;
 		node_pointer dest = position.as_node();
 		while (first != last) {
 			node_pointer src = first++.as_node();
@@ -414,7 +415,7 @@ public:
 	}
 
 	void reverse(void) {
-		if (this->empty())
+		if (this->size() < 2)
 			return ;
 		iterator begin = this->begin();
 		iterator end = --this->end();
@@ -423,9 +424,6 @@ public:
 		for (size_t i = 0; i < limit; ++i) {
 			begin++.as_node()->swap(end--.as_node());
 		}
-		while (end.as_node()->previous())
-			--end;
-		this->_tail->next() = end.ptr();
 	}
 };
 
