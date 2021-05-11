@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Queue.hpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/02 15:57:01 by ncolomer          #+#    #+#             */
-/*   Updated: 2020/02/24 18:11:52 by ncolomer         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef QUEUE_HPP
 # define QUEUE_HPP
 
-# include "List.hpp"
+# include "../List/List.hpp"
 
 namespace ft
 {
@@ -39,65 +27,55 @@ public:
 		this->container = other.container;
 		return (*this);
 	}
-
 	bool empty(void) const {
 		return (this->container.empty());
 	}
 	size_t size(void) const {
 		return (this->container.size());
 	}
-
 	reference front(void) {
 		return (this->container.front());
 	}
 	const_reference front(void) const {
 		return (this->container.front());
 	}
-
 	reference back(void) {
 		return (this->container.back());
 	}
 	const_reference back(void) const {
 		return (this->container.back());
 	}
-
 	void push(const_reference val) {
 		this->container.push_back(val);
 	}
 	void pop(void) {
 		this->container.pop_front();
 	}
-
-	template<typename queue_type, typename container_type>
-	friend bool operator==(Queue<queue_type, container_type> const &lhs, Queue<queue_type, container_type> const &rhs) {
-		return (lhs.container == rhs.container);
-	}
-
-	template<typename queue_type, typename container_type>
-	friend bool operator!=(Queue<queue_type, container_type> const &lhs, Queue<queue_type, container_type> const &rhs) {
-		return (lhs.container != rhs.container);
-	}
-
-	template<typename queue_type, typename container_type>
-	friend bool operator<(Queue<queue_type, container_type> const &lhs, Queue<queue_type, container_type> const &rhs) {
-		return (lhs.container < rhs.container);
-	}
-
-	template<typename queue_type, typename container_type>
-	friend bool operator<=(Queue<queue_type, container_type> const &lhs, Queue<queue_type, container_type> const &rhs) {
-		return (lhs.container <= rhs.container);
-	}
-
-	template<typename queue_type, typename container_type>
-	friend bool operator>(Queue<queue_type, container_type> const &lhs, Queue<queue_type, container_type> const &rhs) {
-		return (lhs.container > rhs.container);
-	}
-
-	template<typename queue_type, typename container_type>
-	friend bool operator>=(Queue<queue_type, container_type> const &lhs, Queue<queue_type, container_type> const &rhs) {
-		return (lhs.container >= rhs.container);
-	}
 };
+template<typename T, typename K>
+bool operator==(Queue<T, K> const &lhs, Queue<T, K> const &rhs) {
+	return (lhs.container == rhs.container);
+}
+template<typename T, typename K>
+bool operator!=(Queue<T, K> const &lhs, Queue<T, K> const &rhs) {
+	return (lhs.container != rhs.container);
+}
+template<typename T, typename K>
+bool operator<(Queue<T, K> const &lhs, Queue<T, K> const &rhs) {
+	return (lhs.container < rhs.container);
+}
+template<typename T, typename K>
+bool operator<=(Queue<T, K> const &lhs, Queue<T, K> const &rhs) {
+	return (lhs.container <= rhs.container);
+}
+template<typename T, typename K>
+bool operator>(Queue<T, K> const &lhs, Queue<T, K> const &rhs) {
+	return (lhs.container > rhs.container);
+}
+template<typename T, typename K>
+bool operator>=(Queue<T, K> const &lhs, Queue<T, K> const &rhs) {
+	return (lhs.container >= rhs.container);
+}
 }
 
 #endif
