@@ -96,17 +96,13 @@ public:
 	typedef ReverseIterator<iterator> reverse_iterator;
 	typedef ReverseIterator<const_iterator> const_reverse_iterator;
 private:
-
-
 	void _init_list(void) {
 		this->_tail = new Node<value_type>(value_type());
 	}
-
 	void reset_list(void) {
 		this->_tail->previous() = this->_tail;
 		this->_tail->next() = this->_tail;
 	}
-
 public:
 	node_pointer _tail;
 	List():
@@ -119,7 +115,6 @@ public:
 		this->assign(n, val);
 	}
 	template<typename InputIterator>
-
 	List(InputIterator first, InputIterator last):
 		_tail(nullptr) {
 		this->_init_list();
@@ -216,11 +211,10 @@ public:
 		this->_tail->next() = tmp;
 	}
 	void pop_front(void) {
-		// std::cout << "pop_front isempty: " <<  this->empty() << std::endl;
 		if (!this->empty()) {
-			node_pointer tmp = this->_tail->next()->next();
+			node_pointer tmp = this->_tail->next();
 			this->_tail->next()->disconnect();
-			delete this->_tail->next();
+			delete tmp;
 		}
 	}
 	void push_back(const_reference val) {
@@ -230,7 +224,6 @@ public:
 
 	}
 	void pop_back(void) {
-		// std::cout << "pop_back isempty: " <<  this->empty() << std::endl;
 		if (!this->empty()) {
 			node_pointer tmp = this->_tail->previous();
 			this->_tail->previous()->disconnect();
@@ -275,7 +268,6 @@ public:
 
 	void swap(List &other) {
 		ft::swap(this->_tail, other._tail);
-		// ft::swap(this->size(), other.size());
 	}
 
 	void resize(size_type n, value_type val=value_type()) {

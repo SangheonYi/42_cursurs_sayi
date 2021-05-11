@@ -56,7 +56,6 @@ int main(void)
 {
     std::list<int> ol;
     ft::List<int> ml;
-/*
     twoline("constructor");
 
     oneline("fill constructor");
@@ -72,8 +71,8 @@ int main(void)
     ft::List<int> range_ml(arr, arr + 4);
 
 
-    range_ol.push_back(0);
-    range_ml.push_back(0);
+    range_ol.push_front(0);
+    range_ml.push_front(0);
 
     print_all_element(range_ol, range_ml);
     oneline("copy constructor");
@@ -142,8 +141,8 @@ int main(void)
 
     std::cout << "4-------------------------------------------" << std::endl;
 
-    ol.pop_back();
-    ml.pop_back();
+    ol.pop_front();
+    ml.pop_front();
     print_ori_my_value("size", ol.size(), ml.size());
     print_ori_my_value("*begin()", *ol.begin(), *ml.begin());
     print_ori_my_value("*end()", *ol.end(), *ml.end());
@@ -162,8 +161,8 @@ int main(void)
 
     std::cout << "6-------------------------------------------" << std::endl;
 
-    ol.pop_back();
-    ml.pop_back();
+    ol.pop_front();
+    ml.pop_front();
     print_ori_my_value("size", ol.size(), ml.size());
     print_ori_my_value("*begin()", *ol.begin(), *ml.begin());
     print_ori_my_value("*end()", *ol.end(), *ml.end());
@@ -184,7 +183,6 @@ int main(void)
     print_ori_my_value("*end()", *ol.end(), *ml.end());
     print_ori_my_value("*rbegin()", *ol.rbegin(), *ml.rbegin());
     print_ori_my_value("*rend()", *ol.rend(), *ml.rend());
-
     // std::list<std::string> ool;
     // ft::List<std::string> mml;
 
@@ -211,7 +209,6 @@ int main(void)
     ml.push_back(11), ml.push_back(2);
 
     print_all_element(ol, ml);
-*/
 
     std::list<int>::iterator oit = ol.insert(ol.begin(), 10);
     ft::List<int>::iterator mit = ml.insert(ml.begin(), 10);
@@ -459,13 +456,10 @@ int main(void)
     ol.push_back(6); ml.push_back(6);
 
     print_all_element(ol, ml);
-std::cout << "reverse chck\n";
     ol.reverse();
     ml.reverse();
-std::cout << "reverse chck\n";
 
     print_all_element(ol, ml);
-std::cout << "reverse chck\n";
 
     oneline("sort");
 
@@ -629,6 +623,9 @@ std::cout << "reverse chck\n";
 
     print_ori_my_value("*", *roit, *rmit);
 /*
+*/
+/*
 
 */
+
 }
