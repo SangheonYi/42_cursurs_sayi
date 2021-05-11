@@ -51,37 +51,29 @@ public:
 
 	void swap(Node *node) {
 		if (this->m_next == node) {
-			if (this->m_previous)
-				this->m_previous->m_next = node;
+			this->m_previous->m_next = node;
 			node->m_previous = this->m_previous;
 			this->m_previous = node;
-			if (node->m_next)
-				node->m_next->m_previous = this;
+			node->m_next->m_previous = this;
 			this->m_next = node->m_next;
 			node->m_next = this;
 		} else if (this->m_previous == node) {
-			if (node->m_previous)
-				node->m_previous->m_next = this;
+			node->m_previous->m_next = this;
 			this->m_previous = node->m_previous;
 			node->m_previous = this;
-			if (this->m_next)
-				this->m_next->m_previous = node;
+			this->m_next->m_previous = node;
 			node->m_next = this->m_next;
 			this->m_next = node;
 		} else {
 			Node<value_type> *previous = this->m_previous;
 			Node<value_type> *next = this->m_next;
 
-			if (this->m_previous)
-				this->m_previous->m_next = node;
-			if (this->m_next)
-				this->m_next->m_previous = node;
+			this->m_previous->m_next = node;
+			this->m_next->m_previous = node;
 			this->m_previous = node->m_previous;
 			this->m_next = node->m_next;
-			if (node->m_previous)
-				node->m_previous->m_next = this;
-			if (node->m_next)
-				node->m_next->m_previous = this;
+			node->m_previous->m_next = this;
+			node->m_next->m_previous = this;
 			node->m_previous = previous;
 			node->m_next = next;
 		}
