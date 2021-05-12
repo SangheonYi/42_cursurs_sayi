@@ -208,9 +208,9 @@ public:
 	}
 
 	void resize(size_type size, value_type val=value_type()) {
-		while (n > _length)
+		while (size > this->m_size)
 			push_back(val);
-		while (n < _length)
+		while (size < this->m_size)
 			pop_back();
 	}
 
@@ -272,7 +272,7 @@ public:
 	}
 	void assign(size_type size, const_reference val) {
 		clear();
-		insert(begin(), n, val);
+		insert(begin(), size, val);
 	}
 
 	void push_back(const_reference val) {
