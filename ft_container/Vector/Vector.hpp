@@ -136,31 +136,38 @@ private:
 		new(&this->m_container[idx]) value_type(val);
 	}
 public:
-	Vector(): m_container(nullptr), m_capacity(0), m_size(0) {}
-	Vector(size_type n, const_reference val=value_type()):
-		m_container(nullptr), m_capacity(0), m_size(0) {
+	Vector(const allocator_type &alloc = allocator_type()):
+		m_container(nullptr), m_capacity(0), m_size(0), m_allocator(alloc) {
+		m_container = m_allocator.allocate(0);
+	}
+	Vector(size_type n, const_reference val=value_type(), const allocator_type &alloc = allocator_type()):
+		m_container(nullptr), m_capacity(0), m_size(0), m_allocator(alloc) {
+		m_container = m_allocator.allocate(0);
 		this->assign(n, val);
 	}
-	Vector(iterator first, iterator last):
-		m_container(nullptr), m_capacity(0), m_size(0) {
+	template <class InputIterator>
+	Vector (InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type()):
+		m_container(nullptr), m_capacity(0), m_size(0), m_allocator(alloc) {
+		m_container = m_allocator.allocate(0);
 		this->assign(first, last);
 	}
 	Vector(Vector const &other):
-		m_container(nullptr), m_capacity(0), m_size(other.m_size) {
+		m_container(nullptr), m_capacity(0), m_size(other.m_size), m_allocator(other.m_allocator) {
 		this->reserve(other.m_capacity);
 		std::memcpy(static_cast<void*>(this->m_container), static_cast<void*>(other.m_container), other.m_size * sizeof(value_type));
 	}
 	virtual ~Vector() {
 		this->clear();
 		if (this->m_container)
-			::operator delete(this->m_container);
+			this->m_allocator.deallocate(this->m_container, this->m_capacity);
 	}
 
 	Vector &operator=(Vector const &other) {
 		this->clear();
 		if (this->m_capacity < other.m_capacity)
 			this->reserve(other.m_capacity);
-		std::memcpy(static_cast<void*>(this->m_container), static_cast<void*>(other.m_container), other.m_size * sizeof(value_type));
+		for (size_t i = 0; i < other.m_size; i++)
+			this->m_container[i] = other.m_container[i];
 		return (*this);
 	}
 
@@ -345,32 +352,22 @@ public:
 	}
 
 	iterator erase(iterator position) {
-		iterator tmp(position);
-		++tmp;
-		return (this->erase(position, tmp));
+		iterator iter = position;
+		while (iter + 1 != end())
+		{
+			*iter = *(iter + 1);
+			iter++;
+		}
+		this->m_size--;
+		return (iterator(position));
 	}
 	iterator erase(iterator first, iterator last) {
-		iterator it = this->begin();
-		size_type i = 0;
-		while (it != first) {
-			++it;
-			++i;
+		while (first != last)
+		{
+			erase(first);
+			last--;
 		}
-		if (it == this->end())
-			return (this->end());
-		size_type returnPosition = i;
-		size_type deletedElements = 0;
-		size_type stopPos = i;
-		while (first != last) {
-			(*first++).value_type::~value_type();
-			++deletedElements;
-			++stopPos;
-		}
-		// std::memmove ?
-		for ( ; stopPos < this->m_size; ++stopPos)
-			this->copy_construct(i++, this->m_container[stopPos]);
-		this->m_size -= deletedElements;
-		return (iterator(&this->m_container[returnPosition]));
+		return (iterator(first));
 	}
 
 	void swap(Vector &other) {
@@ -380,9 +377,7 @@ public:
 	}
 
 	void clear(void) {
-		for (size_type i = 0; i < this->m_size; i++)
-			this->m_container[i].value_type::~value_type();
-		this->m_size = 0;
+		erase(this->begin(), this->end());
 	}
 };
 
