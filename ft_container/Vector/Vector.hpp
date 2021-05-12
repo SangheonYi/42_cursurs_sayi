@@ -28,50 +28,50 @@ public:
 	virtual ~VectorIterator() {}
 
 	VectorIterator &operator=(VectorIterator const &other) {
-		this->p = other.p;
+		p = other.p;
 		return (*this);
 	}
 
 	reference operator*() {
-		return (*this->p);
+		return (*p);
 	}
 	const_reference operator*() const {
-		return (*this->p);
+		return (*p);
 	}
 	pointer operator->() {
-		return (this->p);
+		return (p);
 	}
 	const_pointer operator->() const {
-		return (this->p);
+		return (p);
 	}
     reference operator[](int val) {
-		return (*(this->p + val));
+		return (*(p + val));
 	}
     const_reference operator[](int val) const {
-		return (*(this->p + val));
+		return (*(p + val));
 	}
 
 	VectorIterator operator++(int) {
 		VectorIterator tmp(*this);
-		++this->p;
+		++p;
 		return (tmp);
 	}
 	VectorIterator &operator++() {
-		++this->p;
+		++p;
 		return (*this);
 	}
 	VectorIterator operator--(int) {
 		VectorIterator tmp(*this);
-		--this->p;
+		--p;
 		return (tmp);
 	}
 	VectorIterator &operator--() {
-		--this->p;
+		--p;
 		return (*this);
 	}
 
 	VectorIterator &operator+=(int value) {
-		this->p += value;
+		p += value;
 		return (*this);
 	}
 	VectorIterator operator+(int value) const {
@@ -79,7 +79,7 @@ public:
 		return (tmp += value);
 	}
 	VectorIterator &operator-=(int value) {
-		this->p -= value;
+		p -= value;
 		return (*this);
 	}
 	VectorIterator operator-(int value) const {
@@ -87,26 +87,26 @@ public:
 		return (tmp -= value);
 	}
 	difference_type operator-(VectorIterator const &other) const {
-		return (this->p - other.p);
+		return (p - other.p);
 	}
 
 	bool operator==(VectorIterator const &other) const {
-		return (this->p == other.p);
+		return (p == other.p);
 	}
 	bool operator!=(VectorIterator const &other) const {
-		return (this->p != other.p);
+		return (p != other.p);
 	}
 	bool operator<(VectorIterator const &other) const {
-		return (this->p < other.p);
+		return (p < other.p);
 	}
 	bool operator<=(VectorIterator const &other) const {
-		return (this->p <= other.p);
+		return (p <= other.p);
 	}
 	bool operator>(VectorIterator const &other) const {
-		return (this->p > other.p);
+		return (p > other.p);
 	}
 	bool operator>=(VectorIterator const &other) const {
-		return (this->p >= other.p);
+		return (p >= other.p);
 	}
 };
 
@@ -133,7 +133,7 @@ private:
 	allocator_type m_allocator;
 
 	void copy_construct(size_type idx, const_reference val) {
-		new(&this->m_container[idx]) value_type(val);
+		new(&m_container[idx]) value_type(val);
 	}
 public:
 	Vector(const allocator_type &alloc = allocator_type()):
@@ -143,126 +143,125 @@ public:
 	Vector(size_type n, const_reference val=value_type(), const allocator_type &alloc = allocator_type()):
 		m_container(nullptr), m_capacity(0), m_size(0), m_allocator(alloc) {
 		m_container = m_allocator.allocate(0);
-		this->assign(n, val);
+		assign(n, val);
 	}
 	template <class InputIterator>
 	Vector (InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type()):
 		m_container(nullptr), m_capacity(0), m_size(0), m_allocator(alloc) {
 		m_container = m_allocator.allocate(0);
-		this->assign(first, last);
+		assign(first, last);
 	}
 	Vector(Vector const &other):
 		m_container(nullptr), m_capacity(0), m_size(other.m_size), m_allocator(other.m_allocator) {
-		this->reserve(other.m_capacity);
-		std::memcpy(static_cast<void*>(this->m_container), static_cast<void*>(other.m_container), other.m_size * sizeof(value_type));
+		reserve(other.m_capacity);
+		std::memcpy(static_cast<void*>(m_container), static_cast<void*>(other.m_container), other.m_size * sizeof(value_type));
 	}
 	virtual ~Vector() {
-		this->clear();
-		if (this->m_container)
-			this->m_allocator.deallocate(this->m_container, this->m_capacity);
+		clear();
+		if (m_container)
+			m_allocator.deallocate(m_container, m_capacity);
 	}
 
 	Vector &operator=(Vector const &other) {
-		if (this->m_container != nullptr)
-			this->m_allocator.deallocate(this->m_container, this->m_capacity);
-		this->m_allocator = other.m_allocator;
-		this->m_sizw = other.m_sizw;
-		this->m_capacity = other._capacity;
-		this->m_container = this->m_allocator.allocate(0);
+		if (m_container != nullptr)
+			m_allocator.deallocate(m_container, m_capacity);
+		m_allocator = other.m_allocator;
+		m_size = other.m_size;
+		m_capacity = other._capacity;
+		m_container = m_allocator.allocate(0);
 		assign(other.begin(), other.end());
 		return (*this);
 	}
 
 	iterator begin(void) {
-		return (iterator(this->m_container));
+		return (iterator(m_container));
 	}
 	const_iterator begin(void) const {
-		return (const_iterator(this->m_container));
+		return (const_iterator(m_container));
 	}
 	reverse_iterator rbegin(void) {
-		return (reverse_iterator(this->end()));
+		return (reverse_iterator(end()));
 	}
 	const_reverse_iterator rbegin(void) const {
-		return (const_reverse_iterator(this->end()));
+		return (const_reverse_iterator(end()));
 	}
 	iterator end(void) {
-		return (iterator(this->m_container + this->m_size));
+		return (iterator(m_container + m_size));
 	}
 	const_iterator end(void) const {
-		return (const_iterator(this->m_container + this->m_size));
+		return (const_iterator(m_container + m_size));
 	}
 	reverse_iterator rend(void) {
-		return (reverse_iterator(this->begin()));
+		return (reverse_iterator(begin()));
 	}
 	const_reverse_iterator rend(void) const {
-		return (const_reverse_iterator(this->begin()));
+		return (const_reverse_iterator(begin()));
 	}
 
 	size_type size(void) const {
-		return (this->m_size);
+		return (m_size);
 	}
 
 	size_type max_size(void) const {
-		return (ft::min((size_type) std::numeric_limits<difference_type>::max(),
-						std::numeric_limits<size_type>::max() / sizeof(value_type)));
+		return (m_allocator.max_size());
 	}
 
 	void resize(size_type size, value_type val=value_type()) {
-		while (size > this->m_size)
+		while (size > m_size)
 			push_back(val);
-		while (size < this->m_size)
+		while (size < m_size)
 			pop_back();
 	}
 
 	size_type capacity(void) const {
-		return (this->m_capacity);
+		return (m_capacity);
 	}
 
 	bool empty(void) const {
-		return (this->m_size == 0);
+		return (m_size == 0);
 	}
 
 	void reserve(size_type size) {
-		if (size > this->m_capacity) {
-			value_type *tmp = this->m_allocator.allocate(size);
-			if (this->m_container) {
-				for (size_t i = 0; i < this->m_size; ++i)
-					tmp[i] = this->m_container[i];
-				this->m_allocator.deallocate(this->m_container, this->m_capacity);
+		if (size > m_capacity) {
+			value_type *tmp = m_allocator.allocate(size);
+			if (m_container) {
+				for (size_t i = 0; i < m_size; ++i)
+					tmp[i] = m_container[i];
+				m_allocator.deallocate(m_container, m_capacity);
 			}
-			this->m_container = tmp;
-			this->m_capacity = size;
+			m_container = tmp;
+			m_capacity = size;// deallocate 전에 해야하나?
 		}
 	}
 
 	reference operator[](size_type idx) {
-		return (this->m_container[idx]);
+		return (m_container[idx]);
 	}
 	const_reference operator[](size_type idx) const {
-		return (this->m_container[idx]);
+		return (m_container[idx]);
 	}
 	reference at(size_type __n) {
-		if (__n >= this->m_size)
+		if (__n >= m_size)
 			throw std::out_of_range("vector::_M_range_check: __n ");
-		return (this->m_container[__n]);
+		return (m_container[__n]);
 	}
 	const_reference at(size_type __n) const {
-		if (__n >= this->m_size)
+		if (__n >= m_size)
 			throw std::out_of_range("vector::_M_range_check: __n ");
-		return (this->m_container[__n]);
+		return (m_container[__n]);
 	}
 
 	reference front(void) {
-		return (this->m_container[0]);
+		return (m_container[0]);
 	}
 	const_reference front(void) const {
-		return (this->m_container[0]);
+		return (m_container[0]);
 	}
 	reference back(void) {
-		return (this->m_container[this->m_size - 1]);
+		return (m_container[m_size - 1]);
 	}
 	const_reference back(void) const {
-		return (this->m_container[this->m_size - 1]);
+		return (m_container[m_size - 1]);
 	}
 
 	template <class InputIterator>
@@ -276,50 +275,41 @@ public:
 	}
 
 	void push_back(const_reference val) {
-		if (this->m_size == this->m_capacity)
-			this->reserve(this->m_capacity * 2);
-		new(&this->m_container[this->m_size++]) value_type(val);
+		insert(end(), val);
 	}
 	void pop_back(void) {
-		this->m_container[--this->m_size].value_type::~value_type();
+		erase(--end());
 	}
 
 	iterator insert(iterator position, const_reference val) {
-		this->insert(position, 1, val);
-		return (++position);
+		size_type i = 0;
+		iterator it = begin();
+		while (it + i != position && i < m_size)
+			i++;
+		if (m_capacity == 0)
+			reserve(1);
+		else if (m_size >= m_capacity)
+			reserve(m_capacity * 2);
+		size_type j = m_capacity - 1;
+		while (j > i)
+		{
+			m_container[j] = m_container[j - 1];
+			j--;
+		}
+		m_container[i] = val;
+		m_size++;
+		return (iterator(&m_container[i]));
 	}
 	void insert(iterator position, size_type size, const_reference val) {
-		iterator it = this->begin();
-		if (this->m_size + size >= this->m_capacity)
-			this->reserve(this->m_size + size);
-		size_type i = 0;
-		while (it != position) {
-			++it;
-			++i;
-		}
-		// std::memmove
-		for (size_type j = this->m_size; j >= 1 && j >= i; j--)
-			this->copy_construct(i + j + size - 1, this->m_container[j - 1]);
-		for (size_type j = 0; j < size; j++)
-			this->copy_construct(i + j, val);
-		this->m_size += size;
+		while (size--)
+			position = insert(position, val);
 	}
 	void insert(iterator position, iterator first, iterator last) {
-		size_type size = last - first;
-		iterator it = this->begin();
-		if (this->m_size + size >= this->m_capacity)
-			this->reserve(this->m_size + size);
-		size_type i = 0;
-		while (it != position) {
-			++it;
-			++i;
+		while (first != last)
+		{
+			position = insert(position, *first) + 1;
+			first++;
 		}
-		// std::memmove
-		for (size_type j = this->m_size - 1; j > i + 1; j++)
-			this->copy_construct(i + j + size, this->m_container[ + j - 1]);
-		for (size_type j = 0; j < size; j++)
-			this->copy_construct(i + j, *first++);
-		this->m_size += size;
 	}
 
 	iterator erase(iterator position) {
@@ -329,7 +319,7 @@ public:
 			*iter = *(iter + 1);
 			iter++;
 		}
-		this->m_size--;
+		m_size--;
 		return (iterator(position));
 	}
 	iterator erase(iterator first, iterator last) {
@@ -342,13 +332,13 @@ public:
 	}
 
 	void swap(Vector &other) {
-		ft::swap(this->m_container, other.m_container);
-		ft::swap(this->m_capacity, other.m_capacity);
-		ft::swap(this->m_size, other.m_size);
+		ft::swap(m_container, other.m_container);
+		ft::swap(m_capacity, other.m_capacity);
+		ft::swap(m_size, other.m_size);
 	}
 
 	void clear(void) {
-		erase(this->begin(), this->end());
+		erase(begin(), end());
 	}
 };
 
