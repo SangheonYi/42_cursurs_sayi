@@ -163,11 +163,13 @@ public:
 	}
 
 	Vector &operator=(Vector const &other) {
-		this->clear();
-		if (this->m_capacity < other.m_capacity)
-			this->reserve(other.m_capacity);
-		for (size_t i = 0; i < other.m_size; i++)
-			this->m_container[i] = other.m_container[i];
+		if (this->m_container != nullptr)
+			this->m_allocator.deallocate(this->m_container, this->m_capacity);
+		this->m_allocator = other.this->m_allocator;
+		this->m_sizw = other.this->m_sizw;
+		this->m_capacity = other._capacity;
+		this->m_container = this->m_allocator.allocate(0);
+		assign(other.begin(), other.end());
 		return (*this);
 	}
 
