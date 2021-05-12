@@ -165,8 +165,8 @@ public:
 	Vector &operator=(Vector const &other) {
 		if (this->m_container != nullptr)
 			this->m_allocator.deallocate(this->m_container, this->m_capacity);
-		this->m_allocator = other.this->m_allocator;
-		this->m_sizw = other.this->m_sizw;
+		this->m_allocator = other.m_allocator;
+		this->m_sizw = other.m_sizw;
 		this->m_capacity = other._capacity;
 		this->m_container = this->m_allocator.allocate(0);
 		assign(other.begin(), other.end());
@@ -186,10 +186,10 @@ public:
 		return (const_reverse_iterator(this->end()));
 	}
 	iterator end(void) {
-		return (iterator(&(this->m_container[this->m_size])));
+		return (iterator(this->m_container + this->m_size));
 	}
 	const_iterator end(void) const {
-		return (const_iterator(&(this->m_container[this->m_size])));
+		return (const_iterator(this->m_container + this->m_size));
 	}
 	reverse_iterator rend(void) {
 		return (reverse_iterator(this->begin()));
@@ -208,17 +208,10 @@ public:
 	}
 
 	void resize(size_type size, value_type val=value_type()) {
-		if (size > this->m_capacity)
-			this->reserve(size);
-		if (size > this->m_size) {
-			for (size_type i = this->m_size; i < size; ++i)
-				this->copy_construct(i, val);
-			this->m_size = size;
-		} else if (size < this->m_size) {
-			for (size_type i = size; i < this->m_size; ++i)
-				this->m_container[i].value_type::~value_type();
-			this->m_size = size;
-		}
+		while (n > _length)
+			push_back(val);
+		while (n < _length)
+			pop_back();
 	}
 
 	size_type capacity(void) const {
