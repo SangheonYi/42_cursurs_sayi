@@ -3,6 +3,7 @@
 
 # include <limits>
 # include <cstring>
+# include <memory>
 # include "../Iterator.hpp"
 # include "../FtUtil.hpp"
 
@@ -109,13 +110,14 @@ public:
 	}
 };
 
-template<typename T>
+template<typename T, typename A = std::allocator<T>>
 class Vector
 {
 public:
     typedef std::ptrdiff_t difference_type;
 	typedef unsigned long size_type;
 	typedef T value_type;
+	typedef A allocator_type;
 	typedef T* pointer;
 	typedef T const * const_pointer;
 	typedef T& reference;
@@ -128,6 +130,7 @@ private:
 	pointer m_container;
 	size_type m_capacity;
 	size_type m_size;
+	allocator_type m_allocator;
 
 	void copy_construct(size_type idx, const_reference val) {
 		new(&this->m_container[idx]) value_type(val);
@@ -218,18 +221,12 @@ public:
 	}
 
 	void reserve(size_type size) {
-		if (this->m_capacity == 0) {
-			size = (size > 128) ? size : 128;
-			this->m_container = static_cast<value_type*>(::operator new(sizeof(value_type) * size));
-			this->m_capacity = size;
-		} else if (size > this->m_capacity) {
-			size = (size > this->m_capacity * 2) ? size : this->m_capacity * 2;
-			value_type *tmp = static_cast<value_type*>(::operator new(sizeof(value_type) * size));
+		if (size > this->m_capacity) {
+			value_type *tmp = this->m_allocator.allocate(size);
 			if (this->m_container) {
-				//std::memmove(static_cast<void*>(tmp), static_cast<void*>(this->container), this->m_size * sizeof(value_type));
 				for (size_t i = 0; i < this->m_size; ++i)
-					new(&tmp[i]) value_type(this->m_container[i]);
-				::operator delete(this->m_container);
+					tmp[i] = this->m_container[i];
+				this->m_allocator.deallocate(this->m_container, this->m_capacity);
 			}
 			this->m_container = tmp;
 			this->m_capacity = size;
