@@ -2,13 +2,14 @@
 # define VECTOR_HPP
 
 # include <limits>
+# include <cstring>
 # include "../Iterator.hpp"
 # include "../FtUtil.hpp"
 
 namespace ft
 {
 template<typename T>
-class VectorIterator: IteratorTrait
+class VectorIterator
 {
 public:
 	typedef T value_type;
@@ -265,24 +266,8 @@ public:
 		return (this->m_container[this->m_size - 1]);
 	}
 
-	void assign(iterator first, iterator last) {
-		size_t length = last - first;
-		if (length > this->m_capacity)
-			this->reserve(length);
-		size_t i = 0;
-		while (first != last) {
-			if (i >= this->m_size)
-				this->copy_construct(i, *first);
-			else
-				this->m_container[i] = *first;
-			++first;
-			++i;
-		}
-		while (i < this->m_size)
-			this->m_container[i++].value_type::~value_type();
-		this->m_size = length;
-	}
-	void assign(const_iterator first, const_iterator last) {
+	template <class InputIterator>
+	void assign (InputIterator first, InputIterator last){
 		size_t length = last - first;
 		if (length > this->m_capacity)
 			this->reserve(length);

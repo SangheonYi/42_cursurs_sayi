@@ -1,7 +1,6 @@
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
 # include <iostream>
-// # include "Node.hpp"
 
 namespace ft
 {
@@ -64,14 +63,14 @@ public:
 ** +, -, +=, -=
 */
 	ReverseIterator operator+(difference_type __n) const
-	{ return reverse_iterator(current - __n); }
+	{ return ReverseIterator(current - __n); }
 	ReverseIterator &operator+=(difference_type __n)
 	{
 		current -= __n;
 		return *this;
 	}
 	ReverseIterator operator-(difference_type __n) const
-	{ return reverse_iterator(current + __n); }
+	{ return ReverseIterator(current + __n); }
 	ReverseIterator &operator-=(difference_type __n)
 	{
 		current += __n;
