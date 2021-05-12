@@ -267,36 +267,12 @@ public:
 
 	template <class InputIterator>
 	void assign (InputIterator first, InputIterator last){
-		size_t length = last - first;
-		if (length > this->m_capacity)
-			this->reserve(length);
-		size_t i = 0;
-		while (first != last) {
-			if (i >= this->m_size)
-				this->copy_construct(i, *first);
-			else
-				this->m_container[i] = *first;
-			++first;
-			++i;
-		}
-		while (i < this->m_size)
-			this->m_container[i++].value_type::~value_type();
-		this->m_size = length;
+		clear();
+		insert(begin(), first, last);
 	}
 	void assign(size_type size, const_reference val) {
-		if (size > this->m_capacity)
-			this->reserve(size);
-		size_t i = 0;
-		while (i < size) {
-			if (i >= this->m_size)
-				this->copy_construct(i, val);
-			else
-				this->m_container[i] = val;
-			++i;
-		}
-		while (i < this->m_size)
-			this->m_container[i++].value_type::~value_type();
-		this->m_size = size;
+		clear();
+		insert(begin(), n, val);
 	}
 
 	void push_back(const_reference val) {
