@@ -104,6 +104,17 @@ int main(void)
 
 	print_both_vector(ol, ml);
 
+	oneline("pop back 10 to 1");
+	for (int i = 1; i < 11; i++)
+	{
+		ol.pop_back();
+		ml.pop_back();
+		print_origin_my_fun("size", ol.size(), ml.size());
+		print_origin_my_fun("cap", ol.capacity(), ml.capacity());
+	}
+
+	print_both_vector(ol, ml);
+
 	twoline("max size");
 
 	print_origin_my_fun("max_size", ol.max_size(), ml.max_size());
@@ -159,14 +170,20 @@ int main(void)
 	print_origin_my_fun("size", ol.size(), ml.size());
 	print_origin_my_fun("cap", ol.capacity(), ml.capacity());
 
+	oneline("reserve to 13");
+
+	ol.reserve(13);
+	ml.reserve(13);
+
+	print_origin_my_fun("cap", ol.capacity(), ml.capacity());
 	oneline("reserve to 20");
 
-	ol.reserve(10);
-	ml.reserve(10);
+	ol.reserve(20);
+	ml.reserve(20);
 
 	print_origin_my_fun("cap", ol.capacity(), ml.capacity());
 
-	for (int i = 11; i < 22; i++)
+	for (int i = 11; i < 26; i++)
 	{
 		ol.push_back(i);
 		ml.push_back(i);
@@ -248,6 +265,13 @@ int main(void)
 	ml.insert(ml.begin(), 42);
 
 	print_both_vector(ol, ml);
+
+	// oneline("insert out of size");
+
+	// ol.insert(ol.begin() + 200, 200);
+	// ml.insert(ml.begin() + 200, 200);
+
+	// print_both_vector(ol, ml);
 
 	oneline("insert one value in end");
 
@@ -386,7 +410,6 @@ int main(void)
 	twoline("== != < <= > >=");
 
 	oneline("same iterator");
-
 	print_origin_my_fun("'=='", oit == o2it, mit == m2it);
 	print_origin_my_fun("'!='", oit != o2it, mit != m2it);
 	print_origin_my_fun("'<'", oit < o2it, mit < m2it);
@@ -534,4 +557,6 @@ int main(void)
 	print_origin_my_fun("'<='", orit <= o2rit, mrit <= m2rit);
 	print_origin_my_fun("'>'", orit > o2rit, mrit > m2rit);
 	print_origin_my_fun("'>='", orit >= o2rit, mrit >= m2rit);
+/*
+*/
 }

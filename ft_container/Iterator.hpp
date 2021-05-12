@@ -60,7 +60,7 @@ public:
 		return (*this);
 	}
 /*
-** +, -, +=, -=
+** +, -, +=, -=, []
 */
 	ReverseIterator operator+(difference_type __n) const
 	{ return ReverseIterator(current - __n); }
@@ -76,6 +76,19 @@ public:
 		current += __n;
 		return *this;
 	}
+	value_type &operator[](difference_type n) const {
+		return (*(*this + n));
+	}
+
+/*
+** ==, <, !=, >, <=, >=
+*/
+	bool operator==(const ReverseIterator &ref) { return this->base() == ref.base(); }
+	bool operator<(const ReverseIterator &ref) { return this->base() > ref.base(); }
+	bool operator!=(const ReverseIterator &ref) { return !(this->base() == ref.base()); }
+	bool operator>(const ReverseIterator &ref) { return ref.base() > this->base(); }
+	bool operator<=(const ReverseIterator &ref) { return !(ref.base() > this->base()); }
+	bool operator>=(const ReverseIterator &ref) { return !(this->base() > ref.base()); }
 };
 }
 
