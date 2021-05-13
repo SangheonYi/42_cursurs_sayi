@@ -76,6 +76,11 @@ int main(void)
 
 	print_both_vector(fill_ol, fill_ml);
 
+	std::vector<int> fill_ol2(10, 2222);
+	ft::Vector<int> fill_ml2(10, 2222);
+
+	print_both_vector(fill_ol2, fill_ml2);
+
 	oneline("range constructor");
 	int arr[] = {18, 42, 18, 42};
 	std::vector<int> range_ol(arr, arr + 4);
