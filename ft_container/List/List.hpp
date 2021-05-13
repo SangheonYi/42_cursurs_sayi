@@ -3,9 +3,11 @@
 
 # include <limits>
 # include <iostream>
+# include <numeric>
 # include "Node.hpp"
 # include "../Iterator.hpp"
 # include "../FtUtil.hpp"
+# include "../IsIterator.hpp"
 
 namespace ft
 {
@@ -96,6 +98,15 @@ public:
 	typedef ReverseIterator<iterator> reverse_iterator;
 	typedef ReverseIterator<const_iterator> const_reverse_iterator;
 private:
+	template<typename InputIterator>
+	void range_assign(InputIterator first, InputIterator last, ft::iter) {
+		this->clear();
+		while (first != last)
+			this->push_back(*first++);
+	}
+	void range_assign(size_type n, const_reference val, ft::not_iter) {
+		this->assign(n, val);
+	}
 	void _init_list(void) {
 		this->_tail = new Node<value_type>(value_type());
 	}
@@ -194,9 +205,7 @@ public:
 
 	template<typename InputIterator>
 	void assign(InputIterator first, InputIterator last) {
-		this->clear();
-		while (first != last)
-			this->push_back(*first++);
+		range_assign(first, last,typename ft::IsIterator<InputIterator>::value());
 	}
 
 	void assign(size_type size, const_reference val) {

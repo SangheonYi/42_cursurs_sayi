@@ -65,6 +65,11 @@ int main(void)
 
     print_all_element(fill_ol, fill_ml);
 
+    std::list<int> fill_ol2(10, 3);
+    ft::List<int> fill_ml2(10, 3);
+
+    print_all_element(fill_ol2, fill_ml2);
+
     oneline("range constructor");
     int arr[] = {42, 18, 2222, 3333};
     std::list<int> range_ol(arr, arr + 4);
@@ -80,6 +85,7 @@ int main(void)
     ft::List<int> copy_ml(range_ml);
 
     print_all_element(copy_ol, copy_ml);
+/*
 
     oneline("copy operator");
     std::list<int> copy_op_ol = copy_ol;
@@ -622,7 +628,6 @@ int main(void)
     rmit--;
 
     print_ori_my_value("*", *roit, *rmit);
-/*
 */
 /*
 
