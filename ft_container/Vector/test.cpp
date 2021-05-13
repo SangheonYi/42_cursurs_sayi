@@ -43,8 +43,8 @@ void print_all_my_vector_element(ft::Vector<T> &v)
 }
 
 template <typename T>
-void print_both_vector(std::vector<T> ori_v, ft::Vector<T> &my_v)	// 와 인자로 그냥 my_v 넘기니 소멸자가 2번 호출 됨...
-{																	// 그래서 &my_v로 바꿈. 레퍼런스로 넘겨주어야 함.
+void print_both_vector(std::vector<T> ori_v, ft::Vector<T> my_v)
+{
 	std::cout << GREEN << "ori : ";
 	print_all_origin_vector_element(ori_v);
 	std::cout << RESET;
@@ -558,5 +558,7 @@ int main(void)
 	print_origin_my_fun("'>'", orit > o2rit, mrit > m2rit);
 	print_origin_my_fun("'>='", orit >= o2rit, mrit >= m2rit);
 /*
+
 */
+
 }

@@ -110,7 +110,7 @@ public:
 	}
 };
 
-template<typename T, typename A = std::allocator<T>>
+template<typename T, typename A = std::allocator<T> >
 class Vector
 {
 public:
@@ -230,7 +230,7 @@ public:
 				m_allocator.deallocate(m_container, m_capacity);
 			}
 			m_container = tmp;
-			m_capacity = size;// deallocate 전에 해야하나?
+			m_capacity = size;
 		}
 	}
 
