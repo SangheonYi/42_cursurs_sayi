@@ -22,27 +22,12 @@ public:
 		m_previous(other.m_previous), m_value(other.val), m_next(other.m_next) {}
 	virtual ~Node() {}
 
-	// Node &operator=(Node const &other) {
-	// 	this->m_previous = other.m_previous;
-	// 	this->m_value = other.m_value;
-	// 	this->m_next = other.m_next;
-	// 	return (*this);
-	// }
-
 	void insert_node(Node *node) {
 		node->m_next = this;
 		node->m_previous = this->m_previous;
 		this->m_previous->m_next = node;
 		this->m_previous = node;
 	}
-/* 	void insert_after(Node *node) {
-		if (this->m_next) {
-			node->m_next = this->m_next;
-			this->m_next->m_previous = node;
-		}
-		node->m_previous = this;
-		this->m_next = node;
-	} */
 
 	void disconnect(void) {
 		this->m_previous->m_next = this->m_next;
