@@ -17,13 +17,13 @@ class BST
 {
     private:
         Bnode<T>*	_root;
+        Bnode<T>*	max_onode;
+        Bnode<T>*	min_node;
 		size_t		_size;
 
     protected:
-        // 삽입
         Bnode<T>*	insert_node(Bnode<T>* node, T &key)
 		{
-			// null일때
 			if (node == nullptr)
 			{
 				node = new Bnode<T>;
@@ -64,7 +64,6 @@ class BST
 				std::cout << "-1)";
 			print_in_order(node->right);
 		}
-		// 탐색
 		template <typename K>
 		Bnode<T>*	search_node(Bnode<T>* node, K& key)
 		{
@@ -219,14 +218,14 @@ class BST
 			// 최대 값 노드 삭제
 			if (_root)
 			{
-				Bnode<T>*	end_node = find_max();
+				Bnode<T>*	end_node = get_max();
 				Bnode<T>*	max_node = end_node->parent;
 				max_node->right = nullptr;
 				delete end_node;
 			}
 			_root = insert_node(_root, key);
 			// 최대 값 노드 추가
-			Bnode<T>*	max_node = find_max();
+			Bnode<T>*	max_node = get_max();
 			Bnode<T>*	end_node = new Bnode<T>;
 			end_node->left = nullptr;
 			end_node->right = nullptr;
@@ -250,11 +249,11 @@ class BST
 			Bnode<T>* result = search_node(_root, key);
 			return (result);
 		}
-		Bnode<T>*	find_min()
+		Bnode<T>*	get_min()
 		{
 			return (find_min_node(_root));
 		}
-		Bnode<T>*	find_max()
+		Bnode<T>*	get_max()
 		{
 			return (find_max_node(_root));
 		}
@@ -269,7 +268,7 @@ class BST
 		void		remove(T key)
 		{
 			Bnode<T>* tmp = search(key);
-			Bnode<T>* end_node = find_max();
+			Bnode<T>* end_node = get_max();
 			// 이 경우는 마지막 노드를 삭제 할 때 필요!
 			// 최대값 노드 오른쪽 빈 노드가 있기 때문
 			if (tmp->key == end_node->parent->key)
@@ -277,7 +276,7 @@ class BST
 				end_node->parent->right = nullptr;
 				end_node->parent = nullptr;
 				_root = remove_node(_root, key);
-				Bnode<T>* max_node = find_max();
+				Bnode<T>* max_node = get_max();
 				max_node->right = end_node;
 				end_node->parent = max_node;
 			}
@@ -288,7 +287,7 @@ class BST
 		{
 			if (_root)
 			{
-				Bnode<T>* end_node = find_max();
+				Bnode<T>* end_node = get_max();
 				if (end_node->parent)
 				{
 					end_node->parent->right = nullptr;

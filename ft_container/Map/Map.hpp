@@ -24,8 +24,8 @@ namespace ft
 			typedef value_type*						pointer;
 			typedef const value_type*				const_pointer;
 			typedef ft::MapIterator<Key, T>			iterator;
-			typedef const iterator			const_iterator;
-			typedef ReverseIterator<iterator> reverse_iterator;
+			typedef const iterator					const_iterator;
+			typedef ReverseIterator<iterator> 		reverse_iterator;
 			typedef ReverseIterator<const_iterator> const_reverse_iterator;
 			typedef	size_t							size_type;
 			class value_compare
@@ -73,17 +73,17 @@ namespace ft
 				return (*this);
 			}
 			// begin
-			iterator		begin()	{ return (iterator(_bst.find_min())); }
-			const_iterator	begin() const { return (const_iterator(_bst.find_min())); }
+			iterator		begin()	{ return (iterator(_bst.get_min())); }
+			const_iterator	begin() const { return (const_iterator(_bst.get_min())); }
 			// end
-			iterator		end() { return (iterator(_bst.find_max())); }
-			const_iterator	end() const { return (const_iterator(_bst.find_max())); }
+			iterator		end() { return (iterator(_bst.get_max())); }
+			const_iterator	end() const { return (const_iterator(_bst.get_max())); }
 			// rbegin
-			reverse_iterator        rbegin() { return (--reverse_iterator(_bst.find_max())); }
-			const_reverse_iterator  rbegin() const { return (--reverse_iterator(_bst.find_max())); }
+			reverse_iterator        rbegin() { return (reverse_iterator(_bst.get_max())); }
+			const_reverse_iterator  rbegin() const { return (reverse_iterator(_bst.get_max())); }
 			// rend
-			reverse_iterator		rend() { return (reverse_iterator(_bst.find_min())); }
-			const_reverse_iterator	rend() const { return (--reverse_iterator(_bst.find_min())); }
+			reverse_iterator		rend() { return (reverse_iterator(_bst.get_min())); }
+			const_reverse_iterator	rend() const { return (reverse_iterator(_bst.get_min())); }
 
 			// empty
 			bool empty() const { return (_bst.get_size() == 0); }
