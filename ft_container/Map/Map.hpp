@@ -90,7 +90,7 @@ namespace ft
 			// size'
 			size_type size() const { return (_bst.get_size()); }
 			// max_size
-			size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(Bnode<value_type>))); }
+			size_type max_size() const { return _allocator.max_size(); }
 			// operator[]
 			mapped_type& operator[] (const key_type& k)
 			{
