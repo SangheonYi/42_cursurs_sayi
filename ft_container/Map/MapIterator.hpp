@@ -13,7 +13,7 @@ namespace ft
         public:
             typedef ft::Pair<Key, T>           value_type;
             typedef ft::Pair<Key, T>&          reference;
-            typedef Bnode<ft::Pair<Key, T> >*  pointer;
+            typedef MapNode<ft::Pair<Key, T> >*  pointer;
 
         protected:
             pointer                 _ptr;

@@ -45,7 +45,7 @@ namespace ft
 			};
 
 		private:
-			typedef	Bnode<value_type>*		Node;
+			typedef	MapNode<value_type>*		Node;
 
 			BST<ft::Pair<Key, T> >			_bst;
 			allocator_type					_allocator;
@@ -76,11 +76,11 @@ namespace ft
 			iterator		begin()	{ return (iterator(_bst.get_min())); }
 			const_iterator	begin() const { return (const_iterator(_bst.get_min())); }
 			// end
-			iterator		end() { return (iterator(_bst.get_max())); }
-			const_iterator	end() const { return (const_iterator(_bst.get_max())); }
+			iterator		end() { return (iterator(_bst.get_end())); }
+			const_iterator	end() const { return (const_iterator(_bst.get_end())); }
 			// rbegin
-			reverse_iterator        rbegin() { return (reverse_iterator(_bst.get_max())); }
-			const_reverse_iterator  rbegin() const { return (reverse_iterator(_bst.get_max())); }
+			reverse_iterator        rbegin() { return (reverse_iterator(_bst.get_end())); }
+			const_reverse_iterator  rbegin() const { return (reverse_iterator(_bst.get_end())); }
 			// rend
 			reverse_iterator		rend() { return (reverse_iterator(_bst.get_min())); }
 			const_reverse_iterator	rend() const { return (reverse_iterator(_bst.get_min())); }

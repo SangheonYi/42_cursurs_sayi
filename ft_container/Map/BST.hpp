@@ -4,11 +4,11 @@
 # include <iostream>
 
 template <typename T>
-struct Bnode
+struct MapNode
 {
-    Bnode   *parent;
-    Bnode   *left;
-    Bnode   *right;
+    MapNode   *parent;
+    MapNode   *left;
+    MapNode   *right;
     T        key;
 };
 
@@ -16,17 +16,15 @@ template <typename T>
 class BST
 {
     private:
-        Bnode<T>*	_root;
-        Bnode<T>*	max_onode;
-        Bnode<T>*	min_node;
+        MapNode<T>*	_root;
 		size_t		_size;
 
     protected:
-        Bnode<T>*	insert_node(Bnode<T>* node, T &key)
+        MapNode<T>*	insert_node(MapNode<T>* node, T &key)
 		{
 			if (node == nullptr)
 			{
-				node = new Bnode<T>;
+				node = new MapNode<T>;
 				node->key = key;
 				node->left = nullptr;
 				node->right = nullptr;
@@ -45,14 +43,11 @@ class BST
 			}
 			return (node);
 		}
-		// 중위 표기법
-		void		print_in_order(Bnode<T> *node)
+		void		print_in_order(MapNode<T> *node)
 		{
 			if (node == nullptr)
 				return ;
 			print_in_order(node->left);
-			// std::cout << node->key << " "; 		// 일반 변수 타입 일때
-			// std::cout << "(" << node->key._key << "," << node->key._value << ")"; 	// pair 일때!
 			if (node->left)
 				std::cout << "(" << node->left->key._key << ",";
 			else
@@ -65,7 +60,7 @@ class BST
 			print_in_order(node->right);
 		}
 		template <typename K>
-		Bnode<T>*	search_node(Bnode<T>* node, K& key)
+		MapNode<T>*	search_node(MapNode<T>* node, K& key)
 		{
 			if (node == nullptr)
 				return (nullptr);
@@ -77,7 +72,7 @@ class BST
 				return search_node(node->right, key);
 			return (nullptr);
 		}
-		Bnode<T>*	search_node(Bnode<T>* node, T& key)
+		MapNode<T>*	search_node(MapNode<T>* node, T& key)
 		{
 			if (node == nullptr)
 				return (nullptr);
@@ -89,7 +84,7 @@ class BST
 				return search_node(node->right, key);
 			return (nullptr);
 		}
-		Bnode<T>*	find_min_node(Bnode<T>* node)
+		MapNode<T>*	find_min_node(MapNode<T>* node)
 		{
 			if (node == nullptr)
 				return (nullptr);
@@ -98,25 +93,23 @@ class BST
 			else
 				return (find_min_node(node->left));
 		}
-		Bnode<T>*	find_max_node(Bnode<T>* node)
+		MapNode<T>*	find_end_node(MapNode<T>* node)
 		{
 			if (node == nullptr)
 				return (nullptr);
 			else if (node->right == nullptr)
 				return (node);
 			else
-				return find_max_node(node->right);
+				return find_end_node(node->right);
 		}
-		// 직후 원소 찾기
-		Bnode<T>*	successor_node(Bnode<T>* node)
+		MapNode<T>*	successor_node(MapNode<T>* node)
 		{
-			// 오른쪽 자식이 있으면 그 서브트리의 최소값이 직후 값!
 			if (node->right != nullptr)
 				return find_min_node(node->right);
 			else
 			{
-				Bnode<T>*	parent = node->parent;
-				Bnode<T>*	current = node;
+				MapNode<T>*	parent = node->parent;
+				MapNode<T>*	current = node;
 
 				while ((parent != nullptr) && (current == parent->right))
 				{
@@ -126,15 +119,14 @@ class BST
 				return (parent);
 			}
 		}
-		// 직전 원소 찾기
-		Bnode<T>*	predecessor_node(Bnode<T>* node)
+		MapNode<T>*	predecessor_node(MapNode<T>* node)
 		{
 			if (node->left != nullptr)
-				return (find_max_node(node->left));
+				return (find_end_node(node->left));
 			else
 			{
-				Bnode<T>*	parent = node->parent;
-				Bnode<T>*	current = node;
+				MapNode<T>*	parent = node->parent;
+				MapNode<T>*	current = node;
 
 				while ((parent != nullptr) && (current == parent->left))
 				{
@@ -144,24 +136,19 @@ class BST
 				return (parent);
 			}
 		}
-		// 삭제
-		Bnode<T>*	remove_node(Bnode<T>* node, T& key)
+		MapNode<T>*	remove_node(MapNode<T>* node, T& key)
 		{
 			if (node == nullptr)
 				return (nullptr);
-
-			// 삭제 부분!
 			if (node->key == key)
 			{
-				Bnode<T>* tmp_node = node;		// for delete removed node
-				// 자식이 없을 떄
+				MapNode<T>* tmp_node = node;
 				if (node->left == nullptr && node->right == nullptr)
 				{
 					node = nullptr;
 					delete tmp_node;
 					_size--;
 				}
-				// 오른쪽 자식만 있을 때
 				else if (node->left == nullptr && node->right != nullptr)
 				{
 					node->right->parent = node->parent;
@@ -169,7 +156,6 @@ class BST
 					delete tmp_node;
 					_size--;
 				}
-				// 왼쪽 자식만 있을 때
 				else if (node->left != nullptr && node->right == nullptr)
 				{
 					node->left->parent = node->parent;
@@ -177,25 +163,20 @@ class BST
 					delete tmp_node;
 					_size--;
 				}
-				// 자식이 둘다 있을 때
 				else
 				{
-					// successor --> predecessor 바꿔주니까 됬음..
-					// successor or predecessor
-					Bnode<T>*	successor = predecessor_node(node);
-					node->key = successor->key;
-					node->left = remove_node(node->left, successor->key);
+					MapNode<T>*	predecessor = predecessor_node(node);
+					node->key = predecessor->key;
+					node->left = remove_node(node->left, predecessor->key);
 				}
 			}
-			// 삭제 값이 더 클때 -> 오른쪽
 			else if (node->key < key)
 				node->right = remove_node(node->right, key);
-			// 삭제 값이 더 작을떄 -> 왼쪽
 			else
 				node->left = remove_node(node->left, key);
 			return (node);
 		}
-		void		delete_node(Bnode<T>* node)
+		void		delete_node(MapNode<T>* node)
 		{
 			if (node)
 			{
@@ -215,18 +196,16 @@ class BST
 		size_t		get_size()	{ return (_size); }
 		void		insert(T key)
 		{
-			// 최대 값 노드 삭제
 			if (_root)
 			{
-				Bnode<T>*	end_node = get_max();
-				Bnode<T>*	max_node = end_node->parent;
+				MapNode<T>*	end_node = get_end();
+				MapNode<T>*	max_node = end_node->parent;
 				max_node->right = nullptr;
 				delete end_node;
 			}
 			_root = insert_node(_root, key);
-			// 최대 값 노드 추가
-			Bnode<T>*	max_node = get_max();
-			Bnode<T>*	end_node = new Bnode<T>;
+			MapNode<T>*	max_node = get_end();
+			MapNode<T>*	end_node = new MapNode<T>;
 			end_node->left = nullptr;
 			end_node->right = nullptr;
 			end_node->parent = max_node;
@@ -239,44 +218,42 @@ class BST
 			std::cout << "]" << std::endl;
 		}
 		template <typename K>
-		Bnode<T>*		search(K key)
+		MapNode<T>*		search(K key)
 		{
-			Bnode<T>* result = search_node(_root, key);
+			MapNode<T>* result = search_node(_root, key);
 			return (result);
 		}
-		Bnode<T>*		search(T key)
+		MapNode<T>*		search(T key)
 		{
-			Bnode<T>* result = search_node(_root, key);
+			MapNode<T>* result = search_node(_root, key);
 			return (result);
 		}
-		Bnode<T>*	get_min()
+		MapNode<T>*	get_min()
 		{
 			return (find_min_node(_root));
 		}
-		Bnode<T>*	get_max()
+		MapNode<T>*	get_end()
 		{
-			return (find_max_node(_root));
+			return (find_end_node(_root));
 		}
-		Bnode<T>*	successor(T key)
+		MapNode<T>*	successor(T key)
 		{
 			return (successor_node(search(key)));
 		}
-		Bnode<T>*	predecessor(T key)
+		MapNode<T>*	predecessor(T key)
 		{
 			return (predecessor_node(search(key)));
 		}
 		void		remove(T key)
 		{
-			Bnode<T>* tmp = search(key);
-			Bnode<T>* end_node = get_max();
-			// 이 경우는 마지막 노드를 삭제 할 때 필요!
-			// 최대값 노드 오른쪽 빈 노드가 있기 때문
+			MapNode<T>* tmp = search(key);
+			MapNode<T>* end_node = get_end();
 			if (tmp->key == end_node->parent->key)
 			{
 				end_node->parent->right = nullptr;
 				end_node->parent = nullptr;
 				_root = remove_node(_root, key);
-				Bnode<T>* max_node = get_max();
+				MapNode<T>* max_node = get_end();
 				max_node->right = end_node;
 				end_node->parent = max_node;
 			}
@@ -287,7 +264,7 @@ class BST
 		{
 			if (_root)
 			{
-				Bnode<T>* end_node = get_max();
+				MapNode<T>* end_node = get_end();
 				if (end_node->parent)
 				{
 					end_node->parent->right = nullptr;
