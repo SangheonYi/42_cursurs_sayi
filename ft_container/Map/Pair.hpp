@@ -6,21 +6,21 @@
 namespace ft
 {
     template<class K, class V>
-    struct Pair
+    class Pair
     {
         public:
-            K       _key;
-            V       _value;
+            K       first;
+            V       second;
 
             Pair() {}
-            Pair(K key, V value) : _key(key), _value(value) {}
+            Pair(K key, V value) : first(key), second(value) {}
 
-            bool operator<(Pair& ref) { return (_key < ref._key); }
-            bool operator<=(Pair& ref) { return (_key <=ref._key); }
-            bool operator>(Pair& ref) { return (_key > ref._key); }
-            bool operator>=(Pair& ref) { return (_key >= ref._key); }
-            bool operator==(Pair& ref) { return (_key == ref._key); }
-            bool operator!=(Pair& ref) { return (_key != ref._key); }
+            bool operator<(Pair& ref) { return (first < ref.first); }
+            bool operator<=(Pair& ref) { return (first <=ref.first); }
+            bool operator>(Pair& ref) { return (first > ref.first); }
+            bool operator>=(Pair& ref) { return (first >= ref.first); }
+            bool operator==(Pair& ref) { return (first == ref.first); }
+            bool operator!=(Pair& ref) { return (first != ref.first); }
     };
 }; // namespace ft
 

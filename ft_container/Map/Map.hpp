@@ -2,7 +2,6 @@
 # define MAP_HPP
 
 # include <iostream>
-# include <limits>
 # include "BST.hpp"
 # include "MapIterator.hpp"
 # include "../Iterator.hpp"
@@ -40,16 +39,16 @@ namespace ft
 					typedef value_type second_argument_type;
 					bool operator() (const value_type& x, const value_type& y) const
 					{
-						return comp(x._key, y._key);
+						return comp(x.first, y.first);
 					};
 			};
 
 		private:
 			typedef	MapNode<value_type>*		Node;
 
-			BST<ft::Pair<Key, T> >			_bst;
-			allocator_type					_allocator;
-			key_compare						_comp;
+			ft::BST<ft::Pair<Key, T> >			_bst;
+			allocator_type						_allocator;
+			key_compare							_comp;
 
 		public:
 			explicit Map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -65,54 +64,44 @@ namespace ft
 				*this = x;
 			}
 			~Map() {}
-			// operator=
 			Map &operator= (Map &ref)
 			{
 				clear();
 				insert(ref.begin(), ref.end());
 				return (*this);
 			}
-			// begin
 			iterator		begin()	{ return (iterator(_bst.get_min())); }
 			const_iterator	begin() const { return (const_iterator(_bst.get_min())); }
-			// end
 			iterator		end() { return (iterator(_bst.get_end())); }
 			const_iterator	end() const { return (const_iterator(_bst.get_end())); }
-			// rbegin
 			reverse_iterator        rbegin() { return (reverse_iterator(_bst.get_end())); }
 			const_reverse_iterator  rbegin() const { return (reverse_iterator(_bst.get_end())); }
-			// rend
 			reverse_iterator		rend() { return (reverse_iterator(_bst.get_min())); }
 			const_reverse_iterator	rend() const { return (reverse_iterator(_bst.get_min())); }
 
-			// empty
 			bool empty() const { return (_bst.get_size() == 0); }
-			// size'
 			size_type size() const { return (_bst.get_size()); }
-			// max_size
 			size_type max_size() const { return _allocator.max_size(); }
-			// operator[]
 			mapped_type& operator[] (const key_type& k)
 			{
 				Node tmp = _bst.search(k);
 				if (tmp)
-					return(tmp->key._value);
+					return(tmp->key.second);
 				else
 				{
 					value_type new_pair = ft::Pair<Key, T>(k, mapped_type());
 					_bst.insert(new_pair);
-					return (_bst.search(k)->key._value);
+					return (_bst.search(k)->key.second);
 				}
 			}
-			// insert
-			std::pair<iterator, bool>		insert(const value_type& val)
+
+			ft::Pair<iterator, bool>		insert(const value_type& val)
 			{
 				Node tmp= _bst.search(val);
-				// 이미 있는 값이면
 				if (tmp)
-					return (std::make_pair(iterator(tmp), false));
+					return (ft::Pair<iterator, bool>(iterator(tmp), false));
 				_bst.insert(val);
-				return (std::make_pair(iterator(_bst.search(val)), true));
+				return (ft::Pair<iterator, bool>(iterator(_bst.search(val)), true));
 			}
 			iterator insert (iterator position, const value_type& val)
 			{
@@ -132,7 +121,6 @@ namespace ft
 					++first;
 				}
 			}
-			// erase
 			void 	   erase(iterator position)
 			{
 				_bst.remove(*position);
@@ -140,10 +128,8 @@ namespace ft
 			size_type 	erase(const key_type& k)
 			{
 				Node tmp = _bst.search(k);
-				// std::cout << tmp->key._value << std::endl;
 				if (tmp)
 				{
-					// std::cout << "11k = " << tmp->key._key << " v = " << tmp->key._value << std::endl;
 					_bst.remove(tmp->key);
 					return (1);
 				}
@@ -155,36 +141,24 @@ namespace ft
 				while (first != last)
 					erase(first++);
 			}
-			// swap
 			void		swap(Map &x)
 			{
 				Map<Key, T> tmp;
+
 				tmp.insert(begin(), end());
-
-				// std::cout << "tmp";
-				// tmp.print_all();
-
 				clear();
 				insert(x.begin(), x.end());
-				// print_all();
-
 				x.clear();
 				x.insert(tmp.begin(), tmp.end());
-				// std::cout << "x";
-				// x.print_all();
 			}
-			// clear
 			void		clear()
 			{
 				_bst.remove_all();
 			}
 
-			// key_comp
 			key_compare		key_comp() const { return (_comp); }
-			// value_comp
 			value_compare	value_comp() const { return (value_compare(_comp)); }
 
-			// find
 			iterator		find(const key_type& k)
 			{
 				if (empty())
@@ -194,7 +168,6 @@ namespace ft
 					return (iterator(tmp));
 				return (end());
 			}
-
 			const_iterator	find(const key_type& k) const
 			{
 				if (empty())
@@ -205,59 +178,57 @@ namespace ft
 				return (end());
 			}
 
-			// count 0 or 1
 			size_type count(const key_type& k)
 			{
 				if (find(k) != end())
 					return (1);
 				else
 					return (0);
-
 			}
-			// lower_bound
 			iterator		lower_bound(const key_type& k)
 			{
 				iterator it = begin();
-				for (; it != end(); it++)
+				while (it != end())
 				{
-					if (k <= it->_key)
+					if (!key_compare{}(it->first, k))
 						break;
+					it++;
 				}
 				return (it);
 			}
-
 			const_iterator	lower_bound(const key_type& k) const
 			{
 				const_iterator it = begin();
-				for (; it != end(); it++)
+				while (it != end())
 				{
-					if (k <= it->_key)
+					if (!key_compare{}(it->first, k))
 						break;
+					it++;
 				}
 				return (it);
 			}
-			// upper_bound
 			iterator		upper_bound(const key_type& k)
 			{
 				iterator it = begin();
-				for (;it != end(); it++)
+				while (it != end())
 				{
-					if (k < it->_key)
+					if (key_compare{}(k, it->first))
 						break;
+					it++;
 				}
 				return (it);
 			}
 			const_iterator	upper_bound(const key_type& k) const
 			{
 				const_iterator it = begin();
-				for (; it != end(); it++)
+				while (it != end())
 				{
-					if (k < it->_key)
+					if (key_compare{}(k, it->first))
 						break;
+					it++;
 				}
 				return (it);
 			}
-			// equal_range
 			ft::Pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
 			{
 				return (ft::Pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));

@@ -31,7 +31,7 @@ void    print_ori_my_value(std::string const &str, T ori, T my)
 
 template <typename K, typename T>
 void    print_all_element(std::map<K, T> &om, ft::Map<K, T> &mm)
-{   
+{
     std::cout << GREEN << "[ ";
     for (typename std::map<K, T>::iterator it = om.begin(); it != om.end(); it++)
         std::cout << "(" << it->first << "," << it->second << ")";
@@ -39,7 +39,7 @@ void    print_all_element(std::map<K, T> &om, ft::Map<K, T> &mm)
 
     std::cout << RED << "[ ";
     for (typename ft::Map<K, T>::iterator it = mm.begin(); it != mm.end(); ++it)
-        std::cout << "(" << it->_key << "," << it->_value << ")";
+        std::cout << "(" << it->first << "," << it->second << ")";
     std::cout << " ]" << RESET << std::endl;
 }
 
@@ -50,9 +50,9 @@ int main(void)
 
     std::map<int, std::string> om;
     ft::Map<int, std::string> mm;
-    
+
     std::pair<std::map<int, std::string>::iterator, bool> oipairs;
-    std::pair<ft::Map<int, std::string>::iterator, bool> mipairs;
+    ft::Pair<ft::Map<int, std::string>::iterator, bool> mipairs;
 
     twoline("empty size");
     oneline("empty map");
@@ -63,8 +63,8 @@ int main(void)
 
     oneline("insert 1 node");
 
-    om.insert(std::make_pair<int, std::string>(10, "sda"));    
-    mm.insert(ft::Pair<int, std::string>(10, "sda")); 
+    om.insert(std::make_pair<int, std::string>(10, "sda"));
+    mm.insert(ft::Pair<int, std::string>(10, "sda"));
 
     print_all_element(om, mm);
 
@@ -75,8 +75,8 @@ int main(void)
 
     oneline("insert 2 node in om, mm");
 
-    om.insert(std::make_pair<int, std::string>(30, "zxc"));     mm.insert(ft::Pair<int, std::string>(30, "zxc")); 
-    om.insert(std::make_pair<int, std::string>(35, "gfg"));     mm.insert(ft::Pair<int, std::string>(35, "gfg")); 
+    om.insert(std::make_pair<int, std::string>(30, "zxc"));     mm.insert(ft::Pair<int, std::string>(30, "zxc"));
+    om.insert(std::make_pair<int, std::string>(35, "gfg"));     mm.insert(ft::Pair<int, std::string>(35, "gfg"));
 
     print_all_element(om, mm);
 
@@ -102,21 +102,21 @@ int main(void)
 
     oneline("insert more node");
 
-    om.insert(std::make_pair<int, std::string>(20, "asd"));     mm.insert(ft::Pair<int, std::string>(20, "asd")); 
-    om.insert(std::make_pair<int, std::string>(3, "fghn"));     mm.insert(ft::Pair<int, std::string>(3, "fghn")); 
-    om.insert(std::make_pair<int, std::string>(17, "vrv"));     mm.insert(ft::Pair<int, std::string>(17, "vrv")); 
+    om.insert(std::make_pair<int, std::string>(20, "asd"));     mm.insert(ft::Pair<int, std::string>(20, "asd"));
+    om.insert(std::make_pair<int, std::string>(3, "fghn"));     mm.insert(ft::Pair<int, std::string>(3, "fghn"));
+    om.insert(std::make_pair<int, std::string>(17, "vrv"));     mm.insert(ft::Pair<int, std::string>(17, "vrv"));
     om.insert(std::make_pair<int, std::string>(15, "twer"));    mm.insert(ft::Pair<int, std::string>(15, "twer"));
     om.insert(std::make_pair<int, std::string>(13, "xcvb"));    mm.insert(ft::Pair<int, std::string>(13, "xcvb"));
-    om.insert(std::make_pair<int, std::string>(2, "uyj"));      mm.insert(ft::Pair<int, std::string>(2, "uyj"));  
-    om.insert(std::make_pair<int, std::string>(10, "wer"));     mm.insert(ft::Pair<int, std::string>(10, "wer")); 
-    om.insert(std::make_pair<int, std::string>(8, "xvv"));      mm.insert(ft::Pair<int, std::string>(8, "xvv"));  
+    om.insert(std::make_pair<int, std::string>(2, "uyj"));      mm.insert(ft::Pair<int, std::string>(2, "uyj"));
+    om.insert(std::make_pair<int, std::string>(10, "wer"));     mm.insert(ft::Pair<int, std::string>(10, "wer"));
+    om.insert(std::make_pair<int, std::string>(8, "xvv"));      mm.insert(ft::Pair<int, std::string>(8, "xvv"));
     om.insert(std::make_pair<int, std::string>(19, "qwer"));    mm.insert(ft::Pair<int, std::string>(19, "qwer"));
-    om.insert(std::make_pair<int, std::string>(4, "dfg"));      mm.insert(ft::Pair<int, std::string>(4, "dfg"));  
-    om.insert(std::make_pair<int, std::string>(8, "qwer"));     mm.insert(ft::Pair<int, std::string>(8, "qwer")); 
-    om.insert(std::make_pair<int, std::string>(5, "zdf"));      mm.insert(ft::Pair<int, std::string>(5, "zdf"));  
-    om.insert(std::make_pair<int, std::string>(1, "yert"));     mm.insert(ft::Pair<int, std::string>(1, "yert")); 
-    om.insert(std::make_pair<int, std::string>(11, "zsd"));     mm.insert(ft::Pair<int, std::string>(11, "zsd")); 
-    om.insert(std::make_pair<int, std::string>(16, "uti"));     mm.insert(ft::Pair<int, std::string>(16, "uti")); 
+    om.insert(std::make_pair<int, std::string>(4, "dfg"));      mm.insert(ft::Pair<int, std::string>(4, "dfg"));
+    om.insert(std::make_pair<int, std::string>(8, "qwer"));     mm.insert(ft::Pair<int, std::string>(8, "qwer"));
+    om.insert(std::make_pair<int, std::string>(5, "zdf"));      mm.insert(ft::Pair<int, std::string>(5, "zdf"));
+    om.insert(std::make_pair<int, std::string>(1, "yert"));     mm.insert(ft::Pair<int, std::string>(1, "yert"));
+    om.insert(std::make_pair<int, std::string>(11, "zsd"));     mm.insert(ft::Pair<int, std::string>(11, "zsd"));
+    om.insert(std::make_pair<int, std::string>(16, "uti"));     mm.insert(ft::Pair<int, std::string>(16, "uti"));
 
     print_all_element(om, mm);
     mm.print_all();
@@ -144,7 +144,7 @@ int main(void)
     mm.print_all();
 
     std::pair<oiterator, bool> oinsert;
-    std::pair<miterator, bool> minsert;
+    ft::Pair<miterator, bool> minsert;
 
     oneline("insert no key in the map");
 
@@ -153,8 +153,8 @@ int main(void)
 
     print_all_element(om, mm);
 
-    print_ori_my_value("pair iter first", oinsert.first->first, minsert.first->_key);
-    print_ori_my_value("pair iter second", oinsert.first->second, minsert.first->_value);
+    print_ori_my_value("pair iter first", oinsert.first->first, minsert.first->first);
+    print_ori_my_value("pair iter second", oinsert.first->second, minsert.first->second);
     std::cout << std::boolalpha;
     print_ori_my_value("pair bool", oinsert.second, minsert.second);
 
@@ -165,8 +165,8 @@ int main(void)
 
     print_all_element(om, mm);
 
-    print_ori_my_value("pair iter first", oinsert.first->first, minsert.first->_key);
-    print_ori_my_value("pair iter second", oinsert.first->second, minsert.first->_value);
+    print_ori_my_value("pair iter first", oinsert.first->first, minsert.first->first);
+    print_ori_my_value("pair iter second", oinsert.first->second, minsert.first->second);
     print_ori_my_value("pair bool", oinsert.second, minsert.second);
 
     twoline("insert with iter and value");
@@ -181,16 +181,16 @@ int main(void)
 
     print_all_element(om, mm);
 
-    print_ori_my_value("iter first", oiter->first, miter->_key);
-    print_ori_my_value("iter second", oiter->second, miter->_value);
+    print_ori_my_value("iter first", oiter->first, miter->first);
+    print_ori_my_value("iter second", oiter->second, miter->second);
 
     oneline("insert already exist key in the map");
 
     oiter = om.insert(om.begin(), std::make_pair<int, std::string>(1, "deq"));
     miter = mm.insert(mm.begin(), ft::Pair<int, std::string>(1, "deq"));
 
-    print_ori_my_value("iter first", oiter->first, miter->_key);
-    print_ori_my_value("iter second", oiter->second, miter->_value);
+    print_ori_my_value("iter first", oiter->first, miter->first);
+    print_ori_my_value("iter second", oiter->second, miter->second);
 
     twoline("insert multiple values");
 
@@ -224,12 +224,12 @@ int main(void)
     oiter = om.begin();
     miter = mm.begin();
 
-    // move to plus 4    
+    // move to plus 4
     oiter++; oiter++; oiter++; oiter++;
     miter++; miter++; miter++; miter++;
 
-    print_ori_my_value("iter first", oiter->first, miter->_key);
-    print_ori_my_value("iter second", oiter->second, miter->_value);
+    print_ori_my_value("iter first", oiter->first, miter->first);
+    print_ori_my_value("iter second", oiter->second, miter->second);
 
     om.erase(oiter);
     mm.erase(miter);
@@ -267,14 +267,14 @@ int main(void)
     std::map<int, std::string> om2;
     ft::Map<int, std::string> mm2;
 
-    om2.insert(std::make_pair<int, std::string>(100, "wer"));  mm2.insert(ft::Pair<int, std::string>(100, "wer")); 
-    om2.insert(std::make_pair<int, std::string>(200, "xvv"));   mm2.insert(ft::Pair<int, std::string>(200, "xvv"));  
+    om2.insert(std::make_pair<int, std::string>(100, "wer"));  mm2.insert(ft::Pair<int, std::string>(100, "wer"));
+    om2.insert(std::make_pair<int, std::string>(200, "xvv"));   mm2.insert(ft::Pair<int, std::string>(200, "xvv"));
 
     std::map<int, std::string> om3;
     ft::Map<int, std::string> mm3;
 
-    om3.insert(std::make_pair<int, std::string>(1, "fda"));   mm3.insert(ft::Pair<int, std::string>(1, "fda")); 
-    om3.insert(std::make_pair<int, std::string>(2, "sad"));   mm3.insert(ft::Pair<int, std::string>(2, "sad"));  
+    om3.insert(std::make_pair<int, std::string>(1, "fda"));   mm3.insert(ft::Pair<int, std::string>(1, "fda"));
+    om3.insert(std::make_pair<int, std::string>(2, "sad"));   mm3.insert(ft::Pair<int, std::string>(2, "sad"));
 
     om2.swap(om3);
     mm2.swap(mm3);
@@ -289,11 +289,11 @@ int main(void)
     om.clear();
     mm.clear();
 
-    oneline("clear and insert one node");   
-    om.insert(std::make_pair<int, std::string>(1, "vvs"));     mm.insert(ft::Pair<int, std::string>(1, "vvs")); 
+    oneline("clear and insert one node");
+    om.insert(std::make_pair<int, std::string>(1, "vvs"));     mm.insert(ft::Pair<int, std::string>(1, "vvs"));
 
     print_all_element(om, mm);
-    
+
     twoline("key_compare");
 
     std::map<int, std::string>::key_compare okc = om.key_comp();
@@ -305,38 +305,38 @@ int main(void)
 
     twoline("value_compare");
 
-    om.insert(std::make_pair<int, std::string>(20, "aaa"));     mm.insert(ft::Pair<int, std::string>(20, "aaa")); 
-    om.insert(std::make_pair<int, std::string>(3, "fghn"));     mm.insert(ft::Pair<int, std::string>(3, "fghn")); 
-    om.insert(std::make_pair<int, std::string>(17, "vrv"));     mm.insert(ft::Pair<int, std::string>(17, "vrv")); 
+    om.insert(std::make_pair<int, std::string>(20, "aaa"));     mm.insert(ft::Pair<int, std::string>(20, "aaa"));
+    om.insert(std::make_pair<int, std::string>(3, "fghn"));     mm.insert(ft::Pair<int, std::string>(3, "fghn"));
+    om.insert(std::make_pair<int, std::string>(17, "vrv"));     mm.insert(ft::Pair<int, std::string>(17, "vrv"));
     om.insert(std::make_pair<int, std::string>(15, "twer"));    mm.insert(ft::Pair<int, std::string>(15, "twer"));
     om.insert(std::make_pair<int, std::string>(13, "xcvb"));    mm.insert(ft::Pair<int, std::string>(13, "xcvb"));
-    om.insert(std::make_pair<int, std::string>(2, "zzz"));      mm.insert(ft::Pair<int, std::string>(2, "zzz"));  
-    om.insert(std::make_pair<int, std::string>(10, "wer"));     mm.insert(ft::Pair<int, std::string>(10, "wer")); 
-    om.insert(std::make_pair<int, std::string>(8, "xvv"));      mm.insert(ft::Pair<int, std::string>(8, "xvv"));  
+    om.insert(std::make_pair<int, std::string>(2, "zzz"));      mm.insert(ft::Pair<int, std::string>(2, "zzz"));
+    om.insert(std::make_pair<int, std::string>(10, "wer"));     mm.insert(ft::Pair<int, std::string>(10, "wer"));
+    om.insert(std::make_pair<int, std::string>(8, "xvv"));      mm.insert(ft::Pair<int, std::string>(8, "xvv"));
     om.insert(std::make_pair<int, std::string>(19, "qwer"));    mm.insert(ft::Pair<int, std::string>(19, "qwer"));
-    om.insert(std::make_pair<int, std::string>(4, "dfg"));      mm.insert(ft::Pair<int, std::string>(4, "dfg"));  
-    om.insert(std::make_pair<int, std::string>(8, "qwer"));     mm.insert(ft::Pair<int, std::string>(8, "qwer")); 
-    om.insert(std::make_pair<int, std::string>(5, "zdf"));      mm.insert(ft::Pair<int, std::string>(5, "zdf"));  
+    om.insert(std::make_pair<int, std::string>(4, "dfg"));      mm.insert(ft::Pair<int, std::string>(4, "dfg"));
+    om.insert(std::make_pair<int, std::string>(8, "qwer"));     mm.insert(ft::Pair<int, std::string>(8, "qwer"));
+    om.insert(std::make_pair<int, std::string>(5, "zdf"));      mm.insert(ft::Pair<int, std::string>(5, "zdf"));
 
     std::map<int, std::string>::value_compare ovc = om.value_comp();
     ft::Map<int, std::string>::value_compare mvc = mm.value_comp();
 
-    print_ori_my_value("compare begin and begin + 1", ovc(*om.begin(), *(++om.begin())), mvc(*mm.begin(), *(++mm.begin()))); 
-    print_ori_my_value("compare begin and end", ovc(*om.begin(), *(--om.end())), mvc(*mm.begin(), *(--mm.end())));    
-    
+    print_ori_my_value("compare begin and begin + 1", ovc(*om.begin(), *(++om.begin())), mvc(*mm.begin(), *(++mm.begin())));
+    print_ori_my_value("compare begin and end", ovc(*om.begin(), *(--om.end())), mvc(*mm.begin(), *(--mm.end())));
+
     twoline("find");
 
     print_all_element(om, mm);
 
     oneline("find key in the map");
-    
-    print_ori_my_value("find 10", om.find(10)->second, mm.find(10)->_value);
-    print_ori_my_value("find 1", om.find(1)->second, mm.find(1)->_value);
-    print_ori_my_value("find 20", om.find(20)->second, mm.find(20)->_value);
+
+    print_ori_my_value("find 10", om.find(10)->second, mm.find(10)->second);
+    print_ori_my_value("find 1", om.find(1)->second, mm.find(1)->second);
+    print_ori_my_value("find 20", om.find(20)->second, mm.find(20)->second);
 
     oneline("find no key in the map");
-    print_ori_my_value("find 100", om.find(100)->first, mm.find(100)->_key);
-    print_ori_my_value("find 100", om.find(100)->second, mm.find(100)->_value);
+    print_ori_my_value("find 100", om.find(100)->first, mm.find(100)->first);
+    print_ori_my_value("find 100", om.find(100)->second, mm.find(100)->second);
 
     twoline("count");
 
@@ -347,30 +347,30 @@ int main(void)
 
     twoline("lower_bound");
 
-    print_ori_my_value("lower 3", om.lower_bound(3)->first, mm.lower_bound(3)->_key);
-    print_ori_my_value("lower 4", om.lower_bound(4)->first, mm.lower_bound(4)->_key);
-    print_ori_my_value("lower 5", om.lower_bound(5)->first, mm.lower_bound(5)->_key);
-    print_ori_my_value("lower 6", om.lower_bound(6)->first, mm.lower_bound(6)->_key);
-    print_ori_my_value("lower 7", om.lower_bound(7)->first, mm.lower_bound(7)->_key);
+    print_ori_my_value("lower 3", om.lower_bound(3)->first, mm.lower_bound(3)->first);
+    print_ori_my_value("lower 4", om.lower_bound(4)->first, mm.lower_bound(4)->first);
+    print_ori_my_value("lower 5", om.lower_bound(5)->first, mm.lower_bound(5)->first);
+    print_ori_my_value("lower 6", om.lower_bound(6)->first, mm.lower_bound(6)->first);
+    print_ori_my_value("lower 7", om.lower_bound(7)->first, mm.lower_bound(7)->first);
 
     twoline("upper_bound");
 
-    print_ori_my_value("upper 10", om.upper_bound(10)->first, mm.upper_bound(10)->_key);
-    print_ori_my_value("upper 11", om.upper_bound(11)->first, mm.upper_bound(11)->_key);
-    print_ori_my_value("upper 12", om.upper_bound(12)->first, mm.upper_bound(12)->_key);
-    print_ori_my_value("upper 18", om.upper_bound(18)->first, mm.upper_bound(18)->_key);
-    print_ori_my_value("upper 19", om.upper_bound(19)->first, mm.upper_bound(19)->_key);
+    print_ori_my_value("upper 10", om.upper_bound(10)->first, mm.upper_bound(10)->first);
+    print_ori_my_value("upper 11", om.upper_bound(11)->first, mm.upper_bound(11)->first);
+    print_ori_my_value("upper 12", om.upper_bound(12)->first, mm.upper_bound(12)->first);
+    print_ori_my_value("upper 18", om.upper_bound(18)->first, mm.upper_bound(18)->first);
+    print_ori_my_value("upper 19", om.upper_bound(19)->first, mm.upper_bound(19)->first);
 
 
     twoline("equal_range");
-    
-    print_ori_my_value("equal_range 1 first", om.equal_range(1).first->first, mm.equal_range(1)._key->_key);
-    print_ori_my_value("equal_range 1 second", om.equal_range(1).second->first, mm.equal_range(1)._value->_key);
 
-    print_ori_my_value("equal_range 100 first", om.equal_range(100).first->first, mm.equal_range(100)._key->_key);
-    print_ori_my_value("equal_range 100 second", om.equal_range(100).second->first, mm.equal_range(100)._value->_key);
-    
-    
+    print_ori_my_value("equal_range 1 first", om.equal_range(1).first->first, mm.equal_range(1).first->first);
+    print_ori_my_value("equal_range 1 second", om.equal_range(1).second->first, mm.equal_range(1).second->first);
+
+    print_ori_my_value("equal_range 100 first", om.equal_range(100).first->first, mm.equal_range(100).first->first);
+    print_ori_my_value("equal_range 100 second", om.equal_range(100).second->first, mm.equal_range(100).second->first);
+
+
     // std::map<int, std::string>::iterator it;
 
     // it = om.insert(om.begin(), std::make_pair<int, std::string>(99, "sadf"));
@@ -379,17 +379,17 @@ int main(void)
     // std::cout << "it->first = " << it->first << " " << "it->second = " << it->second << std::endl;
     // it = om.insert(om.end(), std::make_pair<int, std::string>(10, "dfe"));
     // std::cout << "it->first = " << it->first << " " << "it->second = " << it->second << std::endl;
-    
+
     // print_all_element(om, mm);
-    // print_ori_my_value("iter first", oipairs.first->first, mipairs.first->_key);
-    // print_ori_my_value("iter second", oipairs.first->second, mipairs.first->_value);
+    // print_ori_my_value("iter first", oipairs.first->first, mipairs.first->first);
+    // print_ori_my_value("iter second", oipairs.first->second, mipairs.first->second);
     // print_ori_my_value("bool", oipairs.second, mipairs.second);
 
-    // oipairs = om.insert(std::make_pair<int, std::string>(10, "fds"));    
+    // oipairs = om.insert(std::make_pair<int, std::string>(10, "fds"));
     // mipairs = mm.insert(ft::Pair<int, std::string>(10, "fds"));
 
-    // print_ori_my_value("iter first", oipairs.first->first, mipairs.first->_key);
-    // print_ori_my_value("iter second", oipairs.first->second, mipairs.first->_value);
+    // print_ori_my_value("iter first", oipairs.first->first, mipairs.first->first);
+    // print_ori_my_value("iter second", oipairs.first->second, mipairs.first->second);
     // print_ori_my_value("bool", oipairs.second, mipairs.second);
 
 
@@ -399,5 +399,5 @@ int main(void)
     // ft::Map<int, std::string>::iterator oit2 = mm.end();
 
     // std::cout << (oit == oit2) << std::endl;
-    
+
 }

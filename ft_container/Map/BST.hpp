@@ -2,7 +2,8 @@
 # define BST_HPP
 
 # include <iostream>
-
+namespace ft
+{
 template <typename T>
 struct MapNode
 {
@@ -49,12 +50,12 @@ class BST
 				return ;
 			print_in_order(node->left);
 			if (node->left)
-				std::cout << "(" << node->left->key._key << ",";
+				std::cout << "(" << node->left->key.first << ",";
 			else
 				std::cout << "(-1,";
-			std::cout << node->key._key << ",";
+			std::cout << node->key.first << ",";
 			if (node->right)
-				std::cout << node->right->key._key << ")";
+				std::cout << node->right->key.first << ")";
 			else
 				std::cout << "-1)";
 			print_in_order(node->right);
@@ -64,11 +65,11 @@ class BST
 		{
 			if (node == nullptr)
 				return (nullptr);
-			else if (key == node->key._key)
+			else if (key == node->key.first)
 				return (node);
-			else if (key < node->key._key)
+			else if (key < node->key.first)
 				return search_node(node->left, key);
-			else if (key > node->key._key)
+			else if (key > node->key.first)
 				return search_node(node->right, key);
 			return (nullptr);
 		}
@@ -277,5 +278,5 @@ class BST
 		}
 		size_t		get_size() const { return (_size); }
 };
-
+};
 #endif
