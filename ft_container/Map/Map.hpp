@@ -190,7 +190,7 @@ namespace ft
 				iterator it = begin();
 				while (it != end())
 				{
-					if (!_comp(it->first, k))
+					if (!(it->first < k))
 						break;
 					it++;
 				}
@@ -201,7 +201,7 @@ namespace ft
 				const_iterator it = begin();
 				while (it != end())
 				{
-					if (!_comp(it->first, k))
+					if (!(it->first < k))
 						break;
 					it++;
 				}
@@ -212,7 +212,7 @@ namespace ft
 				iterator it = begin();
 				while (it != end())
 				{
-					if (_comp(k, it->first))
+					if (k < it->first)
 						break;
 					it++;
 				}
@@ -223,7 +223,7 @@ namespace ft
 				const_iterator it = begin();
 				while (it != end())
 				{
-					if (_comp(k, it->first))
+					if (k < it->first)
 						break;
 					it++;
 				}
