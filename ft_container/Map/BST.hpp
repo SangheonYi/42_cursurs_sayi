@@ -23,13 +23,13 @@ class BST
     protected:
         MapNode<T>*	insert_node(MapNode<T>* node, T &key)
 		{
-			if (node == nullptr)
+			if (node == NULL)
 			{
 				node = new MapNode<T>;
 				node->key = key;
-				node->left = nullptr;
-				node->right = nullptr;
-				node->parent = nullptr;
+				node->left = NULL;
+				node->right = NULL;
+				node->parent = NULL;
 				_size++;
 			}
 			else if (key < node->key)
@@ -46,7 +46,7 @@ class BST
 		}
 		void		print_in_order(MapNode<T> *node)
 		{
-			if (node == nullptr)
+			if (node == NULL)
 				return ;
 			print_in_order(node->left);
 			if (node->left)
@@ -63,56 +63,56 @@ class BST
 		template <typename K>
 		MapNode<T>*	search_node(MapNode<T>* node, K& key)
 		{
-			if (node == nullptr)
-				return (nullptr);
+			if (node == NULL)
+				return (NULL);
 			else if (key == node->key.first)
 				return (node);
 			else if (key < node->key.first)
 				return search_node(node->left, key);
 			else if (key > node->key.first)
 				return search_node(node->right, key);
-			return (nullptr);
+			return (NULL);
 		}
 		MapNode<T>*	search_node(MapNode<T>* node, T& key)
 		{
-			if (node == nullptr)
-				return (nullptr);
+			if (node == NULL)
+				return (NULL);
 			else if (key == node->key)
 				return (node);
 			else if (key < node->key)
 				return search_node(node->left, key);
 			else if (key > node->key)
 				return search_node(node->right, key);
-			return (nullptr);
+			return (NULL);
 		}
 		MapNode<T>*	find_min_node(MapNode<T>* node)
 		{
-			if (node == nullptr)
-				return (nullptr);
-			else if (node->left == nullptr)
+			if (node == NULL)
+				return (NULL);
+			else if (node->left == NULL)
 				return (node);
 			else
 				return (find_min_node(node->left));
 		}
 		MapNode<T>*	find_end_node(MapNode<T>* node)
 		{
-			if (node == nullptr)
-				return (nullptr);
-			else if (node->right == nullptr)
+			if (node == NULL)
+				return (NULL);
+			else if (node->right == NULL)
 				return (node);
 			else
 				return find_end_node(node->right);
 		}
 		MapNode<T>*	successor_node(MapNode<T>* node)
 		{
-			if (node->right != nullptr)
+			if (node->right != NULL)
 				return find_min_node(node->right);
 			else
 			{
 				MapNode<T>*	parent = node->parent;
 				MapNode<T>*	current = node;
 
-				while ((parent != nullptr) && (current == parent->right))
+				while ((parent != NULL) && (current == parent->right))
 				{
 					current = parent;
 					parent = current->parent;
@@ -122,14 +122,14 @@ class BST
 		}
 		MapNode<T>*	predecessor_node(MapNode<T>* node)
 		{
-			if (node->left != nullptr)
+			if (node->left != NULL)
 				return (find_end_node(node->left));
 			else
 			{
 				MapNode<T>*	parent = node->parent;
 				MapNode<T>*	current = node;
 
-				while ((parent != nullptr) && (current == parent->left))
+				while ((parent != NULL) && (current == parent->left))
 				{
 					current = parent;
 					parent = current->parent;
@@ -139,25 +139,25 @@ class BST
 		}
 		MapNode<T>*	remove_node(MapNode<T>* node, T& key)
 		{
-			if (node == nullptr)
-				return (nullptr);
+			if (node == NULL)
+				return (NULL);
 			if (node->key == key)
 			{
 				MapNode<T>* tmp_node = node;
-				if (node->left == nullptr && node->right == nullptr)
+				if (node->left == NULL && node->right == NULL)
 				{
-					node = nullptr;
+					node = NULL;
 					delete tmp_node;
 					_size--;
 				}
-				else if (node->left == nullptr && node->right != nullptr)
+				else if (node->left == NULL && node->right != NULL)
 				{
 					node->right->parent = node->parent;
 					node = node->right;
 					delete tmp_node;
 					_size--;
 				}
-				else if (node->left != nullptr && node->right == nullptr)
+				else if (node->left != NULL && node->right == NULL)
 				{
 					node->left->parent = node->parent;
 					node = node->left;
@@ -189,7 +189,7 @@ class BST
 		}
 
 	public:
-		BST() : _root(nullptr), _size(0) {}
+		BST() : _root(NULL), _size(0) {}
 		~BST()
 		{
 			remove_all();
@@ -201,14 +201,14 @@ class BST
 			{
 				MapNode<T>*	end_node = get_end();
 				MapNode<T>*	max_node = end_node->parent;
-				max_node->right = nullptr;
+				max_node->right = NULL;
 				delete end_node;
 			}
 			_root = insert_node(_root, key);
 			MapNode<T>*	max_node = get_end();
 			MapNode<T>*	end_node = new MapNode<T>;
-			end_node->left = nullptr;
-			end_node->right = nullptr;
+			end_node->left = NULL;
+			end_node->right = NULL;
 			end_node->parent = max_node;
 			max_node->right = end_node;
 		}
@@ -251,8 +251,8 @@ class BST
 			MapNode<T>* end_node = get_end();
 			if (tmp->key == end_node->parent->key)
 			{
-				end_node->parent->right = nullptr;
-				end_node->parent = nullptr;
+				end_node->parent->right = NULL;
+				end_node->parent = NULL;
 				_root = remove_node(_root, key);
 				MapNode<T>* max_node = get_end();
 				max_node->right = end_node;
@@ -268,13 +268,13 @@ class BST
 				MapNode<T>* end_node = get_end();
 				if (end_node->parent)
 				{
-					end_node->parent->right = nullptr;
-					end_node->parent = nullptr;
+					end_node->parent->right = NULL;
+					end_node->parent = NULL;
 					delete end_node;
 				}
 			}
 			delete_node(_root);
-			_root = nullptr;
+			_root = NULL;
 		}
 		size_t		get_size() const { return (_size); }
 };

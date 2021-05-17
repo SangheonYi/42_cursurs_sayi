@@ -190,7 +190,7 @@ namespace ft
 				iterator it = begin();
 				while (it != end())
 				{
-					if (!key_compare{}(it->first, k))
+					if (!_comp(it->first, k))
 						break;
 					it++;
 				}
@@ -201,7 +201,7 @@ namespace ft
 				const_iterator it = begin();
 				while (it != end())
 				{
-					if (!key_compare{}(it->first, k))
+					if (!_comp(it->first, k))
 						break;
 					it++;
 				}
@@ -212,7 +212,7 @@ namespace ft
 				iterator it = begin();
 				while (it != end())
 				{
-					if (key_compare{}(k, it->first))
+					if (_comp(k, it->first))
 						break;
 					it++;
 				}
@@ -223,15 +223,36 @@ namespace ft
 				const_iterator it = begin();
 				while (it != end())
 				{
-					if (key_compare{}(k, it->first))
+					if (_comp(k, it->first))
 						break;
 					it++;
 				}
 				return (it);
 			}
-			ft::Pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
+			ft::Pair<const_iterator, const_iterator>	equal_range(const key_type& __k) const
 			{
-				return (ft::Pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
+				/* Node __x = begin().getNode();
+				Node __y = end().getNode();
+      while (__x)
+	{
+	  if (key_compare{}(__x->key.first, __k))
+	    __x = __x->right;
+	  else if (_M_impl._M_key_compare(__k, __x->key.first))
+	    __y = __x, __x = _S_left(__x);
+	  else
+	    {
+	      Node __xu(__x);
+	      _Base_ptr __yu(__y);
+	      __y = __x, __x = _S_left(__x);
+	      __xu = _S_right(__xu);
+	      return pair<iterator,
+			  iterator>(_M_lower_bound(__x, __y, __k),
+				    _M_upper_bound(__xu, __yu, __k));
+	    }
+	}
+      return pair<iterator, iterator>(iterator(__y),
+				      iterator(__y));*/
+				return (ft::Pair<const_iterator, const_iterator>(lower_bound(__k), upper_bound(__k)));
 			}
 
 			ft::Pair<iterator, iterator>	equal_range(const key_type& k)

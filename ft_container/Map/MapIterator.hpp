@@ -17,36 +17,35 @@ namespace ft
 
 		protected:
 			pointer									_ptr;
-
 		private:
 			pointer	find_min_node(pointer node)
 			{
-				if (node == nullptr)
-					return (nullptr);
-				else if (node->left == nullptr)
+				if (node == NULL)
+					return (NULL);
+				else if (node->left == NULL)
 					return (node);
 				else
 					return (find_min_node(node->left));
 			}
 			pointer	find_max_node(pointer node)
 			{
-				if (node == nullptr)
-					return (nullptr);
-				else if (node->right == nullptr)
+				if (node == NULL)
+					return (NULL);
+				else if (node->right == NULL)
 					return (node);
 				else
 					return find_max_node(node->right);
 			}
 			pointer	successor_node(pointer node)
 			{
-				if (node->right != nullptr)
+				if (node->right != NULL)
 					return find_min_node(node->right);
 				else
 				{
 					pointer	parent = node->parent;
 					pointer	current = node;
 
-					while ((parent != nullptr) && (current == parent->right))
+					while ((parent != NULL) && (current == parent->right))
 					{
 						current = parent;
 						parent = current->parent;
@@ -56,13 +55,13 @@ namespace ft
 			}
 			pointer	predecessor_node(pointer node)
 			{
-				if (node->left != nullptr)
+				if (node->left != NULL)
 					return find_min_node(node->left);
 				else
 				{
 					pointer	parent = node->parent;
 					pointer	current = node;
-					while ((parent != nullptr) && (current == parent->left))
+					while ((parent != NULL) && (current == parent->left))
    	 				{
 						current = parent;
 						parent = current->parent;
@@ -72,7 +71,7 @@ namespace ft
 			}
 
 		public:
-			MapIterator() : _ptr(nullptr) {}
+			MapIterator() : _ptr(NULL) {}
 			MapIterator(pointer ptr) : _ptr(ptr) {}
 			MapIterator(const MapIterator &ref) { *this = ref; }
 			MapIterator &operator=(const MapIterator &ref) { _ptr = ref._ptr; return (*this); }
@@ -91,6 +90,7 @@ namespace ft
 			{
 				return (_ptr->key != ref._ptr->key);
 			}
+			pointer		getNode() const { return _ptr;}
 	};
 };  // ft
 
