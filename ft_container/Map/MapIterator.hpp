@@ -92,6 +92,6 @@ namespace ft
 			}
 			pointer		getNode() const { return _ptr;}
 	};
-};  // ft
+};
 
 #endif

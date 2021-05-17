@@ -367,6 +367,12 @@ int main(void)
     print_ori_my_value("equal_range 1 first", om.equal_range(1).first->first, mm.equal_range(1).first->first);
     print_ori_my_value("equal_range 1 second", om.equal_range(1).second->first, mm.equal_range(1).second->first);
 
+    print_ori_my_value("equal_range 4 first", om.equal_range(4).first->first, mm.equal_range(4).first->first);
+    print_ori_my_value("equal_range 4 second", om.equal_range(4).second->first, mm.equal_range(4).second->first);
+
+    print_ori_my_value("equal_range 20 first", om.equal_range(20).first->first, mm.equal_range(20).first->first);
+    print_ori_my_value("equal_range 20 second", om.equal_range(20).second->first, mm.equal_range(20).second->first);
+
     print_ori_my_value("equal_range 100 first", om.equal_range(100).first->first, mm.equal_range(100).first->first);
     print_ori_my_value("equal_range 100 second", om.equal_range(100).second->first, mm.equal_range(100).second->first);
 

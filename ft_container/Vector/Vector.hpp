@@ -22,7 +22,7 @@ public:
 protected:
 	pointer p;
 public:
-	VectorIterator(): p(nullptr) {}
+	VectorIterator(): p(NULL) {}
 	VectorIterator(pointer p): p(p) {}
 	VectorIterator(VectorIterator const &other): p(other.p) {}
 	virtual ~VectorIterator() {}
@@ -137,22 +137,22 @@ private:
 	}
 public:
 	Vector(const allocator_type &alloc = allocator_type()):
-		m_container(nullptr), m_capacity(0), m_size(0), m_allocator(alloc) {
+		m_container(NULL), m_capacity(0), m_size(0), m_allocator(alloc) {
 		m_container = m_allocator.allocate(0);
 	}
 	Vector(size_type n, const_reference val=value_type(), const allocator_type &alloc = allocator_type()):
-		m_container(nullptr), m_capacity(0), m_size(0), m_allocator(alloc) {
+		m_container(NULL), m_capacity(0), m_size(0), m_allocator(alloc) {
 		m_container = m_allocator.allocate(0);
 		assign(n, val);
 	}
 	template <class InputIterator>
 	Vector (InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type()):
-		m_container(nullptr), m_capacity(0), m_size(0), m_allocator(alloc) {
+		m_container(NULL), m_capacity(0), m_size(0), m_allocator(alloc) {
 		m_container = m_allocator.allocate(0);
 		assign(first, last);
 	}
 	Vector(Vector const &other):
-		m_container(nullptr), m_capacity(0), m_size(other.m_size), m_allocator(other.m_allocator) {
+		m_container(NULL), m_capacity(0), m_size(other.m_size), m_allocator(other.m_allocator) {
 		reserve(other.m_capacity);
 		std::memcpy(static_cast<void*>(m_container), static_cast<void*>(other.m_container), other.m_size * sizeof(value_type));
 	}
@@ -163,7 +163,7 @@ public:
 	}
 
 	Vector &operator=(Vector const &other) {
-		if (m_container != nullptr)
+		if (m_container != NULL)
 			m_allocator.deallocate(m_container, m_capacity);
 		m_allocator = other.m_allocator;
 		m_size = other.m_size;

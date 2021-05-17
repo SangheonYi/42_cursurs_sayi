@@ -16,7 +16,7 @@ public:
 	Node(): m_previous(this), m_value(), m_next(this) {}
 	Node(value_type const &val):
 		m_previous(this), m_value(val), m_next(this) {}
-	Node(Node *previous, value_type const &val, Node *next=nullptr):
+	Node(Node *previous, value_type const &val, Node *next=NULL):
 		m_previous(previous), m_value(val), m_next(next) {}
 	Node(Node const &other):
 		m_previous(other.m_previous), m_value(other.val), m_next(other.m_next) {}

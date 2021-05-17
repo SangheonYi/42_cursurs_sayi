@@ -26,7 +26,7 @@ public:
 protected:
 	node_pointer p;
 public:
-	ListIterator(): p(nullptr) {}
+	ListIterator(): p(NULL) {}
 	ListIterator(node_pointer p): p(p) {}
 	ListIterator(ListIterator const &other): p(other.p) {}
 	virtual ~ListIterator() {}
@@ -117,22 +117,22 @@ private:
 public:
 	node_pointer _tail;
 	List():
-		_tail(nullptr) {
+		_tail(NULL) {
 		this->_init_list();
 	}
 	List(size_type n, const_reference val=value_type()):
-		_tail(nullptr) {
+		_tail(NULL) {
 		this->_init_list();
 		this->assign(n, val);
 	}
 	template<typename InputIterator>
 	List(InputIterator first, InputIterator last):
-		_tail(nullptr) {
+		_tail(NULL) {
 		this->_init_list();
 		this->assign(first, last);
 	}
 	List(List const &other):
-		_tail(nullptr) {
+		_tail(NULL) {
 		this->_init_list();
 		this->assign(other.begin(), other.end());
 	}

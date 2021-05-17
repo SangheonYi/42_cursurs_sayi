@@ -75,6 +75,7 @@ int main(void)
 	ft::Vector<int> fill_ml(10u, 42);
 
 	print_both_vector(fill_ol, fill_ml);
+	oneline("fill int constructor");
 
 	std::vector<int> fill_ol2(10, 2222);
 	ft::Vector<int> fill_ml2(10, 2222);

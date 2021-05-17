@@ -22,6 +22,6 @@ namespace ft
             bool operator==(Pair& ref) { return (first == ref.first); }
             bool operator!=(Pair& ref) { return (first != ref.first); }
     };
-}; // namespace ft
+};
 
 #endif
