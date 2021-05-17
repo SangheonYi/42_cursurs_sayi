@@ -87,7 +87,6 @@ int main(void)
     ft::List<int> copy_ml(range_ml);
 
     print_all_element(copy_ol, copy_ml);
-/*
 
     oneline("copy operator");
     std::list<int> copy_op_ol = copy_ol;
@@ -630,6 +629,7 @@ int main(void)
     rmit--;
 
     print_ori_my_value("*", *roit, *rmit);
+/*
 */
 /*
 
