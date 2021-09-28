@@ -1,3 +1,0 @@
-/mnt/d/ft/42_cursurs_sayi/miniRT/result/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/d/ft/42_cursurs_sayi/miniRT/result/cmake-build-debug/CMakeFiles/result.dir
-/mnt/d/ft/42_cursurs_sayi/miniRT/result/cmake-build-debug/CMakeFiles/edit_cache.dir
