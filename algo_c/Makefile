@@ -6,9 +6,11 @@
 #    By: sayi <sayi@student.kr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 23:28:01 by sayi              #+#    #+#              #
-#    Updated: 2021/09/28 20:06:52 by sayi             ###   ########.fr        #
+#    Updated: 2021/09/28 21:24:11 by sayi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+NAME = a.out
 
 SRC_PATH = ./srcs/
 SRC_FILES = main.c solution.c
@@ -23,7 +25,7 @@ FLAGS =-Wall -Werror -Wextra
 
 all:
 	gcc  $(SRC) -I./includes
-	./a.out
+	./$(NAME)
 
 mk_obj_dir:
 	@mkdir -p $(O_PATH)
