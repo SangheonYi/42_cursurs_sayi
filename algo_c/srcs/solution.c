@@ -1,21 +1,13 @@
 #include "solution.h"
 
-void print_arr(int arr[], size_t len, char *name) {
-    size_t i = 0;
-
-    while (len > i)
-    {
-        printf("%s[%ld]: %d\n", name, i, arr[i]);
-        i++;
-    }
-}
-void Swap(int arr[], int a, int b) // a,b 스왑 함수
+void swap(int arr[], int a, int b) // a,b 스왑 함수
 {
     int temp = arr[a];
     arr[a] = arr[b];
     arr[b] = temp;
 }
-int Partition(int arr[], int left, int right)
+
+int partition(int arr[], int left, int right)
 {
     int pivot = arr[left]; // 피벗의 위치는 가장 왼쪽에서 시작
     int low = left + 1;
@@ -33,10 +25,10 @@ int Partition(int arr[], int left, int right)
         }
         if (low <= high)// 교차되지 않은 상태이면 스왑 과정 실행
         {
-            Swap(arr, low, high); //low와 high를 스왑
+            swap(arr, low, high); //low와 high를 스왑
         }
     }
-    Swap(arr, left, high); // 피벗과 high가 가리키는 대상을 교환
+    swap(arr, left, high); // 피벗과 high가 가리키는 대상을 교환
     return high;  // 옮겨진 피벗의 위치정보를 반환
 
 }
@@ -46,7 +38,7 @@ void QuickSort(int arr[], int left, int right)
 {
     if (left <= right)
     {
-        int pivot = Partition(arr, left, right); // 둘로 나누어서
+        int pivot = partition(arr, left, right); // 둘로 나누어서
         QuickSort(arr, left, pivot - 1); // 왼쪽 영역을 정렬한다.
         QuickSort(arr, pivot + 1, right); // 오른쪽 영역을 정렬한다.
     }

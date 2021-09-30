@@ -6,14 +6,14 @@
 #    By: sayi <sayi@student.kr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 23:28:01 by sayi              #+#    #+#              #
-#    Updated: 2021/09/28 21:24:11 by sayi             ###   ########.fr        #
+#    Updated: 2021/09/30 16:11:44 by sayi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = a.out
 
 SRC_PATH = ./srcs/
-SRC_FILES = main.c solution.c
+SRC_FILES = main.c solution.c util.c
 SRC =  $(addprefix $(SRC_PATH), $(SRC_FILES))
 
 O_PATH = ./obj/

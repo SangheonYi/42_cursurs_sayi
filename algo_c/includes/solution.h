@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef SOLUTION_H
+# define SOLUTION_H
+
+#include "util.h"
 
 #define C_NRML "\033[0m"
 #define C_BLCK "\033[30m"
@@ -13,3 +13,5 @@
 #define C_AQUA "\033[36m"
 
 int* solution(int lottos[], size_t lottos_len, int win_nums[], size_t win_nums_len);
+
+#endif
