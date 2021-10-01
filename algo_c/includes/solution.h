@@ -12,6 +12,6 @@
 #define C_PRPL "\033[35m"
 #define C_AQUA "\033[36m"
 
-int* solution(int lottos[], size_t lottos_len, int win_nums[], size_t win_nums_len);
+int solution(const char* s);
 
 #endif
